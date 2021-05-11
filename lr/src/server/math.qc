@@ -1,5 +1,11 @@
 #include "math.qh"
 
+float vlen2d(vector v)
+{
+	v.z = 0;
+	return vlen(v);
+}
+
 float DotProduct(vector u, vector v)
 {
 	return (u.x * v.x) + (u.y * v.y) + (u.z * v.z);

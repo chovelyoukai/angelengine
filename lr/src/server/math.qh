@@ -1,2 +1,3 @@
+float vlen2d(vector v);
 float DotProduct(vector u, vector v);
 vector CrossProduct(vector u, vector v);
