@@ -23,6 +23,7 @@ void GroundMove()
 {
 	float fmove, smove;
 	float wishSpeed;
+	float speed;
 	vector wishDir;
 
 	float accel, maxSpeed;
@@ -43,11 +44,13 @@ void GroundMove()
 	v_forward.z = 0;
 	v_right.z = 0;
 
+	ClipVector(v_forward, self.groundNormal, OVERBOUNCE);
+	ClipVector(v_right, self.groundNormal, OVERBOUNCE);
 	v_forward = normalize(v_forward);
 	v_right = normalize(v_right);
 
+
 	wishDir = v_forward * fmove + v_right * smove;
-	wishDir.z = 0;
 	wishSpeed = vlen(wishDir);
 	wishDir = normalize(wishDir);
 
@@ -55,6 +58,13 @@ void GroundMove()
 	maxSpeed = cvar("sv_maxspeed");
 
 	Accelerate(wishDir, wishSpeed, accel, maxSpeed);
+
+	speed = vlen(self.velocity);
+
+	ClipVelocity(self.groundNormal, OVERBOUNCE);
+
+	self.velocity = normalize(self.velocity);
+	self.velocity *= speed;
 
 	SlideMove();
 }

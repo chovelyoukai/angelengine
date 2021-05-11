@@ -7,10 +7,15 @@ void TracePlayer(vector start, vector end)
 
 vector ClipVelocity(vector normal, float overbounce)
 {
+	return ClipVector(self.velocity, normal, overbounce);
+}
+
+vector ClipVector(vector inVector, vector normal, float overbounce)
+{
 	float backoff;
 	vector change, out;
 
-	backoff = DotProduct(self.velocity, normal);
+	backoff = DotProduct(inVector, normal);
 
 	if (backoff < 0)
 	{
@@ -22,7 +27,7 @@ vector ClipVelocity(vector normal, float overbounce)
 	}
 
 	change = normal * backoff;
-	out = self.velocity - change;
+	out = inVector - change;
 
 	return out;
 }
