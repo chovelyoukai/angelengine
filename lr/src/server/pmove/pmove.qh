@@ -20,6 +20,8 @@ void GroundMove();
 
 // airmove.qc
 void AirMove();
+float AngleToVelocity(vector direction);
+float QWAccelThreshold();
 
 // slidemove.qc
 
