@@ -147,7 +147,11 @@ void PlayerMove()
 
 	GroundTrace();
 
-	if (IsOnGround())
+	if (self.movetype == MOVETYPE_NOCLIP)
+	{
+		NoclipMove();
+	}
+	else if (IsOnGround())
 	{
 		GroundMove();
 	}

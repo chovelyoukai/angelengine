@@ -11,5 +11,6 @@ pmove/pmove.qc
 pmove/slidemove.qc
 pmove/groundmove.qc
 pmove/airmove.qc
+pmove/noclipmove.qc
 
 info/info_player_start.qc

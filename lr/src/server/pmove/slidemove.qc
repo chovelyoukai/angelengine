@@ -2,7 +2,15 @@
 
 void TracePlayer(vector start, vector end)
 {
-	tracebox(start, PLAYER_MIN_STAND, PLAYER_MAX_STAND, end, 0, self);
+	if (self.movetype == MOVETYPE_NOCLIP)
+	{
+		trace_endpos = end;
+		trace_fraction = 1;
+	}
+	else
+	{
+		tracebox(start, PLAYER_MIN_STAND, PLAYER_MAX_STAND, end, 0, self);
+	}
 }
 
 vector ClipVelocity(vector normal, float overbounce)

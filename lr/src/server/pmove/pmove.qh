@@ -19,9 +19,14 @@ float CheckJump();
 void GroundMove();
 
 // airmove.qc
+
 void AirMove();
 float AngleToVelocity(vector direction);
 float QWAccelThreshold();
+
+// noclipmove.qc
+
+void NoclipMove();
 
 // slidemove.qc
 
