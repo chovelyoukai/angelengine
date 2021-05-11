@@ -1,0 +1,5 @@
+void ClientConnect();
+void ClientDisconnect();
+void ClientKill();
+void PutClientInServer();
+entity SelectSpawn();

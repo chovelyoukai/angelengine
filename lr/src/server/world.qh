@@ -1,0 +1,4 @@
+void PrecacheModels();
+void main();
+void worldspawn();
+void StartFrame();

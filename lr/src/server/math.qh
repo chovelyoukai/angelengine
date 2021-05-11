@@ -1,0 +1,2 @@
+float DotProduct(vector u, vector v);
+vector CrossProduct(vector u, vector v);

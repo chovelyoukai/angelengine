@@ -1,0 +1,13 @@
+void SV_RunClientCommand();
+void PlayerPreThink();
+void PlayerPostThink();
+void SetNewParms();
+void SetChangeParms();
+
+.entity groundEntity;
+.vector groundNormal;
+
+const vector PLAYER_MIN_STAND = '-24 -24 0';
+const vector PLAYER_MAX_STAND = '24 24 80';
+const vector PLAYER_VIEW_STAND = '0 0 68';
+

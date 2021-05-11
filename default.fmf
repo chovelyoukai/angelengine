@@ -1,0 +1,6 @@
+FTEMANIFEST 1
+GAME lumiarun
+NAME "Lumia's Run"
+PROTOCOLNAME "lumiarun"
+DEFAULTEXEC ""
+BASEGAME lr 

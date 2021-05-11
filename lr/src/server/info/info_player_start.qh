@@ -1,0 +1,3 @@
+void info_player_deathmatch();
+void info_player_coop();
+void info_player_start();

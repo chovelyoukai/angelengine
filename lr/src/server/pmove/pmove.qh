@@ -1,0 +1,20 @@
+// pmove.qc
+
+float lastMovetime;
+
+void SetOnGround(float onGround);
+void OnTouchGround();
+float IsOnGround();
+void GroundTrace();
+void PlayerMove();
+
+// slidemove.qc
+
+const float MAX_CLIP_PLANES = 5;
+const float SLIDEMOVE_INTERACT_EPSILON = 0.05;
+const float OVERBOUNCE = 1.001;
+
+void TracePlayer(vector start, vector end);
+vector ClipVelocity(vector normal, float overbounce);
+float DoesInteract(vector normal);
+float SlideMove();

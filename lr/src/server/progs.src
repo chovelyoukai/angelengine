@@ -1,0 +1,13 @@
+../../progs.dat
+ssdefs.qc
+globals.qc
+math.qc
+subs.qc
+world.qc
+client.qc
+player.qc
+
+pmove/pmove.qc
+pmove/slidemove.qc
+
+info/info_player_start.qc
