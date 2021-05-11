@@ -1,5 +1,8 @@
 // pmove.qc
 
+const float MF_RAMPSLIDE = 1;
+const float MF_WATERJUMP = 2;
+
 float lastMovetime;
 
 void SetOnGround(float onGround);

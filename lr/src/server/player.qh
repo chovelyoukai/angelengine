@@ -6,6 +6,7 @@ void SetChangeParms();
 
 .entity groundEntity;
 .vector groundNormal;
+.float moveFlags;
 
 const vector PLAYER_MIN_STAND = '-24 -24 0';
 const vector PLAYER_MAX_STAND = '24 24 80';

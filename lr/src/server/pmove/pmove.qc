@@ -48,13 +48,28 @@ void GroundTrace()
 
 	TracePlayer(self.origin, end);
 
-	if (trace_fraction < 1)
+	self.moveFlags &= ~MF_RAMPSLIDE;
+
+	// if we didn't hit anything, we can't be on the ground
+	if (trace_fraction == 1)
 	{
-		SetOnGround(TRUE);
+		SetOnGround(FALSE);
+	}
+	// if the ground is too steep, we can't stand on it
+	else if (trace_plane_normal.z < 0.7)
+	{
+		SetOnGround(FALSE);
+	}
+	// if we *did* hit the ground but have some upwards velocity,
+	// make us not on the ground (rampsliding)
+	else if (self.velocity.z > 180)
+	{
+		self.moveFlags |= MF_RAMPSLIDE;
+		SetOnGround(FALSE);
 	}
 	else
 	{
-		SetOnGround(FALSE);
+		SetOnGround(TRUE);
 	}
 }
 

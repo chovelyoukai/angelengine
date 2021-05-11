@@ -8,6 +8,11 @@ void AirMove()
 
 	float accel, maxSpeed;
 
+	if (self.moveFlags & MF_RAMPSLIDE)
+	{
+		CheckJump();
+	}
+
 	makevectors(self.v_angle);
 
 	fmove = input_movevalues.x;
