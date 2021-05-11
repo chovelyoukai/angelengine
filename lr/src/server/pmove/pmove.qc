@@ -58,9 +58,73 @@ void GroundTrace()
 	}
 }
 
+void Accelerate(vector wishDir, float wishSpeed, float accel, float maxSpeed)
+{
+	float addSpeed, accelSpeed, currentSpeed, originalWishSpeed;
+
+	originalWishSpeed = wishSpeed;
+
+	if (wishSpeed > maxSpeed)
+	{
+		wishSpeed = maxSpeed;
+	}
+
+	currentSpeed = DotProduct(self.velocity, wishDir);
+
+	addSpeed = wishSpeed - currentSpeed;
+
+	if (addSpeed <= 0)
+	{
+		return;
+	}
+
+	accelSpeed = accel * originalWishSpeed * frametime;
+
+	if (accelSpeed > addSpeed)
+	{
+		accelSpeed = addSpeed;
+	}
+
+	self.velocity += accelSpeed * wishDir;
+}
+
+void Friction(float friction, float stopSpeed)
+{
+	vector newVel;
+	float speed, newSpeed, control;
+
+	newVel = self.velocity;
+	newVel.z = 0;
+
+	speed = vlen(newVel);
+	if (!speed)
+	{
+		return;
+	}
+
+	if (speed < stopSpeed)
+	{
+		control = stopSpeed;
+	}
+	else
+	{
+		control = speed;
+	}
+
+	newSpeed = speed - (frametime * control * friction);
+
+	if (newSpeed < 0)
+	{
+		newSpeed = 0;
+	}
+
+	newSpeed /= speed;
+
+	self.velocity = self.velocity * newSpeed;
+}
+
 void PlayerMove()
 {
-	float fmove, smove, umove;
 	float oldFrametime = frametime;
 
 	frametime = time - lastMovetime;
@@ -68,15 +132,14 @@ void PlayerMove()
 
 	GroundTrace();
 
-	fmove = input_movevalues.x;
-	smove = input_movevalues.y;
-	umove = input_movevalues.z;
-
-	makevectors(self.v_angle);
-
-	self.velocity = fmove * v_forward + smove * v_right + umove * v_up;
-
-	SlideMove();
+	if (IsOnGround())
+	{
+		GroundMove();
+	}
+	else
+	{
+		AirMove();
+	}
 
 	frametime = oldFrametime;
 }

@@ -9,5 +9,7 @@ player.qc
 
 pmove/pmove.qc
 pmove/slidemove.qc
+pmove/groundmove.qc
+pmove/airmove.qc
 
 info/info_player_start.qc
