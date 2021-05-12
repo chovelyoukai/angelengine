@@ -22,7 +22,10 @@ void SetOnGround(float onGround)
 void OnTouchGround()
 {
 	self.wallclipTime = time + cvar("sv_wallcliptime");
-	self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
+	if (cvar("sv_q2jump") == 0)
+	{
+		self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
+	}
 	return;
 }
 
