@@ -238,7 +238,7 @@ void StepSlideMove()
 
 	if (cvar("sv_q2ramps") > 0)
 	{
-		horizSpeed = vlen2d(self.velocity);
+		horizSpeed = vlen2d(startVel);
 		if (horizSpeed && trace_plane_normal.z > 0.7)
 		{
 			if (trace_plane_normal.z >= 1.0 - SLIDEMOVE_INTERACT_EPSILON)
