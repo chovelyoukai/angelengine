@@ -66,5 +66,5 @@ void GroundMove()
 	self.velocity = normalize(self.velocity);
 	self.velocity *= speed;
 
-	SlideMove();
+	StepSlideMove();
 }

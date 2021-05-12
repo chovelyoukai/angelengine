@@ -180,3 +180,45 @@ float SlideMove()
 
 	return blocked;
 }
+
+void StepSlideMove()
+{
+	vector startOrigin, startVel;
+	vector up, down;
+	float stepSize;
+
+	startVel = self.velocity;
+	startOrigin = up = self.origin;
+
+	up.z += cvar("sv_stepsize");
+
+	TracePlayer(startOrigin, up);
+	if (trace_allsolid)
+	{
+		SlideMove();
+		return;
+	}
+
+	stepSize = trace_endpos.z - startOrigin.z;
+
+	// try moving us up.
+	self.origin = trace_endpos;
+
+	SlideMove();
+
+	// now push us back down.
+	down = self.origin;
+	down.z -= stepSize;
+
+	TracePlayer(self.origin, down);
+	
+	if (!trace_allsolid)
+	{
+		self.origin = trace_endpos;
+	}
+
+	if (trace_fraction < 1.0)
+	{
+		ClipVelocity(trace_plane_normal, OVERBOUNCE);
+	}
+}

@@ -44,7 +44,7 @@ void AirMove()
 
 	self.velocity.z -= cvar("sv_gravity") * frametime;
 	
-	SlideMove();
+	StepSlideMove();
 }
 
 float AngleToVelocity(vector direction)

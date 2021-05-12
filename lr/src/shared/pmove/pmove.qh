@@ -39,3 +39,4 @@ vector ClipVelocity(vector normal, float overbounce);
 vector ClipVector(vector inVector, vector normal, float overbounce);
 float DoesInteract(vector normal);
 float SlideMove();
+void StepSlideMove();

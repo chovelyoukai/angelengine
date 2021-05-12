@@ -2,13 +2,15 @@
 
 void NoclipMove()
 {
-	float fmove, smove, umove;
+	float fmove, smove, umove, speedMult;
 	float wishSpeed, accel, maxSpeed, friction;
 	vector wishDir;
 
-	fmove = input_movevalues.x;
-	smove = input_movevalues.y;
-	umove = input_movevalues.z;
+	speedMult = cvar("sv_noclipspeed");
+
+	fmove = input_movevalues.x * speedMult;
+	smove = input_movevalues.y * speedMult;
+	umove = input_movevalues.z * speedMult;
 
 	makevectors(self.v_angle);
 
