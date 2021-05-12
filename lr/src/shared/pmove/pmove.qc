@@ -145,23 +145,29 @@ void Friction(float friction, float stopSpeed)
 void PlayerMove()
 {
 	float oldFrametime = frametime;
+	float pmoveTime = cvar("sv_pmovetime");
+	float remainingTime = time - lastMovetime;
 
-	frametime = time - lastMovetime;
-	lastMovetime = time;
+	while (remainingTime > pmoveTime)
+	{
+		frametime = pmoveTime;
+		remainingTime -= pmoveTime;
+		lastMovetime += pmoveTime;
 
-	GroundTrace();
+		GroundTrace();
 
-	if (self.movetype == MOVETYPE_NOCLIP)
-	{
-		NoclipMove();
-	}
-	else if (IsOnGround())
-	{
-		GroundMove();
-	}
-	else
-	{
-		AirMove();
+		if (self.movetype == MOVETYPE_NOCLIP)
+		{
+			NoclipMove();
+		}
+		else if (IsOnGround())
+		{
+			GroundMove();
+		}
+		else
+		{
+			AirMove();
+		}
 	}
 
 	frametime = oldFrametime;
