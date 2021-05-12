@@ -217,7 +217,14 @@ void StepSlideMove()
 		self.origin = trace_endpos;
 	}
 
-	if (trace_fraction < 1.0)
+	// too steep, we can't step onto this.
+	if (trace_fraction < 1.0 && trace_plane_normal.z < 0.7)
+	{
+		self.origin = startOrigin;
+		self.velocity = startVel;
+		SlideMove();
+	}
+	else if (trace_fraction < 1.0)
 	{
 		ClipVelocity(trace_plane_normal, OVERBOUNCE);
 	}
