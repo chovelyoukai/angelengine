@@ -36,7 +36,11 @@ void GroundMove()
 
 	Friction(cvar("sv_friction"), cvar("sv_stopspeed"));
 
+#ifdef SSQC
 	makevectors(self.v_angle);
+#else
+	makevectors(view_angles);
+#endif
 
 	fmove = input_movevalues.x;
 	smove = input_movevalues.y;

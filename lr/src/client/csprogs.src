@@ -1,11 +1,6 @@
-../../qwprogs.dat
-ssdefs.qc
-globals.qc
-subs.qc
-world.qc
-client.qc
+../../csprogs.dat
+csdefs.qc
 player.qc
-info/info_player_start.qc
 
 ../shared/math.qc
 ../shared/pmove/pmove.qc

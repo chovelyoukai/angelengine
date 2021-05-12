@@ -12,7 +12,11 @@ void NoclipMove()
 	smove = input_movevalues.y * speedMult;
 	umove = input_movevalues.z * speedMult;
 
+#ifdef SSQC
 	makevectors(self.v_angle);
+#else
+	makevectors(view_angles);
+#endif
 
 	wishDir = fmove * v_forward + smove * v_right + umove * v_up;
 	wishSpeed = vlen(wishDir);

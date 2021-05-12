@@ -13,7 +13,11 @@ void AirMove()
 		CheckJump();
 	}
 
+#ifdef SSQC
 	makevectors(self.v_angle);
+#else
+	makevectors(view_angles);
+#endif
 
 	fmove = input_movevalues.x;
 	smove = input_movevalues.y;
