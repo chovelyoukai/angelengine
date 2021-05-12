@@ -1,0 +1,2 @@
+void CSQC_Init(float apiVer, string engineName, float engineVer);
+void CSQC_UpdateView(float width, float height, float menuShown);

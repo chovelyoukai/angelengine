@@ -1,0 +1,4 @@
+const float ENT_PLAYER = 0;
+const float FL_ORIGIN = 1;
+const float FL_VELOCITY = 2;
+const float FL_MODELINDEX = 128;

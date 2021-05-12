@@ -1,0 +1,2 @@
+const float TRUE = 1;
+const float FALSE = 0;
