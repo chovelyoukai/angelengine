@@ -9,6 +9,7 @@ void SetOnGround(float onGround);
 void OnTouchGround();
 float IsOnGround();
 void GroundTrace();
+void Control(vector wishdir, float wishspeed, float accel, float maxspeed);
 void Accelerate(vector wishdir, float wishspeed, float accel, float maxspeed);
 void Friction(float friction, float stopSpeed);
 void PlayerMove();

@@ -21,3 +21,8 @@ vector CrossProduct(vector u, vector v)
 
 	return out;
 }
+
+float RadiansToDegrees(float angle)
+{
+	return angle * 180 / PI;
+}

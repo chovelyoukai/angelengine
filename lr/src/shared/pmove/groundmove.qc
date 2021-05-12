@@ -68,7 +68,14 @@ void GroundMove()
 	accel = cvar("sv_accelerate");
 	maxSpeed = cvar("sv_maxspeed");
 
-	Accelerate(wishDir, wishSpeed, accel, maxSpeed);
+	if (cvar("sv_groundcontrol") > 0)
+	{
+		Control(wishDir, wishSpeed, accel, maxSpeed);
+	}
+	else
+	{
+		Accelerate(wishDir, wishSpeed, accel, maxSpeed);
+	}
 
 	speed = vlen(self.velocity);
 
@@ -76,6 +83,15 @@ void GroundMove()
 
 	self.velocity = normalize(self.velocity);
 	self.velocity *= speed;
+
+	if (cvar("sv_groundspeedcap") > 0)
+	{
+		if (speed > maxSpeed)
+		{
+			self.velocity.x *= maxSpeed / speed;
+			self.velocity.y *= maxSpeed / speed;
+		}
+	}
 
 	StepSlideMove();
 }

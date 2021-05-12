@@ -4,6 +4,7 @@ void AirMove()
 {
 	float fmove, smove;
 	float wishSpeed;
+	float oldZVel;
 	vector wishDir;
 
 	float accel, maxSpeed;
@@ -11,6 +12,13 @@ void AirMove()
 	if (self.moveFlags & MF_RAMPSLIDE)
 	{
 		CheckJump();
+	}
+
+	if (cvar("sv_airfriction") > 0)
+	{
+		oldZVel = self.velocity.z;
+		Friction(cvar("sv_airfriction"), cvar("sv_stopspeed"));
+		self.velocity.z = oldZVel;
 	}
 
 #ifdef SSQC
@@ -44,11 +52,27 @@ void AirMove()
 		maxSpeed = cvar("sv_maxairspeed");
 	}
 
-	Accelerate(wishDir, wishSpeed, accel, maxSpeed);
+	if (cvar("sv_aircontrol") > 0)
+	{
+		accel = cvar("sv_airaccelerate");
+		maxSpeed = cvar("sv_maxairspeed");
+		Control(wishDir, wishSpeed, accel, maxSpeed);
+	}
+	else
+	{
+		Accelerate(wishDir, wishSpeed, accel, maxSpeed);
+	}
 
 	self.velocity.z -= cvar("sv_gravity") * frametime;
 	
-	StepSlideMove();
+	if (cvar("sv_airstep") > 0)
+	{
+		StepSlideMove();
+	}
+	else
+	{
+		SlideMove();
+	}
 }
 
 float AngleToVelocity(vector direction)
