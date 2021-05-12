@@ -1,0 +1,15 @@
+../../qwprogs.dat
+ssdefs.qc
+globals.qc
+math.qc
+subs.qc
+world.qc
+client.qc
+player.qc
+info/info_player_start.qc
+
+../shared/pmove/pmove.qc
+../shared/pmove/slidemove.qc
+../shared/pmove/groundmove.qc
+../shared/pmove/airmove.qc
+../shared/pmove/noclipmove.qc

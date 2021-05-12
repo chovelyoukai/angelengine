@@ -1,5 +1,5 @@
 #include "player.qh"
-#include "pmove/pmove.qh"
+#include "../shared/pmove/pmove.qh"
 
 void SV_RunClientCommand()
 {
