@@ -28,7 +28,7 @@ void OnTouchGround()
 	{
 		self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
 	}
-	if (cvar("sv_q2jump") > 0)
+	if (cvar("sv_q2jump") > 0 && self.velocity.z < oldZVel)
 	{
 		self.velocity.z = oldZVel;
 	}

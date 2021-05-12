@@ -185,6 +185,8 @@ void StepSlideMove()
 {
 	vector startOrigin, startVel;
 	vector up, down;
+	float horizSpeed;
+	float oldZVel;
 	float stepSize;
 
 	startVel = self.velocity;
@@ -232,5 +234,27 @@ void StepSlideMove()
 	if (self.wallclipTime > time)
 	{
 		self.velocity = startVel;
+	}
+
+	if (cvar("sv_q2ramps") > 0)
+	{
+		horizSpeed = vlen2d(self.velocity);
+		if (horizSpeed && trace_plane_normal.z > 0.7)
+		{
+			if (trace_plane_normal.z >= 1.0 - SLIDEMOVE_INTERACT_EPSILON)
+			{
+				self.velocity = startVel;
+			}
+			else
+			{
+				oldZVel = self.velocity.z;
+				self.velocity.z = 0;
+
+				self.velocity = normalize(self.velocity);
+				self.velocity *= horizSpeed;
+
+				self.velocity.z = oldZVel;
+			}
+		}
 	}
 }

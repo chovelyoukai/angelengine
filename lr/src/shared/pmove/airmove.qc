@@ -63,8 +63,11 @@ void AirMove()
 		Accelerate(wishDir, wishSpeed, accel, maxSpeed);
 	}
 
-	self.velocity.z -= cvar("sv_gravity") * frametime;
-	
+	if (!(self.moveFlags & MF_RAMPSLIDE && cvar("sv_rampslide_gravity") == 0))
+	{
+		self.velocity.z -= cvar("sv_gravity") * frametime;
+	}
+
 	if (cvar("sv_airstep") > 0)
 	{
 		StepSlideMove();
