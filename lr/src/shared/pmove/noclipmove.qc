@@ -28,5 +28,7 @@ void NoclipMove()
 
 	Friction(friction, cvar("sv_stopspeed"));
 	Accelerate(wishDir, wishSpeed, accel, maxSpeed);
-	SlideMove();
+
+	self.origin = self.origin + self.velocity * frametime;
+	//SlideMove();
 }

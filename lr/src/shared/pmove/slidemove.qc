@@ -221,4 +221,9 @@ void StepSlideMove()
 	{
 		ClipVelocity(trace_plane_normal, OVERBOUNCE);
 	}
+
+	if (self.wallclipTime > time)
+	{
+		self.velocity = startVel;
+	}
 }

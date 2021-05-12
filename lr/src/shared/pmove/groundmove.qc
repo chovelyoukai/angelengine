@@ -9,7 +9,14 @@ float CheckJump()
 		return FALSE;
 	}
 
-	self.velocity.z += 270;
+	if (cvar("sv_trimp") > 0)
+	{
+		self.velocity.z += 270;
+	}
+	else
+	{
+		self.velocity.z = 270;
+	}
 
 	if (self.velocity.z < 270)
 	{

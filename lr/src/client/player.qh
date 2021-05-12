@@ -1,6 +1,7 @@
 .entity groundEntity;
 .vector groundNormal;
 .float moveFlags;
+.float wallclipTime;
 
 const vector PLAYER_MIN_STAND = '-24 -24 -40';
 const vector PLAYER_MAX_STAND = '24 24 40';
