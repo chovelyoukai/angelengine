@@ -1,5 +1,5 @@
 #include "main.qh"
-#include "player.qh"
+#include "../shared/math.qh"
 #include "../shared/pmove/pmove.qh"
 
 void CSQC_Init(float apiVer, string engineName, float engineVer)
@@ -11,6 +11,9 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 void CSQC_UpdateView(float width, float height, float menuShown)
 {
 	entity oldSelf;
+	string speedString;
+	float speedWidth;
+	vector speedPos;
 
 	clearscene();
 
@@ -29,4 +32,12 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 	}
 
 	renderscene();
+
+	speedString = ftos(rint(vlen2d(player.velocity)));
+	speedString = strcat(speedString, " UPS");
+	speedWidth = stringwidth(speedString, TRUE);
+	speedPos.x = (width - speedWidth * 12) / 2;
+	speedPos.y = height / 2 + height / 12;
+
+	drawstring(speedPos, speedString, '12 12 0', '1 1 1', 1.0, 1);
 }

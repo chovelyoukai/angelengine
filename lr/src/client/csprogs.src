@@ -1,9 +1,9 @@
 ../../csprogs.dat
 csdefs.qc
 globals.qc
-main.qc
 recieve.qc
 player.qc
+main.qc
 
 ../shared/math.qc
 ../shared/pmove/pmove.qc
