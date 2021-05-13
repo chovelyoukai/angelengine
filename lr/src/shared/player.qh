@@ -1,0 +1,16 @@
+.entity groundEntity;
+.vector groundNormal;
+.float moveFlags;
+.float wallclipTime;
+.float wallrunStart;
+.float wallrunEnd;
+.entity wallEntity;
+.vector wallNormal;
+
+const vector PLAYER_MIN_STAND = '-24 -24 -40';
+const vector PLAYER_MAX_STAND = '24 24 40';
+const vector PLAYER_VIEW_STAND = '0 0 28';
+const float ENT_PLAYER = 0;
+const float FL_ORIGIN = 1;
+const float FL_VELOCITY = 2;
+const float FL_MODELINDEX = 128;

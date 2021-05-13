@@ -222,6 +222,7 @@ void PlayerMove()
 		lastMovetime += pmoveTime;
 
 		GroundTrace();
+		WallTrace();
 
 		if (self.movetype == MOVETYPE_NOCLIP)
 		{
@@ -230,6 +231,10 @@ void PlayerMove()
 		else if (IsOnGround())
 		{
 			GroundMove();
+		}
+		else if (IsOnWall())
+		{
+			WallMove();
 		}
 		else
 		{

@@ -55,8 +55,8 @@ void GroundMove()
 	v_forward.z = 0;
 	v_right.z = 0;
 
-	ClipVector(v_forward, self.groundNormal, OVERBOUNCE);
-	ClipVector(v_right, self.groundNormal, OVERBOUNCE);
+	v_forward = ClipVector(v_forward, self.groundNormal, OVERBOUNCE);
+	v_right = ClipVector(v_right, self.groundNormal, OVERBOUNCE);
 	v_forward = normalize(v_forward);
 	v_right = normalize(v_right);
 
@@ -79,7 +79,7 @@ void GroundMove()
 
 	speed = vlen(self.velocity);
 
-	ClipVelocity(self.groundNormal, OVERBOUNCE);
+	self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
 
 	self.velocity = normalize(self.velocity);
 	self.velocity *= speed;

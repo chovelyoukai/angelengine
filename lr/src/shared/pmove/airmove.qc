@@ -1,5 +1,20 @@
 #include "pmove.qh"
 
+void ApplyGravity()
+{
+	if (self.moveFlags & MF_RAMPSLIDE && cvar("sv_rampslide_gravity") == 0)
+	{
+		return;
+	}
+
+	if (IsOnWall() && self.velocity.z <= 0)
+	{
+		return;
+	}
+
+	self.velocity.z -= cvar("sv_gravity") * frametime;
+}
+
 void AirMove()
 {
 	float fmove, smove;
@@ -63,10 +78,7 @@ void AirMove()
 		Accelerate(wishDir, wishSpeed, accel, maxSpeed);
 	}
 
-	if (!(self.moveFlags & MF_RAMPSLIDE && cvar("sv_rampslide_gravity") == 0))
-	{
-		self.velocity.z -= cvar("sv_gravity") * frametime;
-	}
+	ApplyGravity();
 
 	if (cvar("sv_airstep") > 0)
 	{

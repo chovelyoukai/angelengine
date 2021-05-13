@@ -21,6 +21,7 @@ void GroundMove();
 
 // airmove.qc
 
+void ApplyGravity();
 void AirMove();
 float AngleToVelocity(vector direction);
 float QWAccelThreshold();
@@ -28,6 +29,15 @@ float QWAccelThreshold();
 // noclipmove.qc
 
 void NoclipMove();
+
+// wallmove.qc
+
+void SetOnWall(float onWall);
+void OnTouchWall();
+float IsOnWall();
+void WallTrace();
+float CheckWallJump();
+void WallMove();
 
 // slidemove.qc
 
