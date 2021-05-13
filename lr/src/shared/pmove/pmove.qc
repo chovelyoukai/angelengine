@@ -173,14 +173,17 @@ void Accelerate(vector wishDir, float wishSpeed, float accel, float maxSpeed)
 void Friction(float friction, float stopSpeed)
 {
 	vector newVel;
-	float speed, newSpeed, control;
+	float speed, newSpeed, control, drop;
 
 	newVel = self.velocity;
 	newVel.z = 0;
 
 	speed = vlen(newVel);
-	if (!speed)
+
+	if (speed < 1)
 	{
+		self.velocity.x = 0;
+		self.velocity.y = 0;
 		return;
 	}
 
@@ -193,7 +196,8 @@ void Friction(float friction, float stopSpeed)
 		control = speed;
 	}
 
-	newSpeed = speed - (frametime * control * friction);
+	drop = control * friction * frametime;
+	newSpeed = speed - drop;
 
 	if (newSpeed < 0)
 	{
