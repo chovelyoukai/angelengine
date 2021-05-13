@@ -1,20 +1,8 @@
+#include "../shared/player.qh"
+
 void SV_RunClientCommand();
 void PlayerPreThink();
 void PlayerPostThink();
 void SetNewParms();
 void SetChangeParms();
 float PlayerUpdate(entity to, float entFlags);
-
-.entity groundEntity;
-.vector groundNormal;
-.float moveFlags;
-.float wallclipTime;
-
-const vector PLAYER_MIN_STAND = '-24 -24 -40';
-const vector PLAYER_MAX_STAND = '24 24 40';
-const vector PLAYER_VIEW_STAND = '0 0 28';
-const float ENT_PLAYER = 0;
-const float FL_ORIGIN = 1;
-const float FL_VELOCITY = 2;
-const float FL_MODELINDEX = 128;
-

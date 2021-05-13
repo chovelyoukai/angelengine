@@ -17,7 +17,7 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 
 	clearscene();
 
-	setviewprop(VF_DRAWENGINESBAR, 1);
+	setviewprop(VF_DRAWENGINESBAR, 0);
 	setviewprop(VF_DRAWCROSSHAIR, 1);
 
 	addentities((intermission ? 0 : MASK_VIEWMODEL) | MASK_ENGINE);
@@ -34,10 +34,16 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 	renderscene();
 
 	speedString = ftos(rint(vlen2d(player.velocity)));
-	speedString = strcat(speedString, " UPS");
+	speedString = strcat("H: ", speedString, " UPS");
 	speedWidth = stringwidth(speedString, TRUE);
 	speedPos.x = (width - speedWidth * 12) / 2;
-	speedPos.y = height / 2 + height / 12;
+	speedPos.y = height / 2 + height / 32;
+	drawstring(speedPos, speedString, '12 12 0', '1 1 1', 1.0, 1);
 
+	speedString = ftos(rint(vlen(player.velocity)));
+	speedString = strcat("A: ", speedString, " UPS");
+	speedWidth = stringwidth(speedString, TRUE);
+	speedPos.x = (width - speedWidth * 12) / 2;
+	speedPos.y += 14;
 	drawstring(speedPos, speedString, '12 12 0', '1 1 1', 1.0, 1);
 }

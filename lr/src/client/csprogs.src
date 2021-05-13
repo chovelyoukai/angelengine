@@ -2,7 +2,6 @@
 csdefs.qc
 globals.qc
 recieve.qc
-player.qc
 main.qc
 
 ../shared/math.qc
@@ -11,3 +10,4 @@ main.qc
 ../shared/pmove/groundmove.qc
 ../shared/pmove/airmove.qc
 ../shared/pmove/noclipmove.qc
+../shared/pmove/wallmove.qc
