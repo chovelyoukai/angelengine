@@ -1,4 +1,10 @@
-.void() attack;
+.void(entity weapon) Fire;
+.void(entity weapon) Equip;
+.float(entity weapon) CanEquip;
+.float(entity weapon) CanSwitch;
+
+.float fireTimeout;
+.float switchTimeout;
 
 float CheckWeapons();
 void SwitchWeapons(float impulse);

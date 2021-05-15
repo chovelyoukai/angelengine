@@ -4,8 +4,12 @@ globals.qc
 subs.qc
 world.qc
 client.qc
+impulses.qc
 player.qc
+
 weapons/weapons.qc
+weapons/grapple.qc
+
 info/info_player_start.qc
 
 ../shared/math.qc

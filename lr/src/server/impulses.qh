@@ -3,7 +3,6 @@
 
 void CheckImpulses();
 
-const float IMP_SLOT0 = 0;
 const float IMP_SLOT1 = 1;
 const float IMP_SLOT2 = 2;
 const float IMP_SLOT3 = 3;

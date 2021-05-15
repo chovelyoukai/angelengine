@@ -10,6 +10,7 @@ void SV_RunClientCommand()
 
 void PlayerPreThink()
 {
+	CheckImpulses();
 	CheckWeapons();
 }
 

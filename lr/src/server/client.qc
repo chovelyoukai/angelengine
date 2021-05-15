@@ -31,11 +31,14 @@ void PutClientInServer()
 	self.solid = SOLID_SLIDEBOX;
 	setorigin(self, spawnLocation.origin + '0 0 80');
 
-	self.currentWeapon = world;
 	for (float i = 0; i < MAX_WEAPONS; i++)
 	{
 		self.weapons[i] = world;
 	}
+
+	self.weapons[0] = GrappleSpawn();
+	self.weapons[1] = GrappleSpawn();
+	self.currentWeapon = self.weapons[0];
 }
 
 entity SelectSpawn()
