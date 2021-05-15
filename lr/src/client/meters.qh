@@ -1,0 +1,4 @@
+#include "../shared/math.qh"
+#include "../shared/pmove/pmove.qh"
+
+void DrawMeters(float width, float height);

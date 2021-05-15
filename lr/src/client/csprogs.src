@@ -2,6 +2,7 @@
 csdefs.qc
 globals.qc
 recieve.qc
+meters.qc
 main.qc
 
 ../shared/math.qc
