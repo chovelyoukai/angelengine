@@ -2,16 +2,12 @@
 
 void ApplyGravity()
 {
+	
 	if (self.moveFlags & MF_RAMPSLIDE && cvar("sv_rampslide_gravity") == 0)
 	{
 		return;
 	}
-
-	if (IsOnWall() && self.velocity.z <= 0)
-	{
-		return;
-	}
-
+	
 	self.velocity.z -= cvar("sv_gravity") * frametime;
 }
 
