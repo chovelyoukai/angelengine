@@ -30,6 +30,12 @@ void PutClientInServer()
 	self.movetype = MOVETYPE_WALK;
 	self.solid = SOLID_SLIDEBOX;
 	setorigin(self, spawnLocation.origin + '0 0 80');
+
+	self.currentWeapon = world;
+	for (float i = 0; i < MAX_WEAPONS; i++)
+	{
+		self.weapons[i] = world;
+	}
 }
 
 entity SelectSpawn()

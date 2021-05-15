@@ -1,0 +1,15 @@
+#include "../shared/player.qh"
+#include "weapons/weapons.qh"
+
+void CheckImpulses();
+
+const float IMP_SLOT0 = 0;
+const float IMP_SLOT1 = 1;
+const float IMP_SLOT2 = 2;
+const float IMP_SLOT3 = 3;
+const float IMP_SLOT4 = 4;
+const float IMP_SLOT5 = 5;
+const float IMP_SLOT6 = 6;
+const float IMP_SLOT7 = 7;
+const float IMP_SLOT8 = 8;
+const float IMP_SLOT9 = 9;

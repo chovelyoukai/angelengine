@@ -1,5 +1,4 @@
 #include "player.qh"
-#include "../shared/pmove/pmove.qh"
 
 void SV_RunClientCommand()
 {
@@ -11,6 +10,7 @@ void SV_RunClientCommand()
 
 void PlayerPreThink()
 {
+	CheckWeapons();
 }
 
 void PlayerPostThink()

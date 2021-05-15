@@ -1,3 +1,5 @@
+#include "../shared/player.qh"
+
 void ClientConnect();
 void ClientDisconnect();
 void ClientKill();

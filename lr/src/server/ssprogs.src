@@ -5,6 +5,7 @@ subs.qc
 world.qc
 client.qc
 player.qc
+weapons/weapons.qc
 info/info_player_start.qc
 
 ../shared/math.qc

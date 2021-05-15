@@ -1,4 +1,6 @@
+#include "weapons/weapons.qh"
 #include "../shared/player.qh"
+#include "../shared/pmove/pmove.qh"
 
 void SV_RunClientCommand();
 void PlayerPreThink();

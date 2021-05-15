@@ -1,0 +1,4 @@
+.void() attack;
+
+float CheckWeapons();
+void SwitchWeapons(float impulse);
