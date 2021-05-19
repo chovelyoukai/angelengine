@@ -7,6 +7,7 @@
 .entity wallEntity;
 .vector wallNormal;
 .entity currentWeapon;
+.float deadTime;
 
 const vector PLAYER_MIN_STAND = '-24 -24 -40';
 const vector PLAYER_MAX_STAND = '24 24 40';
@@ -16,5 +17,7 @@ const float FL_ORIGIN = 1;
 const float FL_VELOCITY = 2;
 const float FL_MODELINDEX = 128;
 const float MAX_WEAPONS = 9;
+const float DEAD_NOT = 0;
+const float DEAD_YES = 1;
 
 .entity weapons[MAX_WEAPONS];

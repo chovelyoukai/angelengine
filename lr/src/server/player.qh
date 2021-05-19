@@ -9,3 +9,5 @@ void PlayerPostThink();
 void SetNewParms();
 void SetChangeParms();
 float PlayerUpdate(entity to, float entFlags);
+void PlayerSpawn();
+void PlayerKill(entity player, float deathTimeout);

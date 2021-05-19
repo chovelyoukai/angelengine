@@ -224,7 +224,10 @@ void PlayerMove()
 		GroundTrace();
 		WallTrace();
 
-		if (self.movetype == MOVETYPE_NOCLIP)
+		if (self.movetype == MOVETYPE_NONE)
+		{
+		}
+		else if (self.movetype == MOVETYPE_NOCLIP)
 		{
 			NoclipMove();
 		}

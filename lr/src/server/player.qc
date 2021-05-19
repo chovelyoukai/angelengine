@@ -10,8 +10,18 @@ void SV_RunClientCommand()
 
 void PlayerPreThink()
 {
-	CheckImpulses();
-	CheckWeapons();
+	if (!self.deadflag)
+	{
+		CheckImpulses();
+		CheckWeapons();
+	}
+	else
+	{
+		if (time > self.deadTime)
+		{
+			PlayerSpawn();
+		}
+	}
 }
 
 void PlayerPostThink()
@@ -50,4 +60,46 @@ float PlayerUpdate(entity to, float entFlags)
 	}
 
 	return TRUE;
+}
+
+void PlayerSpawn()
+{
+	entity spawnLocation = SelectSpawn();
+
+	self.classname = "player";
+	self.health = self.max_health = 100;
+	self.flags = FL_CLIENT;
+	self.effects |= EF_FULLBRIGHT;
+	setmodel(self, "models/player.iqm");
+	setsize(self, PLAYER_MIN_STAND, PLAYER_MAX_STAND);
+	self.angles = spawnLocation.angles;
+	self.fixangle = TRUE;
+	self.view_ofs = PLAYER_VIEW_STAND;
+	self.velocity = '0 0 0';
+	self.movetype = MOVETYPE_WALK;
+	self.solid = SOLID_SLIDEBOX;
+	self.deadflag = DEAD_NOT;
+	setorigin(self, spawnLocation.origin + '0 0 80');
+
+	for (float i = 0; i < MAX_WEAPONS; i++)
+	{
+		if (self.weapons[i] != world)
+		{
+			remove(self.weapons[i]);
+		}
+
+		self.weapons[i] = world;
+	}
+
+	self.weapons[0] = GrappleSpawn();
+	self.weapons[1] = GrappleSpawn();
+	self.currentWeapon = self.weapons[0];
+}
+
+void PlayerKill(entity player, float deathTimeout)
+{
+	player.movetype = MOVETYPE_NONE;
+	player.solid = SOLID_NOT;
+	player.deadflag = DEAD_YES;
+	player.deadTime = deathTimeout;
 }
