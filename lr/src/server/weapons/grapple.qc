@@ -2,7 +2,7 @@
 
 void GrappleEquip(entity grapple)
 {
-	print("Equip!\n");
+	print("Equip GH!\n");
 }
 
 void GrappleFire(entity grapple)

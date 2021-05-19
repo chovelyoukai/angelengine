@@ -10,6 +10,7 @@ damage.qc
 
 weapons/weapons.qc
 weapons/grapple.qc
+weapons/rocketlauncher.qc
 
 info/info_player_start.qc
 

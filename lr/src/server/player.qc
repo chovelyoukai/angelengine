@@ -92,7 +92,7 @@ void PlayerSpawn()
 	}
 
 	self.weapons[0] = GrappleSpawn();
-	self.weapons[1] = GrappleSpawn();
+	self.weapons[1] = RocketSpawn();
 	self.currentWeapon = self.weapons[0];
 }
 
