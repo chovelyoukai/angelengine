@@ -6,6 +6,7 @@ world.qc
 client.qc
 impulses.qc
 player.qc
+damage.qc
 
 weapons/weapons.qc
 weapons/grapple.qc

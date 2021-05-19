@@ -1,0 +1,6 @@
+#include "player.qh"
+#include "weapons/weapons.qh"
+
+void RadiusDamage(entity inflictor, entity attacker, float amount, float radius);
+void Damage(entity target, entity inflictor, entity attacker, float amount);
+void ApplyKnockback(entity target, vector source, float amount);
