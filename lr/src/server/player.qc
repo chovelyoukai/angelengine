@@ -96,10 +96,10 @@ void PlayerSpawn()
 	self.currentWeapon = self.weapons[0];
 }
 
-void PlayerKill(entity player, float deathTimeout)
+void PlayerKill(float deathTimeout)
 {
-	player.movetype = MOVETYPE_NONE;
-	player.solid = SOLID_NOT;
-	player.deadflag = DEAD_YES;
-	player.deadTime = deathTimeout;
+	self.movetype = MOVETYPE_NONE;
+	self.solid = SOLID_NOT;
+	self.deadflag = DEAD_YES;
+	self.deadTime = time + deathTimeout;
 }

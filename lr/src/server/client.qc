@@ -17,6 +17,7 @@ void ClientDisconnect()
 
 void ClientKill()
 {
+	PlayerKill(cvar("sv_deathtimeout"));
 }
 
 void PutClientInServer()
