@@ -66,5 +66,5 @@ void DrawMeters(float width, float height)
 	accelSize.y = 12;
 	accelPos.x = (width - diffSpeed) / 2;
 	accelPos.y = height / 2 + height / 32 + 28;
-	drawfill(accelPos, accelSize, accelColor, 1.0, 1);
+	drawfill(accelPos, accelSize, accelColor, 1.0, DRAWFLAG_NORMAL);
 }
