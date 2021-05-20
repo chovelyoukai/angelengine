@@ -25,11 +25,13 @@ void DrawMeters(float width, float height)
 
 	oldAccel = ((1 - accelDamp) * (vlen2d(player.velocity) - oldSpeed)) +
 		(accelDamp * oldAccel);
-	diffSpeed = fabs(rint(oldAccel * 10));
-	if (diffSpeed < 0)
+
+	if (vlen2d(player.velocity) < oldSpeed)
 	{
 		diffSpeed = 0;
 	}
+
+	diffSpeed = rint(oldAccel * 15);
 	oldSpeed = vlen2d(player.velocity);
 
 	accelSize.x = diffSpeed;

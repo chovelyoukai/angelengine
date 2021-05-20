@@ -2,8 +2,13 @@
 
 void CSQC_Ent_Update(float isNew)
 {
+	vector newOrigin;
+	vector newVelocity;
 	float entType = readbyte();
 	float flags;
+	float moveInterp = cvar("cl_moveinterp");
+	float interp;
+	float diff;
 
 	switch (entType)
 	{
@@ -12,16 +17,54 @@ void CSQC_Ent_Update(float isNew)
 		self.movetype = MOVETYPE_WALK;
 		if (flags & FL_ORIGIN)
 		{
-			self.origin.x = readcoord();
-			self.origin.y = readcoord();
-			self.origin.z = readcoord();
-			setorigin(self, self.origin);
+			newOrigin.x = readcoord();
+			newOrigin.y = readcoord();
+			newOrigin.z = readcoord();
+
+			diff = vlen(newOrigin - self.origin);
+
+			if (diff > 320)
+			{
+				interp = 0;
+			}
+			else
+			{
+				interp = diff / 320;
+			}
+
+			if (moveInterp == 0)
+			{
+				interp = 0;
+			}
+
+			newOrigin = (self.origin * interp) + (newOrigin * (1 - interp));
+
+			setorigin(self, newOrigin);
 		}
 		if (flags & FL_VELOCITY)
 		{
-			self.velocity.x = readcoord();
-			self.velocity.y = readcoord();
-			self.velocity.z = readcoord();
+			newVelocity.x = readcoord();
+			newVelocity.y = readcoord();
+			newVelocity.z = readcoord();
+
+			diff = vlen(newVelocity - self.velocity);
+
+			if (diff > 320)
+			{
+				interp = 0;
+			}
+			else
+			{
+				interp = diff /320;
+			}
+
+			if (moveInterp == 0)
+			{
+				interp = 0;
+			}
+
+			newVelocity = (self.velocity * interp) + (newVelocity * (1 - interp));
+			self.velocity = newVelocity;
 		}
 		player = self;	
 	}
