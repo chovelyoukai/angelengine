@@ -16,6 +16,7 @@ const vector PLAYER_VIEW_STAND = '0 0 28';
 const float ENT_PLAYER = 0;
 const float FL_ORIGIN = 1;
 const float FL_VELOCITY = 2;
+const float FL_MOVETYPE = 4;
 const float FL_MODELINDEX = 128;
 const float MAX_WEAPONS = 9;
 const float DEAD_NOT = 0;

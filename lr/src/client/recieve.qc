@@ -66,6 +66,10 @@ void CSQC_Ent_Update(float isNew)
 			newVelocity = (self.velocity * interp) + (newVelocity * (1 - interp));
 			self.velocity = newVelocity;
 		}
+		if (flags & FL_MOVETYPE)
+		{
+			self.movetype = readlong();
+		}
 		player = self;	
 	}
 }

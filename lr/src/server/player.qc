@@ -5,6 +5,7 @@ void SV_RunClientCommand()
 	PlayerMove();
 	self.SendFlags |= FL_ORIGIN;
 	self.SendFlags |= FL_VELOCITY;
+	self.SendFlags |= FL_MOVETYPE;
 	self.SendEntity = PlayerUpdate;
 }
 
@@ -57,6 +58,10 @@ float PlayerUpdate(entity to, float entFlags)
 		WriteCoord(MSG_ENTITY, self.velocity.x);
 		WriteCoord(MSG_ENTITY, self.velocity.y);
 		WriteCoord(MSG_ENTITY, self.velocity.z);
+	}
+	if (entFlags & FL_MOVETYPE)
+	{
+		WriteLong(MSG_ENTITY, self.movetype);
 	}
 
 	return TRUE;
