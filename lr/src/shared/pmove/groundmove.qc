@@ -41,6 +41,8 @@ void GroundMove()
 		return;
 	}
 
+	self.accelType = ACCEL_GROUND;
+
 	Friction(cvar("sv_friction"), cvar("sv_stopspeed"));
 
 #ifdef SSQC

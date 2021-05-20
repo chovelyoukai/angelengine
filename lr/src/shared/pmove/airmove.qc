@@ -16,6 +16,8 @@ void AirMove()
 	float fmove, smove;
 	float wishSpeed;
 	float oldZVel;
+	float wishAngle;
+	float minQWAngle;
 	vector wishDir;
 
 	float accel, maxSpeed;
@@ -52,7 +54,10 @@ void AirMove()
 	wishSpeed = vlen(wishDir);
 	wishDir = normalize(wishDir);
 
-	if (AngleToVelocity(wishDir) > QWAccelThreshold())
+	wishAngle = AngleToVelocity(wishDir);
+	minQWAngle = QWAccelThreshold();
+
+	if (wishAngle > minQWAngle)
 	{
 		accel = cvar("sv_airstrafeaccelerate");
 		maxSpeed = cvar("sv_maxairstrafespeed");
@@ -61,6 +66,16 @@ void AirMove()
 	{
 		accel = cvar("sv_airaccelerate");
 		maxSpeed = cvar("sv_maxairspeed");
+	}
+
+	wishAngle += 0.03;
+	if (wishAngle > minQWAngle)
+	{
+		self.accelType = ACCEL_QW;
+	}
+	else
+	{
+		self.accelType = ACCEL_Q3;
 	}
 
 	if (cvar("sv_aircontrol") > 0)

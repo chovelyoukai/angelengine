@@ -8,6 +8,8 @@ void NoclipMove()
 
 	speedMult = cvar("sv_noclipspeed");
 
+	self.accelType = ACCEL_NOCLIP;
+
 	fmove = input_movevalues.x * speedMult;
 	smove = input_movevalues.y * speedMult;
 	umove = input_movevalues.z * speedMult;

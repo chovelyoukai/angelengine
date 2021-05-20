@@ -7,6 +7,7 @@ void DrawMeters(float width, float height)
 	float accelDamp = cvar("cl_acceldamp");
 	vector speedPos, speedPos2d, accelPos;
 	vector accelSize;
+	vector accelColor;
 
 	speedString2d = ftos(rint(vlen2d(player.velocity)));
 	speedString2d = strcat("H: ", speedString2d, " UPS");
@@ -30,13 +31,40 @@ void DrawMeters(float width, float height)
 	{
 		diffSpeed = 0;
 	}
-
 	diffSpeed = rint(oldAccel * 15);
+	if (diffSpeed > width / 10)
+	{
+		diffSpeed = width / 10;
+	}
+
 	oldSpeed = vlen2d(player.velocity);
+
+	accelColor = ACCEL_GROUND_COLOR;
+
+	switch (player.accelType)
+	{
+		case ACCEL_GROUND:
+			accelColor = ACCEL_GROUND_COLOR;
+			break;
+		case ACCEL_WALL:
+			accelColor = ACCEL_WALL_COLOR;
+			break;
+		case ACCEL_QW:
+			accelColor = ACCEL_QW_COLOR;
+			break;
+		case ACCEL_Q3:
+			accelColor = ACCEL_Q3_COLOR;
+			break;
+		case ACCEL_NOCLIP:
+			accelColor = ACCEL_NOCLIP_COLOR;
+			break;
+		default:
+			accelColor = ACCEL_GROUND_COLOR;
+	}
 
 	accelSize.x = diffSpeed;
 	accelSize.y = 12;
 	accelPos.x = (width - diffSpeed) / 2;
 	accelPos.y = height / 2 + height / 32 + 28;
-	drawfill(accelPos, accelSize, '1 1 1', 1.0, 1);
+	drawfill(accelPos, accelSize, accelColor, 1.0, 1);
 }

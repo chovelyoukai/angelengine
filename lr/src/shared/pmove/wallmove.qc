@@ -136,6 +136,8 @@ void WallMove()
 		AirMove();
 		return;
 	}
+
+	self.accelType = ACCEL_WALL;
 	
 	Friction(cvar("sv_wallrun_friction"), cvar("sv_stopspeed"));
 
