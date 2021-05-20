@@ -9,6 +9,7 @@ void CSQC_Ent_Update(float isNew)
 	{
 	case ENT_PLAYER:
 		flags = readbyte();
+		self.movetype = MOVETYPE_WALK;
 		if (flags & FL_ORIGIN)
 		{
 			self.origin.x = readcoord();

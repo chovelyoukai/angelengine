@@ -1,0 +1,1 @@
+float CSQC_InputEvent(float eventType, float scanx, float chary, float devid);

@@ -45,12 +45,15 @@ void GroundMove()
 
 #ifdef SSQC
 	makevectors(self.v_angle);
-#else
-	makevectors(view_angles);
-#endif
 
 	fmove = input_movevalues.x;
 	smove = input_movevalues.y;
+#else
+	makevectors(view_angles);
+
+	fmove = input_movevalues.x;
+	smove = input_movevalues.y;
+#endif
 
 	v_forward.z = 0;
 	v_right.z = 0;

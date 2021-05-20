@@ -215,6 +215,11 @@ void PlayerMove()
 	float pmoveTime = cvar("sv_pmovetime");
 	float remainingTime = time - lastMovetime;
 
+	if (pmoveTime <= 0)
+	{
+		pmoveTime = 0.008;
+	}
+
 	while (remainingTime > pmoveTime)
 	{
 		frametime = pmoveTime;

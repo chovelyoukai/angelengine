@@ -11,6 +11,7 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 void CSQC_UpdateView(float width, float height, float menuShown)
 {
 	entity oldSelf;
+	float inputFrame;
 
 	clearscene();
 
@@ -21,11 +22,15 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 
 	if (player)
 	{
+		inputFrame = clientcommandframe;
+
+		getinputstate(inputFrame);
+
 		oldSelf = self;
 		self = player;
 		PlayerMove();
 		setviewprop(VF_ORIGIN, player.origin + PLAYER_VIEW_STAND);
-		
+
 		self = oldSelf;
 	}
 

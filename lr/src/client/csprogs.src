@@ -3,6 +3,7 @@ csdefs.qc
 globals.qc
 recieve.qc
 meters.qc
+input.qc
 main.qc
 
 ../shared/math.qc
