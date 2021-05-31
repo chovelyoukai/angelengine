@@ -2,11 +2,11 @@
 
 void SV_RunClientCommand()
 {
-	PlayerMove();
-	self.SendFlags |= FL_ORIGIN;
-	self.SendFlags |= FL_VELOCITY;
-	self.SendFlags |= FL_MOVETYPE;
-	self.SendEntity = PlayerUpdate;
+    PlayerMove();
+    self.SendFlags |= FL_ORIGIN;
+    self.SendFlags |= FL_VELOCITY;
+    self.SendFlags |= FL_MOVETYPE;
+    self.SendEntity = PlayerUpdate;
 }
 
 void PlayerPreThink()

@@ -1,6 +1,7 @@
 .entity groundEntity;
 .vector groundNormal;
-.float lastMovetime;
+.float lastMoveTime;
+.float lastSendTime;
 .float moveFlags;
 .float wallclipTime;
 .float wallrunStart;
@@ -9,6 +10,8 @@
 .vector wallNormal;
 .vector correctOrigin;
 .vector correctVelocity;
+.float fixOrigin;
+.float fixVelocity;
 .entity currentWeapon;
 .float deadTime;
 .float accelType;

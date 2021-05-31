@@ -213,7 +213,7 @@ void PlayerMove()
 {
 	float oldFrametime = frametime;
 	float pmoveTime = cvar("sv_pmovetime");
-	float remainingTime = time - self.lastMovetime;
+	float remainingTime = time - self.lastMoveTime;
 
 	if (pmoveTime <= 0)
 	{
@@ -224,7 +224,7 @@ void PlayerMove()
 	{
 		frametime = pmoveTime;
 		remainingTime -= pmoveTime;
-		self.lastMovetime += pmoveTime;
+		self.lastMoveTime += pmoveTime;
 
 		GroundTrace();
 		WallTrace();

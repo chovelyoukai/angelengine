@@ -36,13 +36,21 @@ void CSQC_UpdateView(float width, float height, float menuShown)
             self = oldSelf;
         }
 
-        if (vlen(player.origin - player.correctOrigin) > 0.1)
+        if (player.fixOrigin)
         {
             setorigin(player, (player.origin + player.correctOrigin) / 2);
+            if (vlen(player.origin - player.correctOrigin) > 0.1)
+            {
+                player.fixOrigin = FALSE;
+            }
         }
-        if (vlen(player.velocity - player.correctVelocity) > 0.1)
+        if (player.fixVelocity)
         {
             player.velocity = (player.velocity + player.correctVelocity) / 2;
+            if (vlen(player.velocity - player.correctVelocity) > 0.1)
+            {
+                player.fixVelocity = FALSE;
+            }
         }
         setviewprop(VF_ORIGIN, player.origin + PLAYER_VIEW_STAND);
     }

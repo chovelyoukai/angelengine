@@ -38,6 +38,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         if (isLocalPlayer)
         {
             self.correctOrigin = newOrigin;
+            self.fixOrigin = TRUE;
         }
         else
         {
@@ -53,6 +54,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         if (isLocalPlayer)
         {
             self.correctVelocity = newVelocity;
+            self.fixVelocity = TRUE;
         }
         else
         {
