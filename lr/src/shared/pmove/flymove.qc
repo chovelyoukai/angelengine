@@ -5,14 +5,9 @@ void FlyMove()
 	float fmove, smove;
 	float wishSpeed;
 	float oldZVel;
+    vector oldVel;
 	vector wishDir;
-
 	float accel, maxSpeed;
-
-	if (self.moveFlags & MF_RAMPSLIDE)
-	{
-		CheckJump();
-	}
 
 	if (cvar("sv_airfriction") > 0)
 	{
@@ -39,6 +34,8 @@ void FlyMove()
 
 	Accelerate(wishDir, wishSpeed, accel, maxSpeed);
 
+    oldVel = self.velocity; 
+
 	if (cvar("sv_airstep") > 0)
 	{
 		StepSlideMove();
@@ -47,4 +44,9 @@ void FlyMove()
 	{
 		SlideMove();
 	}
+
+    if (vlen(oldVel) > vlen(self.velocity))
+    {
+        self.velocity = oldVel;
+    }
 }
