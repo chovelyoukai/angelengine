@@ -1,7 +1,7 @@
 ../../csprogs.dat
 csdefs.qc
 globals.qc
-recieve.qc
+receive.qc
 meters.qc
 input.qc
 main.qc

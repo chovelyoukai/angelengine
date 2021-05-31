@@ -1,0 +1,3 @@
+#include "../shared/player.qh"
+
+void ReceivePlayer(float isNew, float isLocalPlayer);

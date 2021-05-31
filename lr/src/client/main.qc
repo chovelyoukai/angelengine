@@ -22,6 +22,7 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 
 	if (player)
 	{
+
 		inputFrame = clientcommandframe;
 
 		getinputstate(inputFrame);
@@ -29,9 +30,9 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 		oldSelf = self;
 		self = player;
 		PlayerMove();
-		setviewprop(VF_ORIGIN, player.origin + PLAYER_VIEW_STAND);
-
 		self = oldSelf;
+
+		setviewprop(VF_ORIGIN, player.origin + PLAYER_VIEW_STAND);
 	}
 
 	renderscene();
