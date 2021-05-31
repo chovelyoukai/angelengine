@@ -84,7 +84,7 @@ void GroundMove()
 
 	speed = vlen(self.velocity);
 
-	self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
+	//self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
 
 	self.velocity = normalize(self.velocity);
 	self.velocity *= speed;

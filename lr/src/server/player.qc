@@ -41,10 +41,13 @@ float PlayerUpdate(entity to, float entFlags)
 {
 	if (to != self)
 	{
-		return FALSE;
+		WriteByte(MSG_ENTITY, ENT_PLAYER_OTHER);
+	}
+	else
+	{
+		WriteByte(MSG_ENTITY, ENT_PLAYER);
 	}
 
-	WriteByte(MSG_ENTITY, ENT_PLAYER);
 	WriteByte(MSG_ENTITY, entFlags);
 
 	if (entFlags & FL_ORIGIN)
@@ -62,6 +65,10 @@ float PlayerUpdate(entity to, float entFlags)
 	if (entFlags & FL_MOVETYPE)
 	{
 		WriteLong(MSG_ENTITY, self.movetype);
+	}
+	if (entFlags & FL_MODELINDEX)
+	{
+		WriteByte(MSG_ENTITY, self.modelindex);
 	}
 
 	return TRUE;

@@ -86,7 +86,7 @@ float SlideMove()
 		// if we are stuck in something, we are done
 		if (trace_allsolid)
 		{
-			self.origin = lastValidOrigin;
+            setorigin(self, lastValidOrigin);
 			blocked = TRUE;
 			return blocked;
 		}
@@ -94,7 +94,7 @@ float SlideMove()
 		// move us to wherever the box stopped
 		if (trace_fraction > 0)
 		{
-			self.origin = trace_endpos;
+            setorigin(self, trace_endpos);
 			lastValidOrigin = trace_endpos;
 		}
 
@@ -185,8 +185,6 @@ void StepSlideMove()
 {
 	vector startOrigin, startVel;
 	vector up, down;
-	float horizSpeed;
-	float oldZVel;
 	float stepSize;
 
 	startVel = self.velocity;
@@ -204,7 +202,7 @@ void StepSlideMove()
 	stepSize = trace_endpos.z - startOrigin.z;
 
 	// try moving us up.
-	self.origin = trace_endpos;
+    setorigin(self, trace_endpos);
 
 	SlideMove();
 
@@ -216,13 +214,13 @@ void StepSlideMove()
 	
 	if (!trace_allsolid)
 	{
-		self.origin = trace_endpos;
+        setorigin(self, trace_endpos);
 	}
 
 	// too steep, we can't step onto this.
 	if (trace_fraction < 1.0 && trace_plane_normal.z < 0.7)
 	{
-		self.origin = startOrigin;
+        setorigin(self, startOrigin);
 		self.velocity = startVel;
 		SlideMove();
 	}
@@ -234,27 +232,5 @@ void StepSlideMove()
 	if (self.wallclipTime > time)
 	{
 		self.velocity = startVel;
-	}
-
-	if (cvar("sv_q2ramps") > 0)
-	{
-		horizSpeed = vlen2d(startVel);
-		if (horizSpeed && trace_plane_normal.z > 0.7)
-		{
-			if (trace_plane_normal.z >= 1.0 - SLIDEMOVE_INTERACT_EPSILON)
-			{
-				self.velocity = startVel;
-			}
-			else
-			{
-				oldZVel = self.velocity.z;
-				self.velocity.z = 0;
-
-				self.velocity = normalize(self.velocity);
-				self.velocity *= horizSpeed;
-
-				self.velocity.z = oldZVel;
-			}
-		}
 	}
 }

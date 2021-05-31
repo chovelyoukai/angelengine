@@ -24,7 +24,7 @@ void OnTouchGround()
 	float oldZVel = self.velocity.z;
 
 	self.wallclipTime = time + cvar("sv_wallcliptime");
-	if (cvar("sv_rampboosts") > 0)
+	if (!(self.moveFlags & MF_RAMPSLIDE))
 	{
 		self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
 	}
@@ -213,7 +213,7 @@ void PlayerMove()
 {
 	float oldFrametime = frametime;
 	float pmoveTime = cvar("sv_pmovetime");
-	float remainingTime = time - lastMovetime;
+	float remainingTime = time - self.lastMovetime;
 
 	if (pmoveTime <= 0)
 	{
@@ -224,7 +224,7 @@ void PlayerMove()
 	{
 		frametime = pmoveTime;
 		remainingTime -= pmoveTime;
-		lastMovetime += pmoveTime;
+		self.lastMovetime += pmoveTime;
 
 		GroundTrace();
 		WallTrace();
