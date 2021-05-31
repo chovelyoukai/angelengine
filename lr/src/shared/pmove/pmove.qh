@@ -24,6 +24,10 @@ void AirMove();
 float AngleToVelocity(vector direction);
 float QWAccelThreshold();
 
+// flymove.qc
+
+void FlyMove();
+
 // noclipmove.qc
 
 void NoclipMove();

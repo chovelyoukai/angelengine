@@ -19,5 +19,6 @@ info/info_player_start.qc
 ../shared/pmove/slidemove.qc
 ../shared/pmove/groundmove.qc
 ../shared/pmove/airmove.qc
+../shared/pmove/flymove.qc
 ../shared/pmove/noclipmove.qc
 ../shared/pmove/wallmove.qc

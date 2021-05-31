@@ -62,6 +62,12 @@ void WallTrace()
 		return;
 	}
 
+    if (cvar("sv_fly") > 0)
+    {
+        SetOnWall(FALSE);
+        return;
+    }
+
 #ifdef SSQC
 	makevectors(self.v_angle);
 #else

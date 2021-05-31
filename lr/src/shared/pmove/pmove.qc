@@ -236,6 +236,10 @@ void PlayerMove()
 		{
 			NoclipMove();
 		}
+        else if (cvar("sv_fly") > 0)
+        {
+            FlyMove();
+        }
 		else if (IsOnGround())
 		{
 			GroundMove();
