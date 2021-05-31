@@ -7,6 +7,8 @@
 .float wallrunEnd;
 .entity wallEntity;
 .vector wallNormal;
+.vector correctOrigin;
+.vector correctVelocity;
 .entity currentWeapon;
 .float deadTime;
 .float accelType;
