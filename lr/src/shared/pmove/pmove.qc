@@ -60,12 +60,8 @@ void GroundTrace()
 
 	self.moveFlags &= ~MF_RAMPSLIDE;
 
-    if (cvar("sv_fly") > 0)
-    {
-        SetOnGround(FALSE);
-    }
 	// if we didn't hit anything, we can't be on the ground
-	else if (trace_fraction == 1)
+	if (trace_fraction == 1)
 	{
 		SetOnGround(FALSE);
 	}

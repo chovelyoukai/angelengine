@@ -30,6 +30,7 @@ void RocketFire(entity rocketLauncher)
 			Damage(trace_ent, rocketLauncher, self, 10);
 		}
 	}
+    print("fired (lenny)\n");
 }
 
 float RocketCanEquip(entity rocketLauncher)

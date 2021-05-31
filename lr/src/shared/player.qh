@@ -33,5 +33,6 @@ const float ACCEL_WALL = 1;
 const float ACCEL_QW = 2;
 const float ACCEL_Q3 = 3;
 const float ACCEL_NOCLIP = 4;
+const float ACCEL_FLY = 5;
 
 .entity weapons[MAX_WEAPONS];

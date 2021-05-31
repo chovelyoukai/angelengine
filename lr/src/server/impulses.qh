@@ -1,5 +1,5 @@
 #include "../shared/player.qh"
-#include "weapons/weapons.qh"
+#include "../shared/weapons/weapons.qh"
 
 void CheckImpulses();
 
