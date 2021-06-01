@@ -36,7 +36,8 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         
         if (isLocalPlayer)
         {
-            if (vlen(self.origin - newOrigin) > 15)
+            if (vlen(self.origin - newOrigin) >
+                0.1 * vlen(self.velocity))
             {
                 setorigin(self, newOrigin);
             }
@@ -59,7 +60,8 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
 
         if (isLocalPlayer)
         {
-            if (vlen(self.velocity - newVelocity) > 15)
+            if (vlen(self.velocity - newVelocity) > 
+                0.1 * vlen(self.velocity))
             {
                 self.velocity = newVelocity;
             }
