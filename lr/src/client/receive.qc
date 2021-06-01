@@ -28,7 +28,6 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     float moveInterp = cvar("cl_moveinterp");
 
     flags = readbyte();
-    self.movetype = MOVETYPE_WALK;
     if (flags & FL_ORIGIN)
     {
         newOrigin.x = readcoord();
@@ -37,8 +36,15 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         
         if (isLocalPlayer)
         {
-            self.correctOrigin = newOrigin;
-            self.fixOrigin = TRUE;
+            if (vlen(self.origin - newOrigin) > 15)
+            {
+                setorigin(self, newOrigin);
+            }
+            else
+            {
+                self.correctOrigin = newOrigin;
+                self.fixOrigin = TRUE;
+            }
         }
         else
         {
@@ -53,8 +59,15 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
 
         if (isLocalPlayer)
         {
-            self.correctVelocity = newVelocity;
-            self.fixVelocity = TRUE;
+            if (vlen(self.velocity - newVelocity) > 15)
+            {
+                self.velocity = newVelocity;
+            }
+            else
+            {
+                self.correctVelocity = newVelocity;
+                self.fixVelocity = TRUE;
+            }
         }
         else
         {
