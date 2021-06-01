@@ -114,4 +114,9 @@ void PlayerKill(float deathTimeout)
 	self.solid = SOLID_NOT;
 	self.deadflag = DEAD_YES;
 	self.deadTime = time + deathTimeout;
+
+    self.SendFlags |= FL_ORIGIN;
+    self.SendFlags |= FL_VELOCITY;
+    self.SendFlags |= FL_MOVETYPE;
+    self.SendEntity = PlayerUpdate;
 }

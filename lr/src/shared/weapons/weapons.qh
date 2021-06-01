@@ -2,6 +2,8 @@
 .void(entity weapon) Equip;
 .float(entity weapon) CanEquip;
 .float(entity weapon) CanSwitch;
+.void(entity target, entity inflictor, entity attacker, float amount)
+    Knockback;
 
 .float fireTimeout;
 .float switchTimeout;

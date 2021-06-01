@@ -5,5 +5,10 @@ void RocketFire(entity rocketLauncher);
 float RocketCanEquip(entity rocketLauncher);
 float RocketCanSwitch(entity rocketLauncher);
 entity RocketSpawn();
+void RocketKnockback(entity target, entity inflictor, entity attacker,
+    float amount)
+void EmitRocket();
+void RocketTouch();
 
 const float ROCKET_FIRE_TIME = 0.8;
+const float ROCKET_VELOCITY = 1100;
