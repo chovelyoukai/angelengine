@@ -70,7 +70,7 @@ float SlideMove()
 	oldVel = self.velocity;
 	lastValidOrigin = self.origin;
 
-	if (IsOnGround())
+	if (IsOnGround(self))
 	{
 		if (self.groundNormal.z == 1 && self.velocity.z < 0)
 		{

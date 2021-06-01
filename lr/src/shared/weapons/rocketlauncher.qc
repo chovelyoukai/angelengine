@@ -1,11 +1,11 @@
 #include "rocketlauncher.qh"
 
-void RocketEquip(entity rocketLauncher)
+void RocketlauncherEquip(entity rocketLauncher)
 {
     print("Equip RL!\n");
 }
 
-void RocketFire(entity rocketLauncher)
+void RocketlauncherFire(entity rocketLauncher)
 {
     if (rocketLauncher.fireTimeout > time)
     {
@@ -17,27 +17,84 @@ void RocketFire(entity rocketLauncher)
     rocketLauncher.fireTimeout = time + ROCKET_FIRE_TIME;
 }
 
-float RocketCanEquip(entity rocketLauncher)
+float RocketlauncherCanEquip(entity rocketLauncher)
 {
     return TRUE;
 }
 
-float RocketCanSwitch(entity rocketLauncher)
+float RocketlauncherCanSwitch(entity rocketLauncher)
 {
     return TRUE;
 }
 
-entity RocketSpawn()
+entity RocketlauncherSpawn()
 {
     entity rocketLauncher = spawn();
 
-    rocketLauncher.Equip = RocketEquip;
-    rocketLauncher.Fire = RocketFire;
-    rocketLauncher.CanEquip = RocketCanEquip;
-    rocketLauncher.CanSwitch = RocketCanSwitch;
+    rocketLauncher.Equip = RocketlauncherEquip;
+    rocketLauncher.Fire = RocketlauncherFire;
+    rocketLauncher.CanEquip = RocketlauncherCanEquip;
+    rocketLauncher.CanSwitch = RocketlauncherCanSwitch;
     rocketLauncher.classname = "weapon_rocketlauncher";
 
     return rocketLauncher;
+}
+
+void RocketRadiusKnockback(entity ignore)
+{
+    float distance;
+    float amount;
+    entity target;
+    vector center, bottom, closest;
+
+    target = findradius(self.origin, ROCKET_RADIUS);
+
+    while (target)
+    {
+        if (target == ignore)
+        {
+            target = target.chain;
+            continue;
+        }
+
+        if (!CanDamage(target, self))
+        {
+            target = target.chain;
+            continue;
+        }
+
+        amount = ROCKET_DAMAGE;
+
+        center = target.origin;
+        bottom = target.origin;
+        bottom.z -= 40;
+
+        if (vlen(bottom - self.origin) < vlen(center - self.origin))
+        {
+            closest = bottom;
+        }
+        else
+        {
+            closest = center;
+        }
+
+        distance = vlen(closest - self.origin);
+
+        amount = (amount * (0.5 - 1) * distance / 121) + amount;
+
+        if (target == self.owner && !IsOnGround(target))
+        {
+            amount *= 0.6;
+        }
+        else
+        {
+            amount *= 0.5;
+        }
+
+        RocketKnockback(target, self, self.owner, amount);
+
+        target = target.chain;
+    }
 }
 
 void RocketKnockback(entity target, entity inflictor, entity attacker,
@@ -45,15 +102,27 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
 {
     vector direction;
     float distance;
+    float multiplier;
+
     if (target.classname != "player")
     {
         return;
     }
-    direction = target.origin - inflictor.origin;
+
+    direction = target.origin - (inflictor.absmin + inflictor.absmax) * 0.5;
     distance = vlen(direction);
     direction = normalize(direction);
-    direction *= (amount * 200) / distance;
-    target.velocity += direction;
+    
+    if (target == attacker && !IsOnGround(target))
+    {
+        multiplier = 15.2;
+    }
+    else
+    {
+        multiplier = 7.455;
+    }
+
+    target.velocity += (direction * amount * multiplier);
 }
 
 void EmitRocket()
@@ -94,7 +163,7 @@ void RocketTouch()
     self.movetype = MOVETYPE_NONE;
     self.solid = SOLID_NOT;
 
-    RadiusKnockback(self, self.owner, 100, 200);
+    RocketRadiusKnockback(other);
 
     remove(self);
 }

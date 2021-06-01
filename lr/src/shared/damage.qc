@@ -1,5 +1,45 @@
 #include "damage.qh"
 
+float CanDamage(entity target, entity inflictor)
+{
+    if (target.movetype == MOVETYPE_PUSH)
+    {
+        traceline(inflictor.origin, 0.5 * (target.absmin +
+            target.absmax), TRUE, inflictor);
+        if (trace_fraction == 1 || trace_ent == target)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+	traceline(inflictor.origin, target.origin, TRUE, inflictor);
+	if (trace_fraction == 1)
+		return TRUE;
+	
+	traceline(inflictor.origin, target.origin + '15 15 0',
+		TRUE, inflictor);
+	if (trace_fraction == 1)
+		return TRUE;
+	traceline(inflictor.origin, target.origin + '-15 -15 0',
+		TRUE, inflictor);
+	if (trace_fraction == 1)
+		return TRUE;
+	traceline(inflictor.origin, target.origin + '-15 15 0',
+		TRUE, inflictor);
+	if (trace_fraction == 1)
+		return TRUE;
+	traceline(inflictor.origin, target.origin + '15 -15 0',
+		TRUE, inflictor);
+	if (trace_fraction == 1)
+		return TRUE;
+
+	return FALSE;
+}
+
 void RadiusDamage(entity inflictor, entity attacker, float amount,
     float radius)
 {

@@ -32,11 +32,11 @@ void OnTouchGround()
     return;
 }
 
-float IsOnGround()
+float IsOnGround(entity ent)
 {
     // we can't stand on ourselves, so we use self as a sentinal value for
     // "not on ground"
-    if (self.groundEntity == self)
+    if (ent.groundEntity == ent)
     {
         return FALSE;
     }
@@ -237,7 +237,7 @@ void PlayerMove()
         {
             FlyMove();
         }
-        else if (IsOnGround())
+        else if (IsOnGround(self))
         {
             GroundMove();
         }

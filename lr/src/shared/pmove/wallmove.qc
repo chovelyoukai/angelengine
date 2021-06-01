@@ -46,7 +46,7 @@ void WallTrace()
         return;
     }
 
-	if (IsOnGround() || self.moveFlags & MF_RAMPSLIDE)
+	if (IsOnGround(self) || self.moveFlags & MF_RAMPSLIDE)
 	{
 		SetOnWall(FALSE);
 		return;
