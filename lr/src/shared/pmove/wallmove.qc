@@ -22,10 +22,6 @@ void SetOnWall(float onWall)
 void OnTouchWall()
 {
 	self.wallrunStart = time;
-	if (self.velocity.z > 0)
-	{
-		self.velocity.z = 0;
-	}
 }
 
 float IsOnWall()
@@ -43,6 +39,12 @@ float IsOnWall()
 void WallTrace()
 {
 	vector start, end;
+
+    if (cvar("sv_wallrun") == 0)
+    {
+        SetOnWall(FALSE);
+        return;
+    }
 
 	if (IsOnGround() || self.moveFlags & MF_RAMPSLIDE)
 	{
