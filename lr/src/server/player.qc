@@ -115,7 +115,7 @@ void PlayerSpawn()
     self.fixangle = TRUE;
     self.view_ofs = PLAYER_VIEW_STAND;
     self.velocity = '0 0 0';
-    self.movetype = MOVETYPE_WALK;
+    self.movetype = MOVETYPE_FLY;
     self.solid = SOLID_SLIDEBOX;
     self.deadflag = DEAD_NOT;
     self.SendEntity = PlayerUpdate;

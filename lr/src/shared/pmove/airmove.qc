@@ -2,7 +2,6 @@
 
 void ApplyGravity()
 {
-	
 	if (self.moveFlags & MF_RAMPSLIDE && cvar("sv_rampslide_gravity") == 0)
 	{
 		return;

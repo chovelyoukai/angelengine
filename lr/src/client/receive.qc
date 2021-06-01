@@ -77,6 +77,10 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     if (flags & FL_MOVETYPE)
     {
         self.movetype = readlong();
+        if (isLocalPlayer && self.movetype == MOVETYPE_WALK)
+        {
+            self.movetype = MOVETYPE_FLY;
+        }
     }
     if (flags & FL_MODELINDEX)
     {
