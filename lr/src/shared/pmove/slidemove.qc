@@ -166,13 +166,13 @@ float SlideMove()
 
 				for (k = 0; k < numplanes; k++)
 				{
-					if (k == i || j == i || DoesInteract(planes[k]) == FALSE)
+					if (k == i || k == j || DoesInteract(planes[k]) == FALSE)
 					{
 						continue;
 					}
 
 					self.velocity = '0 0 0';
-					break;
+				    return blocked;	
 				}
 			}
 		}
