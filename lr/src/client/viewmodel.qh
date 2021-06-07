@@ -1,0 +1,4 @@
+entity viewmodel;
+
+void InitializeViewmodel();
+void UpdateViewmodel();

@@ -4,6 +4,8 @@ globals.qc
 receive.qc
 meters.qc
 input.qc
+predict.qc
+viewmodel.qc
 main.qc
 
 ../shared/math.qc
