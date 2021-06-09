@@ -8,6 +8,12 @@ void InitializeViewmodel()
     viewmodel.solid = SOLID_NOT;
 }
 
-void UpdateViewmodel()
+void UpdateViewmodel(float weaponType)
 {
+    switch (weaponType)
+    {
+        case WEP_ROCKETLAUNCHER:
+            setmodel(viewmodel, "models/weapon_views/v_rocket.mdl");
+            break;
+    }
 }

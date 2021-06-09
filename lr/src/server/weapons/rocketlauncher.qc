@@ -36,6 +36,7 @@ entity RocketlauncherSpawn()
     rocketLauncher.CanEquip = RocketlauncherCanEquip;
     rocketLauncher.CanSwitch = RocketlauncherCanSwitch;
     rocketLauncher.classname = "weapon_rocketlauncher";
+    rocketLauncher.owner = self;
 
     return rocketLauncher;
 }

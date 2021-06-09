@@ -132,6 +132,7 @@ void PlayerSpawn()
     }
 
     self.weapons[0] = RocketlauncherSpawn();
+    self.weapons[0].Equip(self.weapons[0]);
     self.currentWeapon = self.weapons[0];
 }
 

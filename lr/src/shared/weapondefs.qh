@@ -1,0 +1,15 @@
+.float weaponType;
+.float fireTimeout;
+
+const float ROCKET_FIRE_TIME = 0.8;
+const float ROCKET_VELOCITY = 1100;
+const float ROCKET_RADIUS = 146;
+const float ROCKET_DAMAGE = 90;
+
+enum WeaponType
+{
+    WEP_ROCKETLAUNCHER,
+    WEP_SHOTGUN,
+    WEP_CHOVEL,
+    WEP_LAST
+};

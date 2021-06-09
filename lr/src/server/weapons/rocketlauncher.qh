@@ -10,8 +10,3 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
     float amount)
 void EmitRocket();
 void RocketTouch();
-
-const float ROCKET_FIRE_TIME = 0.8;
-const float ROCKET_VELOCITY = 1100;
-const float ROCKET_RADIUS = 146;
-const float ROCKET_DAMAGE = 90;

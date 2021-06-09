@@ -1,4 +1,5 @@
 #include "weapons.qh"
+#include "damage.qh"
 
 float CheckWeapons()
 {

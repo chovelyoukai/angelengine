@@ -1,5 +1,4 @@
-#include "player.qh"
-#include "weapons/weapons.qh"
+#include "../../shared/player.qh"
 
 float CanDamage(entity target, entity inflictor);
 void RadiusDamage(entity inflictor, entity attacker, float amount,

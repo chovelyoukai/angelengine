@@ -8,6 +8,9 @@ impulses.qc
 player.qc
 
 info/info_player_start.qc
+weapons/weapons.qc
+weapons/rocketlauncher.qc
+weapons/damage.qc
 
 ../shared/math.qc
 ../shared/pmove/pmove.qc
@@ -17,7 +20,3 @@ info/info_player_start.qc
 ../shared/pmove/flymove.qc
 ../shared/pmove/noclipmove.qc
 ../shared/pmove/wallmove.qc
-../shared/damage.qc
-../shared/weapons/weapons.qc
-../shared/weapons/grapple.qc
-../shared/weapons/rocketlauncher.qc

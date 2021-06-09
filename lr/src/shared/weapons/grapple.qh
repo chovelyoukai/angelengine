@@ -1,9 +1,0 @@
-#include "weapons.qh"
-
-void GrappleEquip(entity grapple);
-void GrappleFire(entity grapple);
-float GrappleCanEquip(entity grapple);
-float GrappleCanSwitch(entity grapple);
-entity GrappleSpawn();
-
-const float GRAPPLE_FIRE_TIME = 1;

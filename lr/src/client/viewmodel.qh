@@ -1,4 +1,6 @@
+#include "../shared/weapondefs.qh"
+
 entity viewmodel;
 
 void InitializeViewmodel();
-void UpdateViewmodel();
+void UpdateViewmodel(float weaponType);
