@@ -37,6 +37,7 @@ void Predict()
                 player.fixVelocity = FALSE;
             }
         }
+        UpdateViewmodel();
         setviewprop(VF_ORIGIN, player.origin + PLAYER_VIEW_STAND);
     }
 }

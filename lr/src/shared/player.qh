@@ -39,4 +39,6 @@ const float ACCEL_Q3 = 3;
 const float ACCEL_NOCLIP = 4;
 const float ACCEL_FLY = 5;
 
+const float STAT_WEAPON = 32;
+
 .entity weapons[MAX_WEAPONS];

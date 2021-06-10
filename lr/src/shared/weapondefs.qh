@@ -13,3 +13,17 @@ enum WeaponType
     WEP_CHOVEL,
     WEP_LAST
 };
+
+string viewmodels[WEP_LAST] =
+{
+    "models/weapon_views/v_rocket.iqm",
+    "models/weapon_views/v_rocket.iqm",
+    "models/weapon_views/v_chovel.iqm"
+};
+
+float fireTimes[WEP_LAST] =
+{
+    0.8, // rocket launcherr
+    0,
+    0
+};

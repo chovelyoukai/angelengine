@@ -1,6 +1,10 @@
 #include "../shared/weapondefs.qh"
+#include "../shared/player.qh"
+
+const float BUTTON_ATTACK = 1;
 
 entity viewmodel;
 
 void InitializeViewmodel();
-void UpdateViewmodel(float weaponType);
+void UpdateViewmodel();
+void SetViewmodel(string modelname);

@@ -1,3 +1,7 @@
+#include "weapons/sharedweapons.qh"
+#include "../shared/weapondefs.qh"
+#include "../shared/player.qh"
+
 void PrecacheModels();
 void main();
 void worldspawn();

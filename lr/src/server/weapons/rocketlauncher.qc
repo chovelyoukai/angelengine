@@ -14,7 +14,7 @@ void RocketlauncherFire(entity rocketLauncher)
 
     EmitRocket();
 
-    rocketLauncher.fireTimeout = time + ROCKET_FIRE_TIME;
+    rocketLauncher.fireTimeout = time + fireTimes[WEP_ROCKETLAUNCHER];
 }
 
 float RocketlauncherCanEquip(entity rocketLauncher)
