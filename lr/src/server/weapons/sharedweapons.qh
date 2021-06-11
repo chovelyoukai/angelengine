@@ -1,3 +1,4 @@
 #include "../../shared/weapondefs.qh"
 #include "weapons.qh"
 #include "rocketlauncher.qh"
+#include "shotgun.qh"

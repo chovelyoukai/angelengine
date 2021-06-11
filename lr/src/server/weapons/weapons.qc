@@ -32,9 +32,5 @@ void SwitchWeapons(float impulse)
 			self.currentWeapon = self.weapons[impulse];
 			self.currentWeapon.Equip(self.currentWeapon);
 		}
-		else
-		{
-			print("can't switch :(\n");
-		}
 	}
 }

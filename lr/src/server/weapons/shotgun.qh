@@ -1,0 +1,7 @@
+#include "weapons.qh"
+
+void ShotgunEquip(entity rocketLauncher);
+void ShotgunFire(entity rocketLauncher);
+float ShotgunCanEquip(entity rocketLauncher);
+float ShotgunCanSwitch(entity rocketLauncher);
+entity ShotgunSpawn();

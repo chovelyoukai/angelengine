@@ -99,9 +99,9 @@ void GenericKnockback(entity target, entity inflictor, entity attacker,
     float amount)
 {
     vector direction;
-    direction = inflictor.origin - target.origin;
+    direction = target.origin - inflictor.owner.origin;
     direction = normalize(direction);
-    direction *= amount;
+    direction *= amount * 10;
     target.velocity += direction;
 
     target.SendFlags |= FL_VELOCITY;

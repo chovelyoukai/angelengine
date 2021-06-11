@@ -17,13 +17,13 @@ enum WeaponType
 string viewmodels[WEP_LAST] =
 {
     "models/weapon_views/v_rocket.iqm",
-    "models/weapon_views/v_rocket.iqm",
+    "models/weapon_views/v_shotgun.iqm",
     "models/weapon_views/v_chovel.iqm"
 };
 
 float fireTimes[WEP_LAST] =
 {
-    0.8, // rocket launcherr
-    0,
-    0
+    0.8, // rocket launcher
+    0.5, // shotgun
+    0.7  // chovel
 };

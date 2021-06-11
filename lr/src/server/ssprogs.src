@@ -10,6 +10,7 @@ player.qc
 info/info_player_start.qc
 weapons/weapons.qc
 weapons/rocketlauncher.qc
+weapons/shotgun.qc
 weapons/damage.qc
 
 ../shared/math.qc

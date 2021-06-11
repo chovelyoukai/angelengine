@@ -2,7 +2,7 @@
 
 void RocketlauncherEquip(entity rocketLauncher)
 {
-    print("Equip RL!\n");
+    self.weaponType = WEP_ROCKETLAUNCHER;
 }
 
 void RocketlauncherFire(entity rocketLauncher)
