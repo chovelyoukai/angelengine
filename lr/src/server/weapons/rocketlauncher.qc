@@ -3,15 +3,21 @@
 void RocketlauncherEquip(entity rocketLauncher)
 {
     self.weaponType = WEP_ROCKETLAUNCHER;
+    rocketLauncher.fireTimeout = time + fireTimes[WEP_SHOTGUN];
 }
 
 void RocketlauncherFire(entity rocketLauncher)
 {
+    float speed;
+
     if (rocketLauncher.fireTimeout > time)
     {
         return;
     }
-
+    
+    speed = 100 + (10 * random()) - 5;
+    sound(self, CHAN_AUTO, "weapons/fire_rocket.ogg", 1, ATTN_NORM, speed);
+    
     EmitRocket();
 
     rocketLauncher.fireTimeout = time + fireTimes[WEP_ROCKETLAUNCHER];
@@ -165,6 +171,15 @@ void RocketTouch()
     self.solid = SOLID_NOT;
 
     RocketRadiusKnockback(other);
+
+    setorigin(self, self.origin - (v_forward * 16));
+
+    WriteByte(MSG_MULTICAST, SVC_TEMPENTITY);
+    WriteByte(MSG_MULTICAST, TE_EXPLOSION);
+    WriteCoord(MSG_MULTICAST, self.origin.x);
+    WriteCoord(MSG_MULTICAST, self.origin.y);
+    WriteCoord(MSG_MULTICAST, self.origin.z);
+    multicast(self.origin, MULTICAST_ALL);
 
     remove(self);
 }

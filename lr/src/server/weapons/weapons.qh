@@ -7,3 +7,4 @@
 
 float CheckWeapons();
 void SwitchWeapons(float impulse);
+void BecomeExplosion();
