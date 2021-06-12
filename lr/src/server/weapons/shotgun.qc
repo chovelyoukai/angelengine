@@ -10,14 +10,17 @@ void ShotgunFire(entity shotgun)
 {
     float i, j, flags = MOVE_LAGGED;
     float speed;
+    float damage;
     vector aim;
-
-    makevectors(self.v_angle);
 
     if (shotgun.fireTimeout > time)
     {
         return;
     }
+
+    makevectors(self.v_angle);
+    damage = vlen(self.velocity) / 120;
+    damage = clamp(1, damage, 15);
 
     for (i = -1; i <= 1; i++)
     {
@@ -29,12 +32,12 @@ void ShotgunFire(entity shotgun)
             
             if (trace_fraction < 1 && trace_ent.classname == "player")
             {
-                particle(trace_endpos, trace_plane_normal, 64, 20);
-                Damage(trace_ent, shotgun, self, 3);
+                particle(trace_endpos, trace_plane_normal, 64, damage * 3);
+                Damage(trace_ent, shotgun, self, damage);
             }
             else if (trace_fraction < 1)
             {
-                particle(trace_endpos, trace_plane_normal, 0, 2);
+                particle(trace_endpos, trace_plane_normal, 0, damage);
             }
         }
     }

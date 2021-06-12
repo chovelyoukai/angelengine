@@ -26,3 +26,16 @@ float RadiansToDegrees(float angle)
 {
 	return angle * 180 / PI;
 }
+
+float clamp(float min, float value, float max)
+{
+    if (value < min)
+    {
+        value = min;
+    }
+    else if (value > max)
+    {
+        value = max;
+    }
+    return value;
+}
