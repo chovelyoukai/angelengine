@@ -8,22 +8,36 @@ void ChovelEquip(entity chovel)
 
 void ChovelFire(entity chovel)
 {
-    float flags = MOVE_LAGGED;
-    vector aim;
-    vector mins, maxs;
-    entity oldSelf;
-
     if (chovel.fireTimeout > time)
     {
         return;
     }
 
-    makevectors(self.v_angle);
-    aim = self.origin + self.view_ofs + (64 * v_forward);
+    chovel.think = ChovelAttack;
+    chovel.nextthink = time + 0.25;
+    chovel.fireTimeout = time + fireTimes[WEP_CHOVEL];
+}
+
+void ChovelAttack()
+{
+    float flags = MOVE_LAGGED;
+    vector aim;
+    vector mins, maxs;
+    entity player, oldSelf;
+
+    player = self.owner;
+    if (player.currentWeapon != self)
+    {
+        return;
+    }
+
+    makevectors(player.v_angle);
+    aim = player.origin + player.view_ofs + (64 * v_forward);
     mins = '-18 -18 -18';
     maxs = '18 18 18';
 
-    tracebox(self.origin + self.view_ofs, mins, maxs, aim, flags, self); 
+    tracebox(player.origin + player.view_ofs, mins, maxs, aim,
+        flags, player);
 
     if (trace_ent.classname == "player")
     {

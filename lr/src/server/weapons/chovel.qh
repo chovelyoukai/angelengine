@@ -2,6 +2,7 @@
 
 void ChovelEquip(entity chovel);
 void ChovelFire(entity chovel);
+void ChovelAttack();
 float ChovelCanEquip(entity chovel);
 float ChovelCanSwitch(entity chovel);
 entity ChovelSpawn();
