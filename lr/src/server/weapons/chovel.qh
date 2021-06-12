@@ -1,0 +1,7 @@
+#include "weapons.qh"
+
+void ChovelEquip(entity chovel);
+void ChovelFire(entity chovel);
+float ChovelCanEquip(entity chovel);
+float ChovelCanSwitch(entity chovel);
+entity ChovelSpawn();

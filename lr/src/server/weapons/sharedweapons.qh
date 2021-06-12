@@ -2,3 +2,4 @@
 #include "weapons.qh"
 #include "rocketlauncher.qh"
 #include "shotgun.qh"
+#include "chovel.qh"

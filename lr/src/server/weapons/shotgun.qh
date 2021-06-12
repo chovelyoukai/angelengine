@@ -1,8 +1,8 @@
 #include "weapons.qh"
 #include "../../shared/math.qh"
 
-void ShotgunEquip(entity rocketLauncher);
-void ShotgunFire(entity rocketLauncher);
-float ShotgunCanEquip(entity rocketLauncher);
-float ShotgunCanSwitch(entity rocketLauncher);
+void ShotgunEquip(entity shotgun);
+void ShotgunFire(entity shotgun);
+float ShotgunCanEquip(entity shotgun);
+float ShotgunCanSwitch(entity shotgun);
 entity ShotgunSpawn();

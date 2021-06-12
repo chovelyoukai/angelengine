@@ -11,6 +11,7 @@ info/info_player_start.qc
 weapons/weapons.qc
 weapons/rocketlauncher.qc
 weapons/shotgun.qc
+weapons/chovel.qc
 weapons/damage.qc
 
 ../shared/math.qc
