@@ -81,7 +81,7 @@ void WallTrace()
 	v_right = normalize(v_right);
 	v_forward = normalize(v_forward);
 
-	start = self.origin;// - cvar("sv_wallrun_distance") * v_forward;
+	start = self.origin;
 	end = start + cvar("sv_wallrun_distance") * v_right;
 	TracePlayer(start, end);
 

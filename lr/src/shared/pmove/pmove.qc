@@ -25,7 +25,7 @@ void OnTouchGround()
 
     self.wallclipTime = time + cvar("sv_wallcliptime");
     self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
-    if (cvar("sv_q2jump") > 0 && self.velocity.z < oldZVel)
+    if (self.velocity.z < oldZVel)
     {
         self.velocity.z = oldZVel;
     }
@@ -69,7 +69,7 @@ void GroundTrace()
     }
     // if we *did* hit the ground but have some upwards velocity,
     // make us not on the ground (rampsliding)
-    else if (self.velocity.z > 180 && cvar("sv_rampslides") > 0)
+    else if (self.velocity.z > 180)
     {
         self.moveFlags |= MF_RAMPSLIDE;
         SetOnGround(FALSE);
@@ -78,63 +78,6 @@ void GroundTrace()
     {
         SetOnGround(TRUE);
     }
-}
-
-void Control(vector wishDir, float wishSpeed, float accel, float maxSpeed)
-{
-    vector wishVel;
-    vector diff;
-    vector flatVelocity;
-    float currentSpeed;
-    float multiplier, angle;
-
-    if (wishSpeed == 0)
-    {
-        return;
-    }
-
-    // find out what velocity the player *wants* to have
-    if (wishSpeed > maxSpeed)
-    {
-        wishSpeed = maxSpeed;
-    }
-    wishVel = normalize(wishDir);
-    wishVel *= wishSpeed;
-
-    flatVelocity = self.velocity;
-    flatVelocity.z = 0;
-    currentSpeed = vlen(flatVelocity);
-
-    if (currentSpeed > 0)
-    {
-        angle = AngleToVelocity(wishVel);
-        angle = RadiansToDegrees(angle);
-    }
-    else
-    {
-        angle = 0;
-    }
-
-    // if we are going faster than maxspeed, we don't want a wishvel going
-    // straight forward to slow us down, so we will only allow ourselves to be
-    // slowed when wishing at an angle.
-    if (currentSpeed > maxSpeed && angle < 90)
-    {
-        multiplier = angle / 90;
-        wishVel = ((1 - multiplier) * flatVelocity) + (multiplier * wishVel);
-    }
-
-    diff = flatVelocity - wishVel;
-    // don't accelerate more than allowed.
-    if (vlen(diff) > accel * frametime)
-    {
-        diff = normalize(diff);
-        diff *= accel;
-    }
-
-    self.velocity -= diff;
-
-    Accelerate(wishDir, wishSpeed, accel, maxSpeed);
 }
 
 void Accelerate(vector wishDir, float wishSpeed, float accel, float maxSpeed)
