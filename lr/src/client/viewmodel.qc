@@ -17,8 +17,8 @@ void UpdateViewmodel()
     if (weapon != viewmodel.weaponType)
     {
         SetViewmodel(viewmodels[weapon]);
-        viewmodel.fireTimeout = 0;
         viewmodel.weaponType = weapon;
+        viewmodel.fireTimeout = time + deployTimes[weapon];
     }
 
     if (input_buttons & BUTTON_ATTACK && viewmodel.fireTimeout <= time)

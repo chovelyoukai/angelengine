@@ -25,6 +25,13 @@ string viewmodels[WEP_LAST] =
 float fireTimes[WEP_LAST] =
 {
     0.8, // rocket launcher
-    0.5, // shotgun
-    0.7  // chovel
+    1.0, // shotgun
+    0.96  // chovel
+};
+
+float deployTimes[WEP_LAST] =
+{
+    0.6, // rocket launcher
+    0.6, // shotgun
+    0.6  // chovel
 };

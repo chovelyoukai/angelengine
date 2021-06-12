@@ -3,7 +3,7 @@
 void ShotgunEquip(entity shotgun)
 {
     self.weaponType = WEP_SHOTGUN;
-    shotgun.fireTimeout = time + fireTimes[WEP_SHOTGUN];
+    shotgun.fireTimeout = time + deployTimes[WEP_SHOTGUN];
 }
 
 void ShotgunFire(entity shotgun)

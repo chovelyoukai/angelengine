@@ -3,7 +3,7 @@
 void ChovelEquip(entity chovel)
 {
     self.weaponType = WEP_CHOVEL;
-    chovel.fireTimeout = time + fireTimes[WEP_CHOVEL];
+    chovel.fireTimeout = time + deployTimes[WEP_CHOVEL];
 }
 
 void ChovelFire(entity chovel)

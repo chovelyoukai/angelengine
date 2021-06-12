@@ -3,7 +3,7 @@
 void RocketlauncherEquip(entity rocketLauncher)
 {
     self.weaponType = WEP_ROCKETLAUNCHER;
-    rocketLauncher.fireTimeout = time + fireTimes[WEP_SHOTGUN];
+    rocketLauncher.fireTimeout = time + deployTimes[WEP_ROCKETLAUNCHER];
 }
 
 void RocketlauncherFire(entity rocketLauncher)
