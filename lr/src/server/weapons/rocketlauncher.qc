@@ -140,7 +140,7 @@ void EmitRocket()
 
     makevectors(self.v_angle);
     start = self.origin + self.view_ofs;
-    muzzle = start + v_forward * 15;
+    muzzle = start + (v_forward * 19) + (v_up * -3);
 
     traceline(start, muzzle, traceFlags, self);
 
