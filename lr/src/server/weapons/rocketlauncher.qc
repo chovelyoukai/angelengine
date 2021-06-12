@@ -16,7 +16,7 @@ void RocketlauncherFire(entity rocketLauncher)
     }
     
     speed = 100 + (10 * random()) - 5;
-    sound(self, CHAN_AUTO, "weapons/fire_rocket.ogg", 1, ATTN_NORM, speed);
+    sound(self, CHAN_AUTO, "weapons/rocket_fire.ogg", 1, ATTN_NORM, speed);
     
     EmitRocket();
 
@@ -153,7 +153,7 @@ void EmitRocket()
     rocket.velocity = v_forward * ROCKET_VELOCITY;
     rocket.angles = vectoangles(rocket.velocity);
 
-    setmodel(rocket, "models/weapon_world/w_rocket.iqm");
+    setmodel(rocket, "models/weapons/rocket.iqm");
     setsize(rocket, '0 0 0', '0 0 0');
     setorigin(rocket, trace_endpos);
 

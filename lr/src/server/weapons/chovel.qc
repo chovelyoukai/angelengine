@@ -32,7 +32,7 @@ void ChovelAttack()
     }
 
     makevectors(player.v_angle);
-    aim = player.origin + player.view_ofs + (64 * v_forward);
+    aim = player.origin + player.view_ofs + (48 * v_forward);
     mins = '-18 -18 -18';
     maxs = '18 18 18';
 
@@ -48,7 +48,12 @@ void ChovelAttack()
     }
     else if (trace_fraction < 1)
     {
+        sound(self.owner, CHAN_AUTO, "weapons/chovel_hit.wav", 1, ATTN_NORM);
         particle(trace_endpos, trace_plane_normal, 0, 5);
+    }
+    else
+    {
+        sound(self.owner, CHAN_AUTO, "weapons/chovel_fire.wav", 1, ATTN_NORM);
     }
 }
 

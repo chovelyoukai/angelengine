@@ -3,9 +3,11 @@
 void PrecacheModels()
 {
 	precache_model("models/player.iqm");
-	precache_model("models/weapon_world/w_rocket.iqm");
-    precache_sound("weapons/shotgun.ogg");
-    precache_sound("weapons/fire_rocket.ogg");
+	precache_model("models/weapons/rocket.iqm");
+    precache_sound("weapons/chovel_fire.wav");
+    precache_sound("weapons/chovel_hit.wav");
+    precache_sound("weapons/rocket_fire.ogg");
+    precache_sound("weapons/shotgun_fire.ogg");
     precache_sound("weapons/r_exp3.wav");
 }
 
