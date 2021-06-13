@@ -179,7 +179,7 @@ void RocketTouch()
     self.movetype = MOVETYPE_NONE;
     self.solid = SOLID_NOT;
 
-    RocketRadiusKnockback(other);
+    RocketRadiusKnockback(self);
 
     setorigin(self, self.origin - (v_forward * 16));
 
