@@ -119,7 +119,10 @@ void Friction(float friction, float stopSpeed)
     float speed, newSpeed, control, drop;
 
     newVel = self.velocity;
-    newVel.z = 0;
+    if (self.movetype != MOVETYPE_NOCLIP)
+    {
+        newVel.z = 0;
+    }
 
     speed = vlen(newVel);
 
