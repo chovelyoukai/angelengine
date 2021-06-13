@@ -88,6 +88,12 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     {
         self.moveFlags = readlong();
     }
+    if (flags & FL_DISCONNECT && !(flags & FL_MODELINDEX))
+    {
+        setmodel(self, "");
+        setsize(self, '0 0 0', '0 0 0');
+        return;
+    }
     if (flags & FL_MODELINDEX)
     {
         readbyte();
@@ -102,5 +108,11 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         self.drawmask = MASK_ENGINE;
         setmodel(self, "models/player.iqm");
         setsize(self, PLAYER_MIN_STAND, PLAYER_MAX_STAND);
+        self.solid = SOLID_BBOX;
     }
+}
+
+void CSQC_Ent_Remove()
+{
+    remove(self);
 }

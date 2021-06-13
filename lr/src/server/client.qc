@@ -12,7 +12,8 @@ void ClientConnect()
 
 void ClientDisconnect()
 {
-	print(self.netname, " has disconnected.\n");
+    self.SendFlags |= FL_DISCONNECT;
+    ClientKill();
 }
 
 void ClientKill()

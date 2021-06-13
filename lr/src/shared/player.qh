@@ -32,6 +32,7 @@ const float FL_ORIGIN = 1;
 const float FL_VELOCITY = 2;
 const float FL_MOVETYPE = 4;
 const float FL_MOVEFLAGS = 8;
+const float FL_DISCONNECT = 16;
 const float FL_MODELINDEX = 128;
 const float MAX_WEAPONS = 9;
 const float DEAD_NOT = 0;
