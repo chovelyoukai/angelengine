@@ -39,7 +39,7 @@ void ChovelAttack()
     tracebox(player.origin + player.view_ofs, mins, maxs, aim,
         flags, player);
 
-    if (trace_ent.classname == "player")
+    if (trace_ent.classname == "player" && player.moveFlags & MF_CANCRIT)
     {
         oldSelf = self;
         self = trace_ent;

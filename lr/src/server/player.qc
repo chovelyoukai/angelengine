@@ -19,9 +19,14 @@ void PlayerPreThink()
     {
         self.SendFlags |= FL_MOVETYPE;
     }
+    if (self.oldMoveFlags != self.moveFlags)
+    {
+        self.SendFlags |= FL_MOVEFLAGS;
+    }
     self.oldOrigin = self.origin;
     self.oldVelocity = self.velocity;
     self.oldMovetype = self.movetype;
+    self.oldMoveFlags = self.moveFlags;
 
     if (!self.deadflag)
     {
@@ -51,9 +56,14 @@ void PlayerPostThink()
     {
         self.SendFlags |= FL_MOVETYPE;
     }
+    if (self.oldMoveFlags != self.moveFlags)
+    {
+        self.SendFlags |= FL_MOVEFLAGS;
+    }
     self.oldOrigin = self.origin;
     self.oldVelocity = self.velocity;
     self.oldMovetype = self.movetype;
+    self.oldMoveFlags = self.moveFlags;
 }
 
 void SetNewParms()
@@ -92,6 +102,10 @@ float PlayerUpdate(entity to, float entFlags)
     if (entFlags & FL_MOVETYPE)
     {
         WriteLong(MSG_ENTITY, self.movetype);
+    }
+    if (entFlags & FL_MOVEFLAGS)
+    {
+        WriteLong(MSG_ENTITY, self.moveFlags);
     }
     if (entFlags & FL_MODELINDEX)
     {

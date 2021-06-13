@@ -84,6 +84,10 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
             self.movetype = MOVETYPE_FLY;
         }
     }
+    if (flags & FL_MOVEFLAGS)
+    {
+        self.moveFlags = readlong();
+    }
     if (flags & FL_MODELINDEX)
     {
         readbyte();

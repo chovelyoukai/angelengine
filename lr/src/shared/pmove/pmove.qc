@@ -31,6 +31,7 @@ void OnTouchGround()
     }
     self.landingTime = time + 0.2;
     self.landingVelocity = self.velocity;
+    self.moveFlags &= ~MF_CANCRIT;
     return;
 }
 
@@ -156,6 +157,7 @@ void PlayerMove()
     float oldFrametime = frametime;
     float pmoveTime = cvar("sv_pmovetime");
     float remainingTime = time - self.lastMoveTime;
+    float oldFlags = self.moveFlags;
 
     if (pmoveTime <= 0)
     {
@@ -196,6 +198,13 @@ void PlayerMove()
             AirMove();
         }
     }
+
+#ifdef CSQC
+    if (self.moveFlags & MF_CANCRIT && !(oldFlags & MF_CANCRIT))
+    {
+        sound(self, CHAN_AUTO, "player/superjump.wav", 1, ATTN_NONE);
+    }
+#endif
 
     frametime = oldFrametime;
 }

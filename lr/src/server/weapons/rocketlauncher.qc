@@ -138,6 +138,7 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
     }
 
     target.velocity += (direction * amount * multiplier);
+    target.moveFlags |= MF_CANCRIT;
 }
 
 void EmitRocket()
