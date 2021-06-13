@@ -16,6 +16,11 @@ void CheckJumpReleased()
 
 float CanBhop()
 {
+    if (cvar("sv_rockethop") > 0)
+    {
+        return TRUE;
+    }
+
 #ifdef SSQC
     if (self.currentWeapon.classname == "weapon_rocketlauncher")
 #else
