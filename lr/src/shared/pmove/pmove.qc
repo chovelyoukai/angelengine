@@ -170,6 +170,7 @@ void PlayerMove()
 
         GroundTrace();
         WallTrace();
+        CheckJumpReleased();
 
         if (self.movetype == MOVETYPE_NONE)
         {

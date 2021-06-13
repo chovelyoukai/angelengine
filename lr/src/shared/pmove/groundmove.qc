@@ -1,16 +1,62 @@
 #include "pmove.qh"
 
+void CheckJumpReleased()
+{
+    float umove = input_movevalues.z;
+
+    if (umove <= 0)
+    {
+        self.moveFlags |= MF_JUMPRELEASED;
+    }
+    else if (!IsOnGround(self))
+    {
+        self.moveFlags &= ~MF_JUMPRELEASED;
+    }
+}
+
+float CanBhop()
+{
+#ifdef SSQC
+    if (self.currentWeapon.classname == "weapon_rocketlauncher")
+#else
+    if (viewmodel.weaponType == WEP_ROCKETLAUNCHER)
+#endif
+    {
+        return FALSE;
+    }
+
+
+    return TRUE;
+}
+
 float CheckJump()
 {
     float umove = input_movevalues.z;
+    float oldZVel;
     
     if (umove <= 0)
     {
         return FALSE;
     }
 
-    self.velocity.z += 270;
+    if (!CanBhop())
+    {
+        if(!(self.moveFlags & MF_JUMPRELEASED))
+        {
+            return FALSE;
+        }
+        else if (vlen2d(self.velocity) > cvar("sv_maxspeed"))
+        {
+            oldZVel = self.velocity.z;
+            self.velocity.z = 0;
+            self.velocity = normalize(self.velocity);
+            self.velocity *= cvar("sv_maxspeed");
+            self.velocity.z = oldZVel;
+        }
+    }
+    self.moveFlags &= ~MF_JUMPRELEASED;
 
+    self.velocity.z += 270;
     if (self.velocity.z < 270)
     {
         self.velocity.z = 270;
