@@ -129,6 +129,14 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
         multiplier = 7.455;
     }
 
+    if (IsOnGround(target) && target.landingTime > time &&
+        !(target.moveFlags & MF_RAMPSLIDE))
+    {
+        target.velocity.x = target.landingVelocity.x;
+        target.velocity.y = target.landingVelocity.y;
+        direction.z = 2;
+    }
+
     target.velocity += (direction * amount * multiplier);
 }
 

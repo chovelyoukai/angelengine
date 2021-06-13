@@ -29,6 +29,8 @@ void OnTouchGround()
     {
         self.velocity.z = oldZVel;
     }
+    self.landingTime = time + 0.2;
+    self.landingVelocity = self.velocity;
     return;
 }
 

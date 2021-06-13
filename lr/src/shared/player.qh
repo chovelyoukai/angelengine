@@ -15,6 +15,8 @@
 .entity currentWeapon;
 .float deadTime;
 .float accelType;
+.float landingTime;
+.vector landingVelocity;
 
 .vector oldVelocity;
 .vector oldOrigin;
