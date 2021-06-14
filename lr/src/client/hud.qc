@@ -138,7 +138,7 @@ float UpdateAccel(float width)
 
 void DrawHealth(float width, float height)
 {
-    float health = fabs(getstatf(STAT_HEALTH));
+    float health = rint(getstatf(STAT_HEALTH));
     vector healthPos, healthSize, healthColor;
     string healthString = ftos(health);
     healthString = strcat("Health: ", healthString);
@@ -163,7 +163,7 @@ void DrawHealth(float width, float height)
     {
         health -= 100;
         healthSize.x = health * (width / 1000);
-        healthColor = '0.1 1 0.1';
+        healthColor = '0 1 0';
         drawfill(healthPos, healthSize, healthColor, 1.0, DRAWFLAG_NORMAL);
     }
 }

@@ -92,6 +92,7 @@ void Damage(entity target, entity inflictor, entity attacker, float amount)
         self = oldSelf;
     }
 
+    SpawnDamager(target, amount, attacker.origin, FALSE);
     inflictor.Knockback(target, inflictor, attacker, amount);
 }
 

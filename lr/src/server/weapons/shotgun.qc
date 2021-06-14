@@ -8,9 +8,13 @@ void ShotgunEquip(entity shotgun)
 
 void ShotgunFire(entity shotgun)
 {
-    float i, j, flags = MOVE_LAGGED;
+    float i, j, k, flags = MOVE_LAGGED;
     float speed;
     float damage;
+    float accumulatedDamage[9];
+    entity hitEntities[9];
+    float hitCount = 0;
+
     vector aim;
 
     if (shotgun.fireTimeout > time)
@@ -21,6 +25,12 @@ void ShotgunFire(entity shotgun)
     makevectors(self.v_angle);
     damage = vlen(self.velocity) / 120;
     damage = clamp(1, damage, 15);
+
+    for (i = 0; i < 9; i++)
+    {
+        accumulatedDamage[i] = 0;
+        hitEntities[i] = world;
+    }
 
     for (i = -1; i <= 1; i++)
     {
@@ -33,13 +43,32 @@ void ShotgunFire(entity shotgun)
             if (trace_fraction < 1 && trace_ent.classname == "player")
             {
                 particle(trace_endpos, trace_plane_normal, 64, damage * 3);
-                Damage(trace_ent, shotgun, self, damage);
+
+                for (k = 0; k < hitCount; k++)
+                {
+                    if (hitEntities[k] == trace_ent)
+                    {
+                        break;
+                    }
+                }
+                if (k == hitCount)
+                {
+                    hitEntities[k] = trace_ent;
+                    hitCount++;
+                }
+                accumulatedDamage[k] += damage;
+
             }
             else if (trace_fraction < 1)
             {
                 particle(trace_endpos, trace_plane_normal, 0, damage);
             }
         }
+    }
+
+    for (k = 0; k < hitCount; k++)
+    {
+        Damage(hitEntities[k], shotgun, self, accumulatedDamage[k]);
     }
 
     speed = 100 + (10 * random()) - 5;
