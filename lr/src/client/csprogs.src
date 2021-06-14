@@ -3,7 +3,7 @@ csdefs.qc
 globals.qc
 viewmodel.qc
 receive.qc
-meters.qc
+hud.qc
 input.qc
 predict.qc
 main.qc

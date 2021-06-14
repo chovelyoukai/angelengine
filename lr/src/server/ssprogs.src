@@ -7,12 +7,13 @@ client.qc
 impulses.qc
 player.qc
 
-info/info_player_start.qc
 weapons/weapons.qc
 weapons/rocketlauncher.qc
 weapons/shotgun.qc
 weapons/chovel.qc
 weapons/damage.qc
+items/info_player_start.qc
+items/item_health.qc
 
 ../shared/math.qc
 ../shared/pmove/pmove.qc

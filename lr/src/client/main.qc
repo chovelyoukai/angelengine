@@ -22,6 +22,6 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 
     if (player)
     {
-        DrawMeters(width, height);
+        DrawHud(width, height);
     }
 }

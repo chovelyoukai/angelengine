@@ -18,6 +18,8 @@
 .float landingTime;
 .vector landingVelocity;
 
+.float nextHealthTick;
+
 .vector oldVelocity;
 .vector oldOrigin;
 .float oldMovetype;

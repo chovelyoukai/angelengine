@@ -200,6 +200,8 @@ void PlayerMove()
         {
             AirMove();
         }
+
+        touchtriggers();
     }
 
 #ifdef CSQC

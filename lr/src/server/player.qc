@@ -64,6 +64,19 @@ void PlayerPostThink()
     self.oldVelocity = self.velocity;
     self.oldMovetype = self.movetype;
     self.oldMoveFlags = self.moveFlags;
+
+    if (self.health > 100 && self.nextHealthTick < time)
+    {
+        if (self.health < 101)
+        {
+            self.health = 100;
+        }
+        else
+        {
+            self.health--;
+        }
+        self.nextHealthTick = time + 1;
+    }
 }
 
 void SetNewParms()

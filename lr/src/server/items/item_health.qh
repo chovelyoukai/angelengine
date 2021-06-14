@@ -1,0 +1,7 @@
+#include "items.qh"
+
+const float ITEM_HEALTH_RESPAWN = 6;
+
+void item_health();
+void item_healthTouch();
+void item_healthThink();
