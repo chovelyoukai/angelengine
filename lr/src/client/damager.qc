@@ -48,6 +48,12 @@ void DrawDamageIndicators(float width, float height)
             sizeMax.x = damager.health;
             sizeMax.y = damager.health;
 
+            if (vlen(sizeMax) < 40)
+            {
+                sizeMin = 40 * normalize(sizeMin);
+                sizeMax = 40 * normalize(sizeMax);
+            }
+
             if (damager.knockback)
             {
                 image = "gfx/indicator_knockback.png";

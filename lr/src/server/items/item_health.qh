@@ -1,6 +1,6 @@
 #include "items.qh"
 
-const float ITEM_HEALTH_RESPAWN = 6;
+const float ITEM_HEALTH_RESPAWN = 7;
 
 void item_health();
 void item_healthTouch();
