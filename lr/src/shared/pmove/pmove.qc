@@ -29,7 +29,7 @@ void OnTouchGround()
     {
         self.velocity.z = oldZVel;
     }
-    self.landingTime = time + 0.2;
+    self.landingTime = time + 0.1;
     self.landingVelocity = self.velocity;
     self.moveFlags &= ~MF_CANCRIT;
     return;

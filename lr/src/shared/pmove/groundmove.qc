@@ -67,7 +67,7 @@ float CheckJump()
         self.velocity.z = 270;
     }
 
-    if (self.velocity.z > 280)
+    if (self.velocity.z > 300)
     {
         self.moveFlags |= MF_CANCRIT;
     }
