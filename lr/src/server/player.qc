@@ -158,10 +158,8 @@ void PlayerSpawn()
         self.weapons[i] = world;
     }
 
-    self.weapons[0] = RocketlauncherSpawn();
-    self.weapons[1] = ShotgunSpawn();
-    self.weapons[2] = ChovelSpawn();
-    self.weapons[0].Equip(self.weapons[0]);
+    self.weaponsHeld = 0;
+    self.weaponType = WEP_NONE;
     self.currentWeapon = self.weapons[0];
 }
 

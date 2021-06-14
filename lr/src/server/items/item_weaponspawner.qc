@@ -1,0 +1,67 @@
+#include "item_weaponspawner.qh"
+
+void item_weaponspawner()
+{
+    if (self.weaponType < 0 || self.weaponType >= WEP_LAST)
+    {
+        remove(self);
+        return;
+    }
+    setmodel(self, viewmodels[self.weaponType]);
+    setsize(self, '-16 -16 -16', '16 16 16');
+    self.frame = 2;
+    self.solid = SOLID_TRIGGER;
+    self.enabled = TRUE;
+    self.think = item_weaponspawnerThink;
+    self.touch = item_weaponspawnerTouch;
+}
+
+void item_weaponspawnerTouch()
+{
+    entity weapon, oldSelf;
+    weapon = world;
+
+    if (other.classname == "player" && self.enabled)
+    {
+        // do nothing if the player already has a weapon in this slot
+        if (other.weapons[slot[self.weaponType]] != world)
+        {
+            return;
+        }
+        switch(self.weaponType)
+        {
+            case WEP_ROCKETLAUNCHER:
+                weapon = RocketlauncherSpawn();
+                break;
+            case WEP_SHOTGUN:
+                weapon = ShotgunSpawn();
+                break;
+            case WEP_CHOVEL:
+                weapon = ChovelSpawn();
+                break;
+        }
+        weapon.owner = other;
+        other.weapons[slot[self.weaponType]] = weapon;
+        if (other.weaponsHeld == 0)
+        {
+            other.currentWeapon = other.weapons[slot[self.weaponType]];
+            oldSelf = self;
+            self = other;
+            self.currentWeapon.Equip(self.currentWeapon);
+            self = oldSelf;
+        }
+        other.weaponsHeld++;
+
+        self.enabled = FALSE;
+        self.effects |= EF_ADDITIVE;
+        self.nextthink = time + ITEM_WEAPONSPAWNER_RESPAWN;
+        sound(self, CHAN_AUTO, "world/pickup_weapon.wav", 1, ATTN_NORM);
+    }
+}
+
+void item_weaponspawnerThink()
+{
+    self.enabled = TRUE;
+    self.effects &= ~EF_ADDITIVE;
+    sound(self, CHAN_AUTO, "world/respawn_weapon.wav", 0.5, ATTN_NORM);
+}

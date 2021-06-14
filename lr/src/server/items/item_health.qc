@@ -22,7 +22,7 @@ void item_healthTouch()
         other.nextHealthTick = time + 1;
 
         self.enabled = FALSE;
-        setmodel(self, "");
+        self.effects |= EF_ADDITIVE;
         self.nextthink = time + ITEM_HEALTH_RESPAWN;
         sound(self, CHAN_AUTO, "world/pickup_health.wav", 1, ATTN_NORM);
     }
@@ -31,7 +31,6 @@ void item_healthTouch()
 void item_healthThink()
 {
     self.enabled = TRUE;
-    setmodel(self, "models/objects/health.iqm");
-    setsize(self, '-16 -16 -16', '16 16 16');
+    self.effects &= ~EF_ADDITIVE;
     sound(self, CHAN_AUTO, "world/respawn_health.wav", 0.1, ATTN_NORM);
 }

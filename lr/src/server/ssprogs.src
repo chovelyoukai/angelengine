@@ -14,6 +14,7 @@ weapons/chovel.qc
 weapons/damage.qc
 items/info_player_start.qc
 items/item_health.qc
+items/item_weaponspawner.qc
 
 ../shared/math.qc
 ../shared/pmove/pmove.qc

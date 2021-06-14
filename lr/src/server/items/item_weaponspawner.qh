@@ -1,0 +1,9 @@
+#include "items.qh"
+#include "../weapons/sharedweapons.qh"
+#include "../../shared/weapondefs.qh"
+
+const float ITEM_WEAPONSPAWNER_RESPAWN = 6;
+
+void item_weaponspawner();
+void item_weaponspawnerTouch();
+void item_weaponspawnerThink();
