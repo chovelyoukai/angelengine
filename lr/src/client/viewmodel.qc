@@ -14,6 +14,13 @@ void UpdateViewmodel()
 {
     float weapon = getstatf(STAT_WEAPON);
 
+    if (weapon == WEP_NONE)
+    {
+        SetViewmodel("");
+        viewmodel.weaponType = weapon;
+        return;
+    }
+
     if (weapon != viewmodel.weaponType)
     {
         SetViewmodel(viewmodels[weapon]);
