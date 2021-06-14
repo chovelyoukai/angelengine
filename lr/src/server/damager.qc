@@ -8,7 +8,7 @@ void SpawnDamager(entity target, float amount, vector spot, float knockback)
 	damager.nextthink = time + 1;
 	damager.SendEntity = SendDamager;
 	damager.SendFlags |= FL_DAMAGESPAWN;
-    if (knockback == TRUE)
+    if (knockback)
     {
         damager.SendFlags |= FL_KNOCKBACK;
     }
@@ -25,8 +25,8 @@ float SendDamager(entity to, float sendFlags)
 		return FALSE;
 
 	WriteByte(MSG_ENTITY, id);
-	WriteByte(MSG_ENTITY, sendFlags);
-	if (sendFlags & FL_DAMAGESPAWN)
+	WriteByte(MSG_ENTITY, self.SendFlags);
+	if (self.SendFlags & FL_DAMAGESPAWN)
 	{
         offset = self.owner.origin - self.origin;
 		WriteCoord(MSG_ENTITY, offset.x);
