@@ -1,0 +1,8 @@
+#include "../shared/math.qh"
+
+.float timeLeft;
+.float health;
+
+void DrawDamageIndicator(float width, float height);
+
+const float HURT_DISTANCE = 512;

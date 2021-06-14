@@ -6,6 +6,7 @@ receive.qc
 hud.qc
 input.qc
 predict.qc
+damage.qc
 main.qc
 
 ../shared/math.qc

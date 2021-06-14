@@ -5,6 +5,7 @@ subs.qc
 world.qc
 client.qc
 impulses.qc
+damager.qc
 player.qc
 
 weapons/weapons.qc

@@ -1,0 +1,37 @@
+#include "damager.qh"
+
+void SpawnDamager(entity target, float amount, vector spot, float knockback)
+{
+	entity damager = spawn();
+	damager.owner = target;
+	damager.think = RemoveSelf;
+	damager.nextthink = time + 1;
+	damager.SendEntity = SendDamager;
+	damager.SendFlags |= FL_DAMAGESPAWN;
+    if (knockback == TRUE)
+    {
+        damager.SendFlags |= FL_KNOCKBACK;
+    }
+	damager.health = amount;
+	setorigin(damager, spot);
+}
+
+float SendDamager(entity to, float sendFlags)
+{
+	float id = ENT_DAMAGER;
+
+	if (to != self.owner)
+		return FALSE;
+
+	WriteByte(MSG_ENTITY, id);
+	WriteByte(MSG_ENTITY, sendFlags);
+	if (sendFlags & FL_DAMAGESPAWN)
+	{
+		WriteCoord(MSG_ENTITY, self.origin_x);
+		WriteCoord(MSG_ENTITY, self.origin_y);
+		WriteCoord(MSG_ENTITY, self.origin_z);
+		WriteFloat(MSG_ENTITY, self.health);
+	}
+
+	return TRUE;
+}
