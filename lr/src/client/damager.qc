@@ -29,13 +29,12 @@ void DrawDamageIndicators(float width, float height)
                 viewAngle += 4 * ONEHALFPI;
             }
 
-            drawAngle = atan((-damager.origin_y + playerOrg_y)
-                    / (-damager.origin_x + playerOrg_x));
+            drawAngle = atan((-damager.origin.y) / (-damager.origin.x));
 
             // reorient the angle in the world
             drawAngle += ONEHALFPI;
             // correct for over lower quadrants 
-            if (damager.origin_x < playerOrg_x)
+            if (damager.origin.x > 0)
             {
                 drawAngle += 2 * ONEHALFPI;
             }
@@ -44,10 +43,10 @@ void DrawDamageIndicators(float width, float height)
 
             alpha = damager.timeLeft - time; 
 
-            sizeMin_x = -damager.health;
-            sizeMin_y = -damager.health;
-            sizeMax_x = damager.health;
-            sizeMax_y = damager.health;
+            sizeMin.x = -damager.health;
+            sizeMin.y = -damager.health;
+            sizeMax.x = damager.health;
+            sizeMax.y = damager.health;
 
             if (damager.knockback)
             {

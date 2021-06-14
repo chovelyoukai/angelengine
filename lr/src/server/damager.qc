@@ -19,6 +19,7 @@ void SpawnDamager(entity target, float amount, vector spot, float knockback)
 float SendDamager(entity to, float sendFlags)
 {
 	float id = ENT_DAMAGER;
+    vector offset;
 
 	if (to != self.owner)
 		return FALSE;
@@ -27,9 +28,10 @@ float SendDamager(entity to, float sendFlags)
 	WriteByte(MSG_ENTITY, sendFlags);
 	if (sendFlags & FL_DAMAGESPAWN)
 	{
-		WriteCoord(MSG_ENTITY, self.origin_x);
-		WriteCoord(MSG_ENTITY, self.origin_y);
-		WriteCoord(MSG_ENTITY, self.origin_z);
+        offset = self.owner.origin - self.origin;
+		WriteCoord(MSG_ENTITY, offset.x);
+		WriteCoord(MSG_ENTITY, offset.y);
+		WriteCoord(MSG_ENTITY, offset.z);
 		WriteFloat(MSG_ENTITY, self.health);
 	}
 
