@@ -12,6 +12,8 @@ void CSQC_Ent_Update(float isNew)
     case ENT_PLAYER_OTHER:
         ReceivePlayer(isNew, FALSE);
         break;
+    case ENT_DAMAGER:
+        ReceiveDamager();
     }
 }
 
@@ -109,6 +111,27 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         setmodel(self, "models/player.iqm");
         setsize(self, PLAYER_MIN_STAND, PLAYER_MAX_STAND);
         self.solid = SOLID_BBOX;
+    }
+}
+
+void ReceiveDamager()
+{
+    float flags;
+    self.classname = "damager";
+    self.timeLeft = time + 1;
+    self.knockback = FALSE;
+    flags = readbyte();
+    if (flags & FL_DAMAGESPAWN)
+    {
+        self.origin.x = readcoord();
+        self.origin.y = readcoord();
+        self.origin.z = readcoord();
+        self.health = readfloat();
+        setorigin(self, self.origin);
+    }
+    if (flags & FL_KNOCKBACK)
+    {
+        self.knockback = TRUE;
     }
 }
 

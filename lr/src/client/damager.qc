@@ -1,6 +1,6 @@
-#include "damage.qh"
+#include "damager.qh"
 
-void DrawDamageIndicator(float width, float height)
+void DrawDamageIndicators(float width, float height)
 {
     vector playerOrg = player.origin;
     vector sizeMin, sizeMax;
@@ -10,6 +10,7 @@ void DrawDamageIndicator(float width, float height)
     float drawAngle;
     float alpha;
     entity damager;
+    string image;
 
     damager = world;
     damager = nextent(damager);
@@ -18,7 +19,7 @@ void DrawDamageIndicator(float width, float height)
     {
         if (damager.classname == "damager")
         {
-            viewAngle = TWOPI360 * view_angles.y;
+            viewAngle = TWOPIOVER360 * view_angles.y;
 
             // reorient the angle in the world
             viewAngle += ONEHALFPI;
@@ -48,8 +49,16 @@ void DrawDamageIndicator(float width, float height)
             sizeMax_x = damager.health;
             sizeMax_y = damager.health;
 
-            drawrotpic([x, y], sizeMin, sizeMax, "gfx/hurt.png",
-                '1 1 1', alpha, drawAngle / TWOPI360);
+            if (damager.knockback)
+            {
+                image = "gfx/indicator_knockback.png";
+            }
+            else
+            {
+                image = "gfx/indicator_damage.png";
+            }
+            drawrotpic([x, y], sizeMin, sizeMax, image, '1 1 1', alpha,
+                drawAngle / TWOPIOVER360);
         }
         damager = nextent(damager);
     }

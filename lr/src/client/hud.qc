@@ -6,6 +6,7 @@ void DrawHud(float width, float height)
     {
         DrawMeters(width, height);
         DrawHealth(width, height);
+        DrawDamageIndicators(width, height);
     }
 }
 

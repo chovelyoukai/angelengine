@@ -1,3 +1,4 @@
+#include "damager.qh"
 #include "../shared/math.qh"
 #include "../shared/pmove/pmove.qh"
 

@@ -2,7 +2,8 @@
 
 .float timeLeft;
 .float health;
+.float knockback;
 
-void DrawDamageIndicator(float width, float height);
+void DrawDamageIndicators(float width, float height);
 
 const float HURT_DISTANCE = 512;

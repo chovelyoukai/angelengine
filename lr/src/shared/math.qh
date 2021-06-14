@@ -5,5 +5,5 @@ float RadiansToDegrees(float angle);
 float clamp(float min, float value, float max);
 
 const float PI = 3.14159265;
-const float TWOPI360 = 2 * PI * 360;
+const float TWOPIOVER360 = 2 * PI / 360;
 const float ONEHALFPI = PI / 2;
