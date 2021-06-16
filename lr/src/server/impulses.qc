@@ -6,12 +6,6 @@ void CheckImpulses()
 	{
 		SwitchWeapons(self.impulse);
 	}
-	switch (self.impulse)
-	{
-		case IMP_SUICIDE:
-			ClientKill();
-			break;
-	}
 
 	self.impulse = 0;
 }

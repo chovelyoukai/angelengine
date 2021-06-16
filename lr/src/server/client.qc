@@ -18,7 +18,12 @@ void ClientDisconnect()
 
 void ClientKill()
 {
-	PlayerKill(cvar("sv_deathtimeout"));
+    if (self.suicideTimeout > time)
+    {
+        return;
+    }
+    self.suicideTimeout = time + 5;
+	PlayerKill();
 }
 
 void PutClientInServer()

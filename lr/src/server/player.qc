@@ -35,10 +35,7 @@ void PlayerPreThink()
     }
     else
     {
-        if (time > self.deadTime)
-        {
-            PlayerSpawn();
-        }
+        PlayerSpawn();
     }
 }
 
@@ -163,12 +160,11 @@ void PlayerSpawn()
     self.currentWeapon = self.weapons[0];
 }
 
-void PlayerKill(float deathTimeout)
+void PlayerKill()
 {
     self.movetype = MOVETYPE_NONE;
     self.solid = SOLID_NOT;
     self.deadflag = DEAD_YES;
-    self.deadTime = time + deathTimeout;
 
     self.SendFlags |= FL_ORIGIN;
     self.SendFlags |= FL_VELOCITY;

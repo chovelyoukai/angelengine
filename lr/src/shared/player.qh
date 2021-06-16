@@ -13,7 +13,7 @@
 .float fixOrigin;
 .float fixVelocity;
 .entity currentWeapon;
-.float deadTime;
+.float suicideTimeout;
 .float accelType;
 .float landingTime;
 .vector landingVelocity;
