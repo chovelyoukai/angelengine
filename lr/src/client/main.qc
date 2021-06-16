@@ -22,6 +22,7 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 
     if (player)
     {
+        player.customphysics = PlayerMove;
         DrawHud(width, height);
     }
 }

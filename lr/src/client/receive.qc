@@ -28,6 +28,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     vector newVelocity;
     float flags;
     float moveInterp = cvar("cl_moveinterp");
+    float frameDifference = clientcommandframe - servercommandframe;
 
     flags = readbyte();
     if (flags & FL_ORIGIN)
@@ -36,20 +37,12 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         newOrigin.y = readcoord();
         newOrigin.z = readcoord();
         
-        if (isLocalPlayer)
+        if (isLocalPlayer && cvar("cl_receive") > 0)
         {
-            if (vlen(self.origin - newOrigin) >
-                0.1 * vlen(self.velocity))
-            {
-                setorigin(self, newOrigin);
-            }
-            else
-            {
-                self.correctOrigin = newOrigin;
-                self.fixOrigin = TRUE;
-            }
+            self.correctOrigin = newOrigin;
+            self.fixOrigin = TRUE;
         }
-        else
+        else if (!isLocalPlayer)
         {
             self.origin = newOrigin;
         }
@@ -60,10 +53,10 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         newVelocity.y = readcoord();
         newVelocity.z = readcoord();
 
-        if (isLocalPlayer)
+        if (isLocalPlayer && cvar("cl_receive") > 0)
         {
-            if (vlen(self.velocity - newVelocity) > 
-                0.1 * vlen(self.velocity))
+            if (vlen(self.velocity - newVelocity) > 0.1 * vlen(self.velocity)
+                * frameDifference || cvar("cl_errorcorrect") == 0)
             {
                 self.velocity = newVelocity;
             }
@@ -73,7 +66,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
                 self.fixVelocity = TRUE;
             }
         }
-        else
+        else if (!isLocalPlayer)
         {
             self.velocity = newVelocity;
         }
@@ -109,9 +102,9 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     {
         self.drawmask = MASK_ENGINE;
         setmodel(self, "models/player.iqm");
-        setsize(self, PLAYER_MIN_STAND, PLAYER_MAX_STAND);
-        self.solid = SOLID_BBOX;
     }
+    setsize(self, PLAYER_MIN_STAND, PLAYER_MAX_STAND);
+    self.solid = SOLID_BBOX;
 }
 
 void ReceiveDamager()

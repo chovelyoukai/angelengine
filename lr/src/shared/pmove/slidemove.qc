@@ -127,6 +127,7 @@ float SlideMove()
 		// if we hit too many planes, we are trapped
 		if (numplanes > MAX_CLIP_PLANES)
 		{
+            print("zeroing\n");
 			self.velocity = '0 0 0';
 			blocked = TRUE;
 			return blocked;

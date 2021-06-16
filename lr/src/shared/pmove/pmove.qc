@@ -204,12 +204,5 @@ void PlayerMove()
         touchtriggers();
     }
 
-#ifdef CSQC
-    if (self.moveFlags & MF_CANCRIT && !(oldFlags & MF_CANCRIT))
-    {
-        sound(self, CHAN_AUTO, "player/superjump.wav", 1, ATTN_NONE);
-    }
-#endif
-
     frametime = oldFrametime;
 }
