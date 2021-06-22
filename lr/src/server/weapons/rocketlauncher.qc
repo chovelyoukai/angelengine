@@ -16,7 +16,7 @@ void RocketlauncherFire(entity rocketLauncher)
     }
     
     speed = 100 + (10 * random()) - 5;
-    sound(self, CHAN_AUTO, "weapons/rocket_fire.ogg", 1, ATTN_NORM, speed);
+    sound(self, CHAN_AUTO, "weapons/rocket_fire.ogg", 0.5, 0.5, speed);
     
     EmitRocket();
 

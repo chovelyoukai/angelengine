@@ -71,7 +71,7 @@ void ShotgunFire(entity shotgun)
         Damage(hitEntities[k], shotgun, self, accumulatedDamage[k]);
     }
 
-    speed = 100 + (10 * random()) - 5;
+    speed = 110 - (damage * 2);
     sound(self, CHAN_AUTO, "weapons/shotgun_fire.ogg", 1, ATTN_NORM, speed);
 
     shotgun.fireTimeout = time + fireTimes[WEP_SHOTGUN];

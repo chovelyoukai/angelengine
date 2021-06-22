@@ -32,9 +32,9 @@ void ChovelAttack()
     }
 
     makevectors(player.v_angle);
-    aim = player.origin + player.view_ofs + (48 * v_forward);
-    mins = '-18 -18 -18';
-    maxs = '18 18 18';
+    aim = player.origin + player.view_ofs + (72 * v_forward);
+    mins = '-24 -24 -24';
+    maxs = '24 24 24';
 
     tracebox(player.origin + player.view_ofs, mins, maxs, aim,
         flags, player);
