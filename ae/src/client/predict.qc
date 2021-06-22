@@ -2,8 +2,6 @@
 
 void Predict()
 {
-    entity oldSelf;
-
     if (player)
     {
         if (player.fixOrigin)

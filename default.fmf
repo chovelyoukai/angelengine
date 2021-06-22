@@ -1,6 +1,6 @@
 FTEMANIFEST 1
-GAME lumiarun
-NAME "Lumia's Run"
-PROTOCOLNAME "lumiarun"
+GAME angelengine 
+NAME "Angel Engine"
+PROTOCOLNAME "angelengine"
 DEFAULTEXEC ""
-BASEGAME lr 
+BASEGAME ae
