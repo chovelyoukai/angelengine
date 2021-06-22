@@ -57,6 +57,12 @@ void PlayerPostThink()
     {
         self.SendFlags |= FL_MOVEFLAGS;
     }
+    if (self.lastSendTime < time)
+    {
+        self.SendFlags |= FL_ORIGIN | FL_VELOCITY | FL_MOVETYPE |
+            FL_MOVEFLAGS;
+        self.lastSendTime = time + cvar("sv_send_interval");
+    }
     self.oldOrigin = self.origin;
     self.oldVelocity = self.velocity;
     self.oldMovetype = self.movetype;
@@ -95,29 +101,29 @@ float PlayerUpdate(entity to, float entFlags)
         WriteByte(MSG_ENTITY, ENT_PLAYER);
     }
 
-    WriteShort(MSG_ENTITY, self.SendFlags);
+    WriteShort(MSG_ENTITY, entFlags);
 
-    if (self.SendFlags & FL_ORIGIN)
+    if (entFlags & FL_ORIGIN)
     {
         WriteCoord(MSG_ENTITY, self.origin.x);
         WriteCoord(MSG_ENTITY, self.origin.y);
         WriteCoord(MSG_ENTITY, self.origin.z);
     }
-    if (self.SendFlags & FL_VELOCITY)
+    if (entFlags & FL_VELOCITY)
     {
         WriteCoord(MSG_ENTITY, self.velocity.x);
         WriteCoord(MSG_ENTITY, self.velocity.y);
         WriteCoord(MSG_ENTITY, self.velocity.z);
     }
-    if (self.SendFlags & FL_MOVETYPE)
+    if (entFlags & FL_MOVETYPE)
     {
         WriteLong(MSG_ENTITY, self.movetype);
     }
-    if (self.SendFlags & FL_MOVEFLAGS)
+    if (entFlags & FL_MOVEFLAGS)
     {
         WriteLong(MSG_ENTITY, self.moveFlags);
     }
-    if (self.SendFlags & FL_MODELINDEX)
+    if (entFlags & FL_MODELINDEX)
     {
         WriteByte(MSG_ENTITY, self.modelindex);
     }
@@ -144,8 +150,7 @@ void PlayerSpawn()
     self.deadflag = DEAD_NOT;
     setorigin(self, spawnLocation.origin + '0 0 80');
     self.SendEntity = PlayerUpdate;
-    self.SendFlags |= FL_ORIGIN | FL_VELOCITY | FL_MOVETYPE | FL_MOVEFLAGS
-        | FL_SNAP;
+    self.SendFlags |= FL_SNAP;
 
     for (float i = 0; i < MAX_WEAPONS; i++)
     {

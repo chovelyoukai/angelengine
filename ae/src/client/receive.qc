@@ -51,7 +51,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         }
         else if (!isLocalPlayer)
         {
-            self.origin = newOrigin;
+            setorigin(self, newOrigin);
         }
     }
     if (flags & FL_VELOCITY)
