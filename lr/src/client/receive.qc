@@ -30,7 +30,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     float moveInterp = cvar("cl_moveinterp");
     float frameDifference = clientcommandframe - servercommandframe;
 
-    flags = readbyte();
+    flags = readshort();
     if (flags & FL_ORIGIN)
     {
         newOrigin.x = readcoord();
@@ -39,8 +39,15 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         
         if (isLocalPlayer && cvar("cl_receive") > 0)
         {
-            self.correctOrigin = newOrigin;
-            self.fixOrigin = TRUE;
+            if (flags & FL_SNAP)
+            {
+                setorigin(self, newOrigin);
+            }
+            else
+            {
+                self.correctOrigin = newOrigin;
+                self.fixOrigin = TRUE;
+            }
         }
         else if (!isLocalPlayer)
         {

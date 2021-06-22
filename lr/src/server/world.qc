@@ -4,7 +4,11 @@ void PrecacheModels()
 {
 	precache_model("models/player.iqm");
     precache_model("models/objects/health.iqm");
+    precache_model("models/weapons/chovel.iqm");
+    precache_model("models/weapons/shotgun.iqm");
 	precache_model("models/weapons/rocket.iqm");
+	precache_model("models/weapons/rocketlauncher.iqm");
+    precache_sound("player/step.wav");
     precache_sound("world/pickup_health.wav");
     precache_sound("world/pickup_weapon.wav");
     precache_sound("world/respawn_health.wav");

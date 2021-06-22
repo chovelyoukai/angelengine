@@ -95,29 +95,29 @@ float PlayerUpdate(entity to, float entFlags)
         WriteByte(MSG_ENTITY, ENT_PLAYER);
     }
 
-    WriteByte(MSG_ENTITY, entFlags);
+    WriteShort(MSG_ENTITY, self.SendFlags);
 
-    if (entFlags & FL_ORIGIN)
+    if (self.SendFlags & FL_ORIGIN)
     {
         WriteCoord(MSG_ENTITY, self.origin.x);
         WriteCoord(MSG_ENTITY, self.origin.y);
         WriteCoord(MSG_ENTITY, self.origin.z);
     }
-    if (entFlags & FL_VELOCITY)
+    if (self.SendFlags & FL_VELOCITY)
     {
         WriteCoord(MSG_ENTITY, self.velocity.x);
         WriteCoord(MSG_ENTITY, self.velocity.y);
         WriteCoord(MSG_ENTITY, self.velocity.z);
     }
-    if (entFlags & FL_MOVETYPE)
+    if (self.SendFlags & FL_MOVETYPE)
     {
         WriteLong(MSG_ENTITY, self.movetype);
     }
-    if (entFlags & FL_MOVEFLAGS)
+    if (self.SendFlags & FL_MOVEFLAGS)
     {
         WriteLong(MSG_ENTITY, self.moveFlags);
     }
-    if (entFlags & FL_MODELINDEX)
+    if (self.SendFlags & FL_MODELINDEX)
     {
         WriteByte(MSG_ENTITY, self.modelindex);
     }
@@ -142,8 +142,10 @@ void PlayerSpawn()
     self.movetype = MOVETYPE_FLY;
     self.solid = SOLID_SLIDEBOX;
     self.deadflag = DEAD_NOT;
-    self.SendEntity = PlayerUpdate;
     setorigin(self, spawnLocation.origin + '0 0 80');
+    self.SendEntity = PlayerUpdate;
+    self.SendFlags |= FL_ORIGIN | FL_VELOCITY | FL_MOVETYPE | FL_MOVEFLAGS
+        | FL_SNAP;
 
     for (float i = 0; i < MAX_WEAPONS; i++)
     {
