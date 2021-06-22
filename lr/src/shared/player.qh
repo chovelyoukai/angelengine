@@ -17,6 +17,7 @@
 .float accelType;
 .float landingTime;
 .vector landingVelocity;
+.float stepTime;
 
 .float nextHealthTick;
 

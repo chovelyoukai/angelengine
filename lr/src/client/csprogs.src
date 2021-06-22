@@ -1,5 +1,6 @@
 ../../csprogs.dat
 csdefs.qc
+../shared/subs.qc
 globals.qc
 viewmodel.qc
 receive.qc

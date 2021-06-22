@@ -32,6 +32,12 @@ void OnTouchGround()
     self.landingTime = time + 0.1;
     self.landingVelocity = self.velocity;
     self.moveFlags &= ~MF_CANCRIT;
+
+#ifdef SSQC
+    self.stepTime = time;
+    sound(self, CHAN_AUTO, "player/step.wav", 0.3, ATTN_NORM);
+#endif
+
     return;
 }
 

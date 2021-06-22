@@ -1,7 +1,7 @@
 ../../qwprogs.dat
 ssdefs.qc
+../shared/subs.qc
 globals.qc
-subs.qc
 world.qc
 client.qc
 impulses.qc

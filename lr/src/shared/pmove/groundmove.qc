@@ -129,4 +129,29 @@ void GroundMove()
     self.velocity *= speed;
 
     StepSlideMove();
+
+#ifdef SSQC
+    float stepTimeout;
+    float pitch;
+    speed = vlen(self.velocity);
+    if (speed < 1)
+    {
+        return;
+    }
+    else if (speed >= cvar("sv_maxspeed"))
+    {
+        stepTimeout = 0.4;
+    }
+    else
+    {
+        stepTimeout = 1.4 - (vlen(self.velocity) / cvar("sv_maxspeed"));
+    }
+
+    if (time - self.stepTime > stepTimeout)
+    {
+        pitch = 100 + (10 * random()) - 5;
+        self.stepTime = time;
+        sound(self, CHAN_AUTO, "player/step.wav", 0.3, ATTN_NORM, pitch);
+    }
+#endif
 }

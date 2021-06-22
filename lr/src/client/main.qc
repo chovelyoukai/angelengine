@@ -29,7 +29,14 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 
     if (player)
     {
-        player.customphysics = PlayerMove;
+        if (cvar("cl_predict") > 0)
+        {
+            player.customphysics = PlayerMove;
+        }
+        else
+        {
+            player.customphysics = DoNothing;
+        }
         DrawHud(width, height);
     }
 }

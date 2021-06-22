@@ -165,6 +165,8 @@ void DrawHealth(float width, float height)
         health -= 100;
         healthSize.x = health * (width / 1000);
         healthColor = '0 1 0';
+        healthPos.x += 0.005 * width;
+        healthPos.y += 0.005 * width;
         drawfill(healthPos, healthSize, healthColor, 1.0, DRAWFLAG_NORMAL);
     }
 }
