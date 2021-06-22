@@ -40,6 +40,7 @@ const float FL_MOVETYPE = 4;
 const float FL_MOVEFLAGS = 8;
 const float FL_DISCONNECT = 16;
 const float FL_MODELINDEX = 128;
+const float FL_SNAP = 256;
 const float FL_DAMAGESPAWN = 1;
 const float FL_KNOCKBACK = 2;
 const float MAX_WEAPONS = 9;
