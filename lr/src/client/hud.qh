@@ -4,6 +4,7 @@
 
 void DrawHealth(float width, float height);
 void DrawMeters(float width, float height);
+void DrawKeys(float width, float height);
 float UpdateAccel2D(float width);
 float UpdateAccel(float width);
 void DrawHealth(float width, float height);

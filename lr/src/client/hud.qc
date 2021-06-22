@@ -5,6 +5,7 @@ void DrawHud(float width, float height)
     if (cvar("cl_drawhud") > 0)
     {
         DrawMeters(width, height);
+        DrawKeys(width, height);
         DrawHealth(width, height);
         DrawDamageIndicators(width, height);
     }
@@ -166,4 +167,60 @@ void DrawHealth(float width, float height)
         healthColor = '0 1 0';
         drawfill(healthPos, healthSize, healthColor, 1.0, DRAWFLAG_NORMAL);
     }
+}
+
+void DrawKeys(float width, float height)
+{
+    float fmove, smove, umove;
+    vector keysPos; 
+    string topText, bottomText;
+    string left, right, forward, backward, jump, attack;
+
+    if (cvar("cl_drawkeys") == 0)
+    {
+        return;
+    }
+
+    left = right = forward = backward = jump = attack = " ";
+
+    fmove = input_movevalues.x;
+    smove = input_movevalues.y;
+    umove = input_movevalues.z;
+
+    if (fmove > 10)
+    {
+        forward = "^";
+    }
+    else if (fmove < -10)
+    {
+        backward = "v";
+    }
+    if (smove > 10)
+    {
+        right = ">";
+    }
+    else if (smove < -10)
+    {
+        left = "<";
+    }
+    if (umove > 10)
+    {
+        jump = "J";
+    }
+    if (input_buttons & BUTTON_ATTACK)
+    {
+        attack = "A";
+    }
+
+    topText = strcat(jump, " ", forward, " ", attack);
+    bottomText = strcat(left, " ", backward, " ", right);
+
+    keysPos.x = cvar("cl_drawkeys_x");
+    keysPos.y = cvar("cl_drawkeys_y");
+
+    keysPos.x = keysPos.x * (width - stringwidth(topText, TRUE) * 12);
+    keysPos.y = keysPos.y * height;
+    drawstring(keysPos, topText, '12 12 0', '1 1 1', 1.0, 1);
+    keysPos.y += 14;
+    drawstring(keysPos, bottomText, '12 12 0', '1 1 1', 1.0, 1);
 }

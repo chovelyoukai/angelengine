@@ -12,7 +12,14 @@ void CSQC_UpdateView(float width, float height, float menuShown)
     clearscene();
 
     setviewprop(VF_DRAWENGINESBAR, 0);
-    setviewprop(VF_DRAWCROSSHAIR, 1);
+    if (cvar("cl_drawhud") > 0)
+    {
+        setviewprop(VF_DRAWCROSSHAIR, 1);
+    }
+    else
+    {
+        setviewprop(VF_DRAWCROSSHAIR, 0);
+    }
 
     addentities((intermission ? 0 : MASK_VIEWMODEL) | MASK_ENGINE);
 
