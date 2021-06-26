@@ -57,6 +57,7 @@ float IsOnGround(entity ent)
 
 void GroundTrace()
 {
+    vector clippedVelocity;
     vector end;
 
     end = self.origin;
@@ -66,6 +67,7 @@ void GroundTrace()
 
     self.moveFlags &= ~MF_RAMPSLIDE;
 
+    clippedVelocity = ClipVelocity(trace_plane_normal, OVERBOUNCE);
     // if we didn't hit anything, we can't be on the ground
     if (trace_fraction >= 0.99)
     {
@@ -76,10 +78,11 @@ void GroundTrace()
     {
         SetOnGround(FALSE);
     }
-    // if we *did* hit the ground but have some upwards velocity,
+    // if we *did* hit the ground but still have some vertical velocity,
     // make us not on the ground (rampsliding)
-    else if (self.velocity.z > 180)
+    else if (clippedVelocity.z > 180 || clippedVelocity.z < -180)
     {
+        self.velocity = clippedVelocity;
         self.moveFlags |= MF_RAMPSLIDE;
         SetOnGround(FALSE);
     }

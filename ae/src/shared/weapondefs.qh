@@ -7,7 +7,7 @@ const float ROCKET_RADIUS = 146;
 const float ROCKET_DAMAGE = 90;
 const float SVC_TEMPENTITY = 23;
 
-enum WeaponType
+enum
 {
     WEP_NONE = -1,
     WEP_ROCKETLAUNCHER = 0,
@@ -15,6 +15,14 @@ enum WeaponType
     WEP_CHOVEL,
     WEP_LAST
 };
+
+/*
+const float WEP_NONE = -1;
+const float WEP_ROCKETLAUNCHER = 0;
+const float WEP_SHOTGUN = 1;
+const float WEP_CHOVEL = 2;
+const float WEP_LAST = 3;
+*/
 
 string viewmodels[WEP_LAST] =
 {

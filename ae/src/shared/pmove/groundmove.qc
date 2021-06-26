@@ -61,6 +61,10 @@ float CheckJump()
     }
     self.moveFlags &= ~MF_JUMPRELEASED;
 
+    if (self.moveFlags & MF_RAMPSLIDE && self.velocity.z < -180)
+    {
+        self.moveFlags |= MF_CANCRIT;
+    }
     self.velocity.z += 270;
     if (self.velocity.z < 270)
     {
