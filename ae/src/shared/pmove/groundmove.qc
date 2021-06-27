@@ -93,6 +93,10 @@ float CheckJump()
     {
         self.moveFlags |= MF_CANCRIT;
     }
+    if (self.grinding)
+    {
+        self.moveFlags |= MF_CANCRIT;
+    }
     self.velocity.z += 270;
     if (self.velocity.z < 270)
     {
