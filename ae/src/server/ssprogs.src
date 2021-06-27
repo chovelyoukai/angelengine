@@ -25,3 +25,4 @@ items/item_weaponspawner.qc
 ../shared/pmove/flymove.qc
 ../shared/pmove/noclipmove.qc
 ../shared/pmove/wallmove.qc
+../shared/pmove/skatemove.qc

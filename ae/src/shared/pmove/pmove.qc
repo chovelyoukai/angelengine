@@ -4,6 +4,7 @@ void SetOnGround(float onGround)
 {
     if (onGround == FALSE)
     {
+        self.grinding = FALSE;
         self.groundEntity = self;
     }
     else
@@ -80,7 +81,8 @@ void GroundTrace()
     }
     // if we *did* hit the ground but still have some vertical velocity,
     // make us not on the ground (rampsliding)
-    else if (clippedVelocity.z > 180 || clippedVelocity.z < -180)
+    else if ((clippedVelocity.z > 180 || clippedVelocity.z < -180) &&
+        cvar("sv_skate") == 0)
     {
         self.velocity = clippedVelocity;
         self.moveFlags |= MF_RAMPSLIDE;
@@ -164,6 +166,21 @@ void Friction(float friction, float stopSpeed)
     self.velocity = self.velocity * newSpeed;
 }
 
+#ifdef SSQC
+void DoEffects()
+{
+    if (self.grinding)
+    {
+        particle(self.origin - '0 0 40', self.groundNormal, 192, 4);
+    }
+    else if (self.grindTime > 0)
+    {
+        sound(self, CHAN_VOICE, "null.wav", 1, ATTN_NORM);
+        self.grindTime = -1;
+    }
+}
+#endif
+
 void PlayerMove()
 {
     float oldFrametime = frametime;
@@ -197,6 +214,10 @@ void PlayerMove()
         {
             FlyMove();
         }
+        else if (cvar("sv_skate") > 0 && IsOnGround(self))
+        {
+            SkateMove();
+        }
         else if (IsOnGround(self))
         {
             GroundMove();
@@ -212,6 +233,10 @@ void PlayerMove()
 
         touchtriggers();
     }
+
+#ifdef SSQC
+    DoEffects();
+#endif
 
     frametime = oldFrametime;
 }

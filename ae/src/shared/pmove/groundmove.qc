@@ -1,5 +1,33 @@
 #include "pmove.qh"
 
+void JumpSpeedReduce()
+{
+    float oldZVel;
+    float maxSpeed;
+
+    if (cvar("sv_skate") > 0)
+    {
+        if (self.grindTime > 0)
+        {
+            return;
+        }
+        maxSpeed = cvar("sv_maxskatespeed");
+    }
+    else
+    {
+        maxSpeed = cvar("sv_maxspeed");
+    }
+
+    if (vlen2d(self.velocity) > maxSpeed)
+    {
+    oldZVel = self.velocity.z;
+    self.velocity.z = 0;
+    self.velocity = normalize(self.velocity);
+    self.velocity *= maxSpeed;
+    self.velocity.z = oldZVel;
+    }
+}
+
 void CheckJumpReleased()
 {
     float umove = input_movevalues.z;
@@ -21,6 +49,11 @@ float CanBhop()
         return TRUE;
     }
 
+    if (cvar("sv_skate") > 0)
+    {
+        return FALSE;
+    }
+
 #ifdef SSQC
     if (self.currentWeapon.classname == "weapon_rocketlauncher")
 #else
@@ -37,7 +70,6 @@ float CanBhop()
 float CheckJump()
 {
     float umove = input_movevalues.z;
-    float oldZVel;
     
     if (umove <= 0)
     {
@@ -50,13 +82,9 @@ float CheckJump()
         {
             return FALSE;
         }
-        else if (vlen2d(self.velocity) > cvar("sv_maxspeed"))
+        else 
         {
-            oldZVel = self.velocity.z;
-            self.velocity.z = 0;
-            self.velocity = normalize(self.velocity);
-            self.velocity *= cvar("sv_maxspeed");
-            self.velocity.z = oldZVel;
+            JumpSpeedReduce();
         }
     }
     self.moveFlags &= ~MF_JUMPRELEASED;

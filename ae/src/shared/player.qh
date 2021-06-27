@@ -18,6 +18,8 @@
 .float landingTime;
 .vector landingVelocity;
 .float stepTime;
+.float grindTime;
+.float grinding;
 
 .float nextHealthTick;
 
@@ -52,6 +54,8 @@ const float ACCEL_QW = 2;
 const float ACCEL_Q3 = 3;
 const float ACCEL_NOCLIP = 4;
 const float ACCEL_FLY = 5;
+
+const float BUTTON4 = 8;
 
 const float STAT_WEAPON = 32;
 

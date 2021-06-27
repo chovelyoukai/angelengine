@@ -2,6 +2,13 @@
 
 void ApplyGravity()
 {
+    float gravity = cvar("sv_gravity");
+
+    if (cvar("sv_skate") > 0)
+    {
+        gravity /= 2;
+    }
+
     if (self.moveFlags & MF_RAMPSLIDE)
     {
         return;
