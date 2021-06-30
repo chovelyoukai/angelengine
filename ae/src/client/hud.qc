@@ -26,22 +26,22 @@ void DrawMeters(float width, float height)
     {
         speedString2d = ftos(rint(vlen2d(player.velocity)));
         speedString2d = strcat("H: ", speedString2d, " UPS");
-        speedWidth2d = stringwidth(speedString2d, TRUE);
-        speedPos2d.x = (width - speedWidth2d * 12) / 2;
+        speedWidth2d = stringwidth(speedString2d, TRUE, '12 12');
+        speedPos2d.x = (width - speedWidth2d) / 2;
         speedPos2d.y = height / 2 + height / 32 + cursor;
         cursor += 14;
-        drawstring(speedPos2d, speedString2d, '12 12 0', '1 1 1', 1.0, 1);
+        drawstring(speedPos2d, speedString2d, '12 12', '1 1 1', 1.0, 1);
     }
 
     if (cvar("cl_drawaspeed") > 0)
     {
         speedString = ftos(rint(vlen(player.velocity)));
         speedString = strcat("A: ", speedString, " UPS");
-        speedWidth = stringwidth(speedString, TRUE);
-        speedPos.x = (width - speedWidth * 12) / 2;
+        speedWidth = stringwidth(speedString, TRUE, '12 12');
+        speedPos.x = (width - speedWidth) / 2;
         speedPos.y = height / 2 + height / 32 + cursor;
         cursor += 14;
-        drawstring(speedPos, speedString, '12 12 0', '1 1 1', 1.0, 1);
+        drawstring(speedPos, speedString, '12 12', '1 1 1', 1.0, 1);
     }
 
     if (cvar("cl_drawaccel") > 0)
@@ -147,7 +147,7 @@ void DrawHealth(float width, float height)
     healthPos.x = 3 * (width / 4);
     healthPos.y = 3 * (height / 4);
 
-    drawstring(healthPos, healthString, '12 12 0', '1 1 1', 1.0, 0);
+    drawstring(healthPos, healthString, '12 12', '1 1 1', 1.0, 0);
 
     healthPos.y += 14;
     healthSize.y = 12;
@@ -220,9 +220,9 @@ void DrawKeys(float width, float height)
     keysPos.x = cvar("cl_drawkeys_x");
     keysPos.y = cvar("cl_drawkeys_y");
 
-    keysPos.x = keysPos.x * (width - stringwidth(topText, TRUE) * 12);
+    keysPos.x = keysPos.x * (width - stringwidth(topText, TRUE, '12 12'));
     keysPos.y = keysPos.y * height;
-    drawstring(keysPos, topText, '12 12 0', '1 1 1', 1.0, 1);
+    drawstring(keysPos, topText, '12 12', '1 1 1', 1.0, 1);
     keysPos.y += 14;
-    drawstring(keysPos, bottomText, '12 12 0', '1 1 1', 1.0, 1);
+    drawstring(keysPos, bottomText, '12 12', '1 1 1', 1.0, 1);
 }
