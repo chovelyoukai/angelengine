@@ -1,4 +1,5 @@
 #include "rocketlauncher.qh"
+#pragma target fte
 
 void RocketlauncherEquip(entity rocketLauncher)
 {
@@ -148,7 +149,7 @@ void EmitRocket()
 {
     vector start, muzzle;
     entity rocket;
-    float traceFlags = MOVE_HITMODEL | MOVE_LAGGED;
+    float traceFlags = MOVE_LAGGED;
 
     makevectors(self.v_angle);
     start = self.origin + self.view_ofs;
@@ -176,6 +177,17 @@ void EmitRocket()
 void RocketTouch()
 {
     vector direction = normalize(self.velocity);
+
+    traceline(self.origin, self.origin + direction, 0, self);
+
+    if (trace_ent == world && trace_fraction < 1)
+    {
+        if (trace_surfaceflagsi & 0x10)
+        {
+            remove(self);
+            return;
+        }
+    }
 
     setorigin(self, self.origin - (v_forward * 1));
     setmodel(self, "");
