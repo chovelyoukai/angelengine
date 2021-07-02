@@ -7,5 +7,10 @@ void CheckImpulses()
 		SwitchWeapons(self.impulse);
 	}
 
+    if (self.impulse == 69)
+    {
+        SendKill(self);
+    }
+
 	self.impulse = 0;
 }

@@ -41,6 +41,7 @@ void ChovelAttack()
 
     if (trace_ent.classname == "player" && player.moveFlags & MF_CANCRIT)
     {
+        SendKill(player);
         oldSelf = self;
         self = trace_ent;
         ClientKill();
@@ -48,12 +49,12 @@ void ChovelAttack()
     }
     else if (trace_fraction < 1)
     {
-        sound(self.owner, CHAN_AUTO, "weapons/chovel_hit.wav", 1, ATTN_NORM);
+        sound(self.owner, CHAN_AUTO, "weapons/chovel_hit.wav", 0.7, ATTN_NORM);
         particle(trace_endpos, trace_plane_normal, 0, 5);
     }
     else
     {
-        sound(self.owner, CHAN_AUTO, "weapons/chovel_fire.wav", 1, ATTN_NORM);
+        sound(self.owner, CHAN_AUTO, "weapons/chovel_fire.wav", 0.7, ATTN_NORM);
     }
 }
 

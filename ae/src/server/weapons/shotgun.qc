@@ -72,7 +72,7 @@ void ShotgunFire(entity shotgun)
     }
 
     speed = 110 - (damage * 2);
-    sound(self, CHAN_AUTO, "weapons/shotgun_fire.ogg", 1, ATTN_NORM, speed);
+    sound(self, CHAN_AUTO, "weapons/shotgun_fire.ogg", 0.5, ATTN_NORM, speed);
 
     shotgun.fireTimeout = time + fireTimes[WEP_SHOTGUN];
 }

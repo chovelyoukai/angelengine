@@ -1,5 +1,24 @@
 #include "receive.qh"
 
+void CSQC_Parse_Event()
+{
+    float command = readbyte();
+    float amount;
+    float pitch;
+
+    switch (command)
+    {
+        case CMD_HIT:
+            amount = readlong();        
+            pitch = 180 - amount;
+            sound(player, CHAN_AUTO, "ui/hit.wav", 10, ATTN_NONE, pitch);
+            break;
+        case CMD_KILL:
+            sound(player, CHAN_AUTO, "ui/kill.wav", 10, ATTN_NONE, pitch);
+            break;
+    }
+}
+
 void CSQC_Ent_Update(float isNew)
 {
     float entType = readbyte();

@@ -9,6 +9,8 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 	precache_model("models/weapons/rocket.iqm");
 	precache_model("models/weapons/rocketlauncher.iqm");
     precache_sound("player/step.wav");
+    precache_sound("ui/hit.wav");
+    precache_sound("ui/kill.wav");
     precache_sound("world/pickup_health.wav");
     precache_sound("world/pickup_weapon.wav");
     precache_sound("world/respawn_health.wav");

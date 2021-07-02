@@ -85,11 +85,16 @@ void Damage(entity target, entity inflictor, entity attacker, float amount)
 
     if (target.classname == "player" && target.health <= 0)
     {
+        SendKill(attacker);
         target.health = 0;
         oldSelf = self;
         self = target;
         ClientKill();
         self = oldSelf;
+    }
+    else
+    {
+        SendHit(attacker, amount);
     }
 
     SpawnDamager(target, amount, attacker.origin, FALSE);
@@ -107,4 +112,21 @@ void GenericKnockback(entity target, entity inflictor, entity attacker,
 
     target.SendFlags |= FL_VELOCITY;
     target.SendEntity = PlayerUpdate;
+}
+
+void SendHit(entity target, float damage)
+{
+    msg_entity = target;
+    WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+    WriteByte(MSG_MULTICAST, CMD_HIT);
+    WriteLong(MSG_MULTICAST, damage);
+    multicast('0 0 0', MULTICAST_ONE_R);
+}
+
+void SendKill(entity target)
+{
+    msg_entity = target;
+    WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+    WriteByte(MSG_MULTICAST, CMD_KILL);
+    multicast('0 0 0', MULTICAST_ONE_R);
 }
