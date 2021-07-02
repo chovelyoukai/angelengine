@@ -11,10 +11,10 @@ void CSQC_Parse_Event()
         case CMD_HIT:
             amount = readlong();        
             pitch = 180 - amount;
-            sound(player, CHAN_AUTO, "ui/hit.wav", 10, ATTN_NONE, pitch);
+            sound(player, CHAN_AUTO, "ui/hit.wav", 1, ATTN_NONE, pitch);
             break;
         case CMD_KILL:
-            sound(player, CHAN_AUTO, "ui/kill.wav", 10, ATTN_NONE, pitch);
+            sound(player, CHAN_AUTO, "ui/kill.wav", 1, ATTN_NONE, pitch);
             break;
     }
 }

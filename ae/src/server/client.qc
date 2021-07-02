@@ -2,7 +2,7 @@
 
 void ClientConnect()
 {
-	print(self.netname, " has connected.\n");
+	bprint(10000, self.netname, " has connected.\n");
 
 	for (float i = 0; i < MAX_WEAPONS; i++)
 	{
