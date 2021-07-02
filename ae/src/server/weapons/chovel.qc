@@ -44,7 +44,7 @@ void ChovelAttack()
         SendKill(player);
         oldSelf = self;
         self = trace_ent;
-        ClientKill();
+        PlayerKill(player);
         self = oldSelf;
     }
     else if (trace_fraction < 1)

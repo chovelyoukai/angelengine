@@ -167,7 +167,7 @@ void PlayerSpawn()
     self.currentWeapon = self.weapons[0];
 }
 
-void PlayerKill()
+void PlayerKill(entity killer)
 {
     self.movetype = MOVETYPE_NONE;
     self.solid = SOLID_NOT;
@@ -177,4 +177,6 @@ void PlayerKill()
     self.SendFlags |= FL_VELOCITY;
     self.SendFlags |= FL_MOVETYPE;
     self.SendEntity = PlayerUpdate;
+
+    bprint(10000, killer.netname, " killed ", self.netname, "\n");
 }

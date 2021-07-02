@@ -89,7 +89,7 @@ void Damage(entity target, entity inflictor, entity attacker, float amount)
         target.health = 0;
         oldSelf = self;
         self = target;
-        ClientKill();
+        PlayerKill(attacker);
         self = oldSelf;
     }
     else

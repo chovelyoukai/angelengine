@@ -23,7 +23,7 @@ void ClientKill()
         return;
     }
     self.suicideTimeout = time + 5;
-	PlayerKill();
+	PlayerKill(self);
 }
 
 void PutClientInServer()
