@@ -11,3 +11,4 @@ void GenericKnockback(entity target, entity inflictor,
     entity attacker, float amount);
 void SendHit(entity target, float damage);
 void SendKill(entity target);
+void SendDamage(entity target, float amount, vector spot, float knockback);

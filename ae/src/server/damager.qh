@@ -1,4 +1,0 @@
-#include "../shared/player.qh"
-
-void SpawnDamager(entity target, float amount, vector spot, float knockback);
-float SendDamager(entity to, float sendFlags);

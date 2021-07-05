@@ -16,6 +16,12 @@ void CSQC_Parse_Event()
         case CMD_KILL:
             sound(player, CHAN_AUTO, "ui/kill.wav", 1, ATTN_NONE, pitch);
             break;
+        case CMD_DAMAGE_KNOCKBACK:
+            ReceiveDamage(TRUE);
+            break;
+        case CMD_DAMAGE_HURT:
+            ReceiveDamage(FALSE);
+            break;
     }
 }
 
@@ -31,8 +37,6 @@ void CSQC_Ent_Update(float isNew)
     case ENT_PLAYER_OTHER:
         ReceivePlayer(isNew, FALSE);
         break;
-    case ENT_DAMAGER:
-        ReceiveDamager();
     }
 }
 
@@ -138,25 +142,19 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     self.solid = SOLID_BBOX;
 }
 
-void ReceiveDamager()
+void ReceiveDamage(float isKnockback)
 {
-    float flags;
-    self.classname = "damager";
-    self.timeLeft = time + 1;
-    self.knockback = FALSE;
-    flags = readbyte();
-    if (flags & FL_DAMAGESPAWN)
-    {
-        self.origin.x = readcoord();
-        self.origin.y = readcoord();
-        self.origin.z = readcoord();
-        self.health = readfloat();
-        setorigin(self, self.origin);
-    }
-    if (flags & FL_KNOCKBACK)
-    {
-        self.knockback = TRUE;
-    }
+    entity damager = spawn();
+
+    damager.classname = "damager";
+    damager.think = RemoveSelf;
+    damager.nextthink = time + 1;
+    damager.knockback = isKnockback;
+    damager.origin.x = readcoord();
+    damager.origin.y = readcoord();
+    damager.origin.z = readcoord();
+    damager.health = readfloat();
+    setorigin(damager, damager.origin);
 }
 
 void CSQC_Ent_Remove()

@@ -97,7 +97,7 @@ void Damage(entity target, entity inflictor, entity attacker, float amount)
         SendHit(attacker, amount);
     }
 
-    SpawnDamager(target, amount, attacker.origin, FALSE);
+    SendDamage(target, amount, attacker.origin, FALSE);
     inflictor.Knockback(target, inflictor, attacker, amount);
 }
 
@@ -128,5 +128,25 @@ void SendKill(entity target)
     msg_entity = target;
     WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
     WriteByte(MSG_MULTICAST, CMD_KILL);
+    multicast('0 0 0', MULTICAST_ONE_R);
+}
+
+void SendDamage(entity target, float amount, vector spot, float knockback)
+{
+    msg_entity = target;
+    spot = target.origin - spot;
+    WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+    if (knockback)
+    {
+        WriteByte(MSG_MULTICAST, CMD_DAMAGE_KNOCKBACK);
+    }
+    else
+    {
+        WriteByte(MSG_MULTICAST, CMD_DAMAGE_HURT);
+    }
+    WriteCoord(MSG_MULTICAST, spot.x);
+    WriteCoord(MSG_MULTICAST, spot.y);
+    WriteCoord(MSG_MULTICAST, spot.z);
+    WriteFloat(MSG_MULTICAST, amount);
     multicast('0 0 0', MULTICAST_ONE_R);
 }

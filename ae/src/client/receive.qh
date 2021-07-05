@@ -4,4 +4,4 @@
 .string netname;
 
 void ReceivePlayer(float isNew, float isLocalPlayer);
-void ReceiveDamager();
+void ReceiveDamage(float isKnockback);

@@ -146,7 +146,7 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
     setorigin(target, target.origin + '0 0 1');
     target.moveFlags |= MF_CANCRIT;
 
-    SpawnDamager(target, amount, inflictor.origin, TRUE);
+    SendDamage(target, amount, inflictor.origin, TRUE);
 }
 
 void EmitRocket()

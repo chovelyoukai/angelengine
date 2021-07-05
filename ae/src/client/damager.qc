@@ -41,7 +41,7 @@ void DrawDamageIndicators(float width, float height)
 
             drawAngle = viewAngle - drawAngle;
 
-            alpha = damager.timeLeft - time; 
+            alpha = damager.nextthink - time; 
 
             sizeMin.x = -damager.health;
             sizeMin.y = -damager.health;

@@ -9,7 +9,6 @@ void CheckImpulses()
 
     if (self.impulse == 69)
     {
-        SendKill(self);
     }
 
 	self.impulse = 0;
