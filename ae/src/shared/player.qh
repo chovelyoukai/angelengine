@@ -1,7 +1,7 @@
 .entity groundEntity;
 .vector groundNormal;
 .float lastMoveTime;
-.float lastSendTime;
+.float sendTime;
 .float moveFlags;
 .float wallclipTime;
 .float wallrunStart;
@@ -27,6 +27,7 @@
 .vector oldOrigin;
 .float oldMovetype;
 .float oldMoveFlags;
+.string oldNetname;
 
 .float weaponsHeld;
 
@@ -43,6 +44,7 @@ const float FL_MOVEFLAGS = 8;
 const float FL_DISCONNECT = 16;
 const float FL_MODELINDEX = 128;
 const float FL_SNAP = 256;
+const float FL_NETNAME = 512;
 const float FL_DAMAGESPAWN = 1;
 const float FL_KNOCKBACK = 2;
 const float MAX_WEAPONS = 9;

@@ -8,6 +8,7 @@ void DrawHud(float width, float height)
         DrawKeys(width, height);
         DrawHealth(width, height);
         DrawDamageIndicators(width, height);
+        DrawNames(width, height);
     }
 }
 
@@ -225,4 +226,24 @@ void DrawKeys(float width, float height)
     drawstring(keysPos, topText, '12 12', '1 1 1', 1.0, 1);
     keysPos.y += 14;
     drawstring(keysPos, bottomText, '12 12', '1 1 1', 1.0, 1);
+}
+
+void DrawNames(float width, float height)
+{
+    vector start, end;
+    vector location;
+    makevectors(view_angles);
+    start = self.origin + PLAYER_VIEW_STAND;
+    end = start + (v_forward * 10000);
+    traceline(start, end, MOVE_NORMAL, self);
+
+    if (trace_ent.classname == "player")
+    {
+        location = trace_ent.origin;
+        location.z += 50;
+        location = project(location);
+        location.x -= stringwidth(trace_ent.netname, TRUE, '12 12') / 2;
+        drawstring(location, trace_ent.netname, '12 12', '1 1 1', 1.0, 1);
+
+    }
 }

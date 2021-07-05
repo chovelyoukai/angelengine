@@ -8,6 +8,9 @@ void ClientConnect()
 	{
 		self.weapons[i] = world;
 	}
+
+    self.oldNetname = "";
+    self.sendTime = time + 1;
 }
 
 void ClientDisconnect()

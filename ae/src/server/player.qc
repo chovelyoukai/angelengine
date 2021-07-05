@@ -57,11 +57,15 @@ void PlayerPostThink()
     {
         self.SendFlags |= FL_MOVEFLAGS;
     }
-    if (self.lastSendTime < time)
+    if (self.sendTime < time)
     {
+        self.SendFlags |= FL_NETNAME;
+        self.oldNetname = self.netname;
+
         self.SendFlags |= FL_ORIGIN | FL_VELOCITY | FL_MOVETYPE |
             FL_MOVEFLAGS;
-        self.lastSendTime = time + cvar("sv_send_interval");
+
+        self.sendTime = time + cvar("sv_send_interval");
     }
     self.oldOrigin = self.origin;
     self.oldVelocity = self.velocity;
@@ -100,8 +104,12 @@ float PlayerUpdate(entity to, float entFlags)
     {
         WriteByte(MSG_ENTITY, ENT_PLAYER);
     }
+    if (entFlags > 1023)
+    {
+        entFlags &= ~FL_NETNAME;
+    }
 
-    WriteShort(MSG_ENTITY, entFlags);
+    WriteLong(MSG_ENTITY, entFlags);
 
     if (entFlags & FL_ORIGIN)
     {
@@ -126,6 +134,10 @@ float PlayerUpdate(entity to, float entFlags)
     if (entFlags & FL_MODELINDEX)
     {
         WriteByte(MSG_ENTITY, self.modelindex);
+    }
+    if (entFlags & FL_NETNAME)
+    {
+        WriteString(MSG_ENTITY, self.netname);
     }
 
     return TRUE;

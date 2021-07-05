@@ -1,5 +1,7 @@
 #include "damager.qh"
 #include "../shared/player.qh"
 
+.string netname;
+
 void ReceivePlayer(float isNew, float isLocalPlayer);
 void ReceiveDamager();

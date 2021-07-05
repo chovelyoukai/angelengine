@@ -49,7 +49,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     float moveInterp = cvar("cl_moveinterp");
     float frameDifference = clientcommandframe - servercommandframe;
 
-    flags = readshort();
+    flags = readlong();
     if (flags & FL_ORIGIN)
     {
         newOrigin.x = readcoord();
@@ -115,6 +115,10 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
         setsize(self, '0 0 0', '0 0 0');
         return;
     }
+    if (flags & FL_NETNAME)
+    {
+        self.netname = readstring();
+    }
     if (flags & FL_MODELINDEX)
     {
         readbyte();
@@ -126,6 +130,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     }
     else if (!isLocalPlayer && isNew)
     {
+        self.classname = "player";
         self.drawmask = MASK_ENGINE;
         setmodel(self, "models/player.iqm");
     }
