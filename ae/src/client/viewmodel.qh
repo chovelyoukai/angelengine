@@ -1,4 +1,4 @@
-#include "../shared/weapondefs.qh"
+#include "../shared/weapons/sharedweapons.qh"
 #include "../shared/player.qh"
 
 const float BUTTON_ATTACK = 1;

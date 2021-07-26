@@ -20,6 +20,7 @@ void ChovelFire(entity chovel)
 
 void ChovelAttack()
 {
+#ifdef SSQC
     float flags = MOVE_LAGGED;
     vector aim;
     vector mins, maxs;
@@ -56,6 +57,7 @@ void ChovelAttack()
     {
         sound(self.owner, CHAN_AUTO, "weapons/chovel_fire.wav", 0.7, ATTN_NORM);
     }
+#endif
 }
 
 float ChovelCanEquip(entity chovel)

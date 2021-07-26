@@ -2,6 +2,7 @@
 
 void CSQC_Init(float apiVer, string engineName, float engineVer)
 {
+    entity oldSelf = self;
 	precache_model("models/player.iqm");
     precache_model("models/objects/health.iqm");
     precache_model("models/weapons/chovel.iqm");
@@ -24,10 +25,14 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
     drawfont = loadfont("", autocvar(menu_font, "LiberationMono-Regular.ttf"),
         "12", -1, 0, 0);
     InitializeViewmodel();
+
+    self = player;
+    self = oldSelf;
 }
 
 void CSQC_UpdateView(float width, float height, float menuShown)
 {
+    entity oldSelf;
     clearscene();
 
     setviewprop(VF_DRAWENGINESBAR, 0);
@@ -58,4 +63,14 @@ void CSQC_UpdateView(float width, float height, float menuShown)
         }
         DrawHud(width, height);
     }
+
+    oldSelf = self;
+    self = player;
+    if (self.currentWeapon == world)
+    {
+        self.currentWeapon = RocketlauncherSpawn();
+        self.currentWeapon.Equip(self.currentWeapon);
+    }
+    CheckWeapons();
+    self = oldSelf;
 }

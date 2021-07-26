@@ -131,6 +131,10 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     if (isLocalPlayer)
     {
         player = self;  
+        if (isNew)
+        {
+            self.classname = "player";
+        }
     }
     else if (!isLocalPlayer && isNew)
     {

@@ -8,6 +8,7 @@ void ShotgunEquip(entity shotgun)
 
 void ShotgunFire(entity shotgun)
 {
+#ifdef SSQC
     float i, j, k, flags = MOVE_LAGGED;
     float speed;
     float damage;
@@ -75,6 +76,7 @@ void ShotgunFire(entity shotgun)
     sound(self, CHAN_AUTO, "weapons/shotgun_fire.ogg", 0.5, ATTN_NORM, speed);
 
     shotgun.fireTimeout = time + fireTimes[WEP_SHOTGUN];
+#endif
 }
 
 float ShotgunCanEquip(entity shotgun)

@@ -79,10 +79,10 @@ void RadiusKnockback(entity inflictor, entity attacker, float amount,
 
 void Damage(entity target, entity inflictor, entity attacker, float amount)
 {
-    entity oldSelf;
-
     target.health -= amount;
 
+#ifdef SSQC
+    entity oldSelf;
     if (target.classname == "player" && target.health <= 0)
     {
         SendKill(attacker);
@@ -98,6 +98,7 @@ void Damage(entity target, entity inflictor, entity attacker, float amount)
     }
 
     SendDamage(target, amount, attacker.origin, FALSE);
+#endif
     inflictor.Knockback(target, inflictor, attacker, amount);
 }
 
@@ -109,11 +110,9 @@ void GenericKnockback(entity target, entity inflictor, entity attacker,
     direction = normalize(direction);
     direction *= amount * 10;
     target.velocity += direction;
-
-    target.SendFlags |= FL_VELOCITY;
-    target.SendEntity = PlayerUpdate;
 }
 
+#ifdef SSQC
 void SendHit(entity target, float damage)
 {
     msg_entity = target;
@@ -150,3 +149,4 @@ void SendDamage(entity target, float amount, vector spot, float knockback)
     WriteFloat(MSG_MULTICAST, amount);
     multicast('0 0 0', MULTICAST_ONE_R);
 }
+#endif

@@ -1,6 +1,6 @@
 #include "player.qh"
 #include "../shared/player.qh"
-#include "weapons/sharedweapons.qh"
+#include "../shared/weapons/sharedweapons.qh"
 
 void ClientConnect();
 void ClientDisconnect();

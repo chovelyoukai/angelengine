@@ -57,7 +57,7 @@ void RocketRadiusKnockback(entity ignore)
 
     target = findradius(self.origin, ROCKET_RADIUS);
 
-    while (target)
+    while (target != world)
     {
         if (target == ignore)
         {
@@ -99,10 +99,12 @@ void RocketRadiusKnockback(entity ignore)
             amount *= 0.5;
         }
 
+#ifdef SSQC
         if (target.classname == "player" && target != self.owner)
         {
             SendHit(self.owner, amount);
         }
+#endif
         RocketKnockback(target, self, self.owner, amount);
 
         target = target.chain;
@@ -144,19 +146,25 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
 
     target.velocity += (direction * amount * multiplier);
     setorigin(target, target.origin + '0 0 1');
+#ifdef SSQC
     target.moveFlags |= MF_CANCRIT;
-
     SendDamage(target, amount, inflictor.origin, TRUE);
+#endif
 }
 
 void EmitRocket()
 {
     vector start, muzzle;
     entity rocket;
-    float traceFlags = MOVE_LAGGED;
+    float traceFlags = MOVE_NORMAL;
 
+#ifdef SSQC
     makevectors(self.v_angle);
     start = self.origin + self.view_ofs;
+#else
+    makevectors(view_angles);
+    start = self.origin + PLAYER_VIEW_STAND;
+#endif
     muzzle = start + (v_forward * 19) + (v_up * -3);
 
     traceline(start, muzzle, traceFlags, self);
@@ -176,6 +184,10 @@ void EmitRocket()
 
     rocket.effects |= EF_DIMLIGHT;
     rocket.touch = RocketTouch;
+
+#ifdef CSQC
+    rocket.drawmask = MASK_ENGINE;
+#endif
 }
 
 void RocketTouch()
@@ -202,12 +214,14 @@ void RocketTouch()
 
     setorigin(self, self.origin - (v_forward * 16));
 
+#ifdef SSQC
     WriteByte(MSG_MULTICAST, SVC_TEMPENTITY);
     WriteByte(MSG_MULTICAST, TE_EXPLOSION);
     WriteCoord(MSG_MULTICAST, self.origin.x);
     WriteCoord(MSG_MULTICAST, self.origin.y);
     WriteCoord(MSG_MULTICAST, self.origin.z);
     multicast(self.origin, MULTICAST_ALL);
+#endif
 
     remove(self);
 }

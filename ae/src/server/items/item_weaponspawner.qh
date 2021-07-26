@@ -1,6 +1,5 @@
 #include "items.qh"
-#include "../weapons/sharedweapons.qh"
-#include "../../shared/weapondefs.qh"
+#include "../../shared/weapons/sharedweapons.qh"
 
 const float ITEM_WEAPONSPAWNER_RESPAWN = 15;
 

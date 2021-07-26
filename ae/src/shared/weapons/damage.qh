@@ -1,4 +1,8 @@
-#include "../../shared/player.qh"
+#ifndef DAMAGE_H
+#define DAMAGE_H
+
+#include "../player.qh"
+#include "weapons.qh"
 
 float CanDamage(entity target, entity inflictor);
 void RadiusDamage(entity inflictor, entity attacker, float amount,
@@ -9,6 +13,11 @@ void Damage(entity target, entity inflictor, entity attacker,
     float amount);
 void GenericKnockback(entity target, entity inflictor,
     entity attacker, float amount);
+    
+#ifdef SSQC
 void SendHit(entity target, float damage);
 void SendKill(entity target);
 void SendDamage(entity target, float amount, vector spot, float knockback);
+#endif
+
+#endif

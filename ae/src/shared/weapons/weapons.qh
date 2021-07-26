@@ -1,3 +1,5 @@
+#include "damage.qh"
+
 .void(entity weapon) Fire;
 .void(entity weapon) Equip;
 .float(entity weapon) CanEquip;

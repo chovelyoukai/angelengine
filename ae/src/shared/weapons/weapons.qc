@@ -1,5 +1,4 @@
 #include "weapons.qh"
-#include "damage.qh"
 
 void Explode1() = [0, Explode2] {};
 void Explode2() = [1, Explode3] {};
@@ -10,7 +9,11 @@ void Explode6() = [5, RemoveSelf] {};
 
 float CheckWeapons()
 {
+#ifdef SSQC
 	if (self.button0)
+#else
+    if (input_buttons & BUTTON_ATTACK)
+#endif
 	{
 		if (self.currentWeapon != world)
 		{

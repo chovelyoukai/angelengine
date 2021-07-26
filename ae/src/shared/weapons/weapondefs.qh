@@ -16,14 +16,6 @@ enum
     WEP_LAST
 };
 
-/*
-const float WEP_NONE = -1;
-const float WEP_ROCKETLAUNCHER = 0;
-const float WEP_SHOTGUN = 1;
-const float WEP_CHOVEL = 2;
-const float WEP_LAST = 3;
-*/
-
 string viewmodels[WEP_LAST] =
 {
     "models/weapons/rocketlauncher.iqm",
