@@ -176,7 +176,7 @@ void PlayerSpawn()
 
     self.weaponsHeld = 0;
     self.weaponType = WEP_NONE;
-    self.currentWeapon = self.weapons[0];
+    self.currentWeapon = world;
 }
 
 void PlayerKill(entity killer)
@@ -190,5 +190,15 @@ void PlayerKill(entity killer)
     self.SendFlags |= FL_MOVETYPE;
     self.SendEntity = PlayerUpdate;
 
+    SendPlayerDeath();
+
     bprint(10000, killer.netname, " killed ", self.netname, "\n");
+}
+
+void SendPlayerDeath()
+{
+    msg_entity = self;
+    WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+    WriteByte(MSG_MULTICAST, CMD_DEATH);
+    multicast('0 0 0', MULTICAST_ONE_R);
 }

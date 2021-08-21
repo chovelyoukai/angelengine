@@ -25,6 +25,9 @@ void CSQC_Parse_Event()
         case CMD_WEAPON_SPAWN:
             ReceiveWeaponSpawn();
             break;
+        case CMD_DEATH:
+            InitializePlayer();
+            break;
     }
 }
 

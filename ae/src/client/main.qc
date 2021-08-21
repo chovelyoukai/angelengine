@@ -2,7 +2,6 @@
 
 void CSQC_Init(float apiVer, string engineName, float engineVer)
 {
-    entity oldSelf = self;
 	precache_model("models/player.iqm");
     precache_model("models/objects/health.iqm");
     precache_model("models/weapons/chovel.iqm");
@@ -25,9 +24,25 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
     drawfont = loadfont("", autocvar(menu_font, "LiberationMono-Regular.ttf"),
         "12", -1, 0, 0);
     InitializeViewmodel();
+}
 
-    self = player;
-    self = oldSelf;
+void InitializePlayer()
+{
+    SetViewmodel("");
+
+    for (float i = 0; i < MAX_WEAPONS; i++)
+    {
+        if (player.weapons[i] != world)
+        {
+            remove(player.weapons[i]);
+        }
+
+        player.weapons[i] = world;
+    }
+
+    player.weaponsHeld = 0;
+    player.weaponType = WEP_NONE;
+    player.currentWeapon = world;
 }
 
 void CSQC_UpdateView(float width, float height, float menuShown)

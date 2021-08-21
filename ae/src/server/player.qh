@@ -11,3 +11,4 @@ void SetChangeParms();
 float PlayerUpdate(entity to, float entFlags);
 void PlayerSpawn();
 void PlayerKill(entity killer);
+void SendPlayerDeath();

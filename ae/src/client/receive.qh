@@ -8,3 +8,5 @@ void ReceivePlayer(float isNew, float isLocalPlayer);
 void ReceiveDamage(float isKnockback);
 void ReceiveWeaponSpawn();
 void ReceiveProjectile();
+// defined in main.qc
+void InitializePlayer();
