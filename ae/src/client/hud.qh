@@ -15,8 +15,10 @@ void DrawNames(float width, float height);
 
 const vector ACCEL_GROUND_COLOR = '1 1 1';
 const vector ACCEL_WALL_COLOR = '1 1 1';
-const vector ACCEL_QW_COLOR = '0 1 0';
-const vector ACCEL_Q3_COLOR = '0.05 0.05 1';
-const vector ACCEL_NOCLIP_COLOR = '1 0 0';
+const vector ACCEL_QW_COLOR = '0.494 0.592 0.227' * 0.4;
+const vector ACCEL_Q3_COLOR = '0.310 0.486 0.675' * 0.4;
+const vector ACCEL_NOCLIP_COLOR = '0.455 0.008 0.008' * 0.4;
 const vector ACCEL_FLY_COLOR = '0 1 0';
+const vector HEALTH_COLOR = '0.455 0.008 0.008' * 0.4;
+const vector OVERHEAL_COLOR = '0.310 0.486 0.675' * 0.4;
 const float BUTTON_ATTACK = 1;

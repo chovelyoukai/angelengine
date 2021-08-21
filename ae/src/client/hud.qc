@@ -159,7 +159,7 @@ void DrawHealth(float width, float height)
     }
     healthColor = '0.8 0 0';
 
-    drawfill(healthPos, healthSize, healthColor, 1.0, DRAWFLAG_NORMAL);
+    drawfill(healthPos, healthSize, HEALTH_COLOR, 1.0, DRAWFLAG_NORMAL);
 
     if (health > 100)
     {
@@ -168,7 +168,7 @@ void DrawHealth(float width, float height)
         healthColor = '0 1 0';
         healthPos.x += 0.005 * width;
         healthPos.y += 0.005 * width;
-        drawfill(healthPos, healthSize, healthColor, 1.0, DRAWFLAG_NORMAL);
+        drawfill(healthPos, healthSize, OVERHEAL_COLOR, 1.0, DRAWFLAG_NORMAL);
     }
 }
 
