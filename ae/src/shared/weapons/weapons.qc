@@ -54,3 +54,41 @@ void BecomeExplosion()
     setmodel(self, "");
     Explode1();
 }
+
+#ifdef SSQC
+void SendWeaponSpawn(float weaponType, entity target)
+{
+    msg_entity = target;
+    WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+    WriteByte(MSG_MULTICAST, CMD_WEAPON_SPAWN);
+    WriteFloat(MSG_MULTICAST, weaponType);
+    multicast('0 0 0', MULTICAST_ONE_R);
+}
+
+float PredictedProjectileUpdate(entity to, float entFlags)
+{
+    if (to == self.owner)
+    {
+        return FALSE;
+    }
+    
+    WriteByte(MSG_ENTITY, ENT_PROJECTILE);
+    WriteLong(MSG_ENTITY, entFlags);
+    WriteByte(MSG_ENTITY, self.projectileType);
+
+    if (entFlags & FL_ORIGIN)
+    {
+        WriteCoord(MSG_ENTITY, self.origin.x);
+        WriteCoord(MSG_ENTITY, self.origin.y);
+        WriteCoord(MSG_ENTITY, self.origin.z);
+    }
+    if (entFlags & FL_VELOCITY)
+    {
+        WriteCoord(MSG_ENTITY, self.velocity.x);
+        WriteCoord(MSG_ENTITY, self.velocity.y);
+        WriteCoord(MSG_ENTITY, self.velocity.z);
+    }
+
+    return TRUE;
+}
+#endif

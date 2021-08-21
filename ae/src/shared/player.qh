@@ -60,6 +60,7 @@ const float CMD_HIT = 0;
 const float CMD_KILL = 1;
 const float CMD_DAMAGE_KNOCKBACK = 2;
 const float CMD_DAMAGE_HURT = 3;
+const float CMD_WEAPON_SPAWN = 4;
 
 const float BUTTON4 = 8;
 

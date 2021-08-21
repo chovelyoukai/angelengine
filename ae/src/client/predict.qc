@@ -22,7 +22,7 @@ void Predict()
             }
         }
         getinputstate(clientcommandframe - 1);
-        UpdateViewmodel();
+        //UpdateViewmodel();
         setviewprop(VF_ORIGIN, player.origin + PLAYER_VIEW_STAND);
     }
 }

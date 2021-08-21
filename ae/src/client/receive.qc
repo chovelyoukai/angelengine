@@ -22,6 +22,9 @@ void CSQC_Parse_Event()
         case CMD_DAMAGE_HURT:
             ReceiveDamage(FALSE);
             break;
+        case CMD_WEAPON_SPAWN:
+            ReceiveWeaponSpawn();
+            break;
     }
 }
 
@@ -37,12 +40,10 @@ void CSQC_Ent_Update(float isNew)
     case ENT_PLAYER_OTHER:
         ReceivePlayer(isNew, FALSE);
         break;
+    case ENT_PROJECTILE:
+        ReceiveProjectile();
+        break;
     }
-}
-
-void CSQC_EntRemove()
-{
-    remove(self);
 }
 
 void ReceivePlayer(float isNew, float isLocalPlayer)
@@ -159,6 +160,65 @@ void ReceiveDamage(float isKnockback)
     damager.origin.z = readcoord();
     damager.health = readfloat();
     setorigin(damager, damager.origin);
+}
+
+void ReceiveWeaponSpawn()
+{
+    float weaponType = readfloat();
+    entity weapon = world;
+    entity oldSelf;
+
+    switch (weaponType)
+    {
+        case WEP_ROCKETLAUNCHER:
+            weapon = RocketlauncherSpawn();
+            break;
+        case WEP_SHOTGUN:
+            weapon = ShotgunSpawn();
+            break;
+        case WEP_CHOVEL:
+            weapon = ChovelSpawn();
+            break;
+        default:
+            return;
+    }
+
+    weapon.owner = player;
+    player.weapons[slot[weaponType]] = weapon;
+    if (player.weaponsHeld == 0)
+    {
+        player.currentWeapon = player.weapons[slot[weaponType]];
+        oldSelf = self;
+        self = player;
+        self.currentWeapon.Equip(self.currentWeapon);
+        self = oldSelf;
+    }
+    player.weaponsHeld++;
+}
+
+void ReceiveProjectile()
+{
+    float flags = readlong();
+    float projectileType = readbyte();
+
+    if (flags & FL_ORIGIN)
+    {
+        self.origin.x = readcoord();
+        self.origin.y = readcoord();
+        self.origin.z = readcoord();
+        setorigin(self, self.origin);
+    }
+    if (flags & FL_VELOCITY)
+    {
+        self.velocity.x = readcoord();
+        self.velocity.y = readcoord();
+        self.velocity.z = readcoord();
+        self.movetype = MOVETYPE_FLYMISSILE;
+        self.angles = vectoangles(self.velocity);
+    }
+
+    self.drawmask = MASK_ENGINE;
+    setmodel(self, worldmodels[projectileType]);
 }
 
 void CSQC_Ent_Remove()

@@ -10,3 +10,8 @@
 float CheckWeapons();
 void SwitchWeapons(float impulse);
 void BecomeExplosion();
+
+#ifdef SSQC
+void SendWeaponSpawn(float weaponType, entity target);
+float PredictedProjectileUpdate(entity to, float entFlags);
+#endif

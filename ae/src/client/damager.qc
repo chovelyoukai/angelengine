@@ -47,6 +47,8 @@ void DrawDamageIndicators(float width, float height)
             sizeMin.y = -damager.health;
             sizeMax.x = damager.health;
             sizeMax.y = damager.health;
+            sizeMin *= 2;
+            sizeMax *= 2;
 
             if (vlen(sizeMax) < 40)
             {

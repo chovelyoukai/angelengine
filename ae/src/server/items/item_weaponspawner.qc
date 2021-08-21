@@ -41,6 +41,7 @@ void item_weaponspawnerTouch()
                 break;
         }
         weapon.owner = other;
+        SendWeaponSpawn(self.weaponType, other);
         other.weapons[slot[self.weaponType]] = weapon;
         if (other.weaponsHeld == 0)
         {

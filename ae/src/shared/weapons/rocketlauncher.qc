@@ -9,16 +9,16 @@ void RocketlauncherEquip(entity rocketLauncher)
 
 void RocketlauncherFire(entity rocketLauncher)
 {
-    float speed;
-
     if (rocketLauncher.fireTimeout > time)
     {
         return;
     }
-    
-    speed = 100 + (10 * random()) - 5;
+
+#ifdef SSQC
+    float speed = 100 + (10 * random()) - 5;
     sound(self, CHAN_AUTO, "weapons/rocket_fire.ogg", 0.3, 0.5, speed);
-    
+#endif
+
     EmitRocket();
 
     rocketLauncher.fireTimeout = time + fireTimes[WEP_ROCKETLAUNCHER];
@@ -171,12 +171,17 @@ void EmitRocket()
 
     rocket = spawn();
     rocket.classname = "rocket";
+    rocket.projectileType = PROJ_ROCKET;
     rocket.Knockback = RocketKnockback;
     rocket.owner = self;
     rocket.movetype = MOVETYPE_FLYMISSILE;
     rocket.solid = SOLID_BBOX;
     rocket.velocity = v_forward * ROCKET_VELOCITY;
     rocket.angles = vectoangles(rocket.velocity);
+#ifdef SSQC
+    rocket.SendEntity = PredictedProjectileUpdate;
+    rocket.SendFlags |= FL_ORIGIN | FL_VELOCITY;
+#endif
 
     setmodel(rocket, "models/weapons/rocket.iqm");
     setsize(rocket, '0 0 0', '0 0 0');

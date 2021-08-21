@@ -66,10 +66,9 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 
     oldSelf = self;
     self = player;
-    if (self.currentWeapon == world)
+    if (input_impulse >= 1 && input_impulse < MAX_WEAPONS)
     {
-        self.currentWeapon = RocketlauncherSpawn();
-        self.currentWeapon.Equip(self.currentWeapon);
+        SwitchWeapons(input_impulse);
     }
     CheckWeapons();
     self = oldSelf;

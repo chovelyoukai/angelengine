@@ -1,4 +1,5 @@
 .float weaponType;
+.float projectileType;
 .float fireTimeout;
 
 const float ROCKET_FIRE_TIME = 0.8;
@@ -6,6 +7,7 @@ const float ROCKET_VELOCITY = 1100;
 const float ROCKET_RADIUS = 146;
 const float ROCKET_DAMAGE = 90;
 const float SVC_TEMPENTITY = 23;
+const float ENT_PROJECTILE = 79;
 
 enum
 {
@@ -14,6 +16,14 @@ enum
     WEP_SHOTGUN,
     WEP_CHOVEL,
     WEP_LAST
+};
+
+enum
+{
+    PROJ_NONE = -1,
+    PROJ_ROCKET = 0,
+    PROJ_GRENADE,
+    PROJ_LAST
 };
 
 string viewmodels[WEP_LAST] =
@@ -49,4 +59,10 @@ string classnames[WEP_LAST] =
     "weapon_rocketlauncher",
     "weapon_shotgun",
     "weapon_chovel"
+};
+
+string worldmodels[PROJ_LAST] =
+{
+    "models/weapons/rocket.iqm",
+    "models/weapons/grenade.iqm"
 };
