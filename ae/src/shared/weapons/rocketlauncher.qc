@@ -5,6 +5,10 @@ void RocketlauncherEquip(entity rocketLauncher)
 {
     self.weaponType = WEP_ROCKETLAUNCHER;
     rocketLauncher.fireTimeout = time + deployTimes[WEP_ROCKETLAUNCHER];
+
+#ifdef CSQC
+    SetViewmodel(viewmodels[WEP_ROCKETLAUNCHER]);
+#endif
 }
 
 void RocketlauncherFire(entity rocketLauncher)
@@ -17,6 +21,8 @@ void RocketlauncherFire(entity rocketLauncher)
 #ifdef SSQC
     float speed = 100 + (10 * random()) - 5;
     sound(self, CHAN_AUTO, "weapons/rocket_fire.ogg", 0.3, 0.5, speed);
+#else
+    ViewmodelAttack(fireTimes[WEP_ROCKETLAUNCHER]);
 #endif
 
     EmitRocket();

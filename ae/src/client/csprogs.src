@@ -2,9 +2,8 @@
 csdefs.qc
 ../shared/subs.qc
 globals.qc
-viewmodel.qc
-receive.qc
 hud.qc
+receive.qc
 input.qc
 predict.qc
 damager.qc

@@ -1,4 +1,5 @@
 #include "damager.qh"
+#include "../shared/player.qh"
 #include "../shared/math.qh"
 #include "../shared/pmove/pmove.qh"
 
@@ -10,9 +11,12 @@ float UpdateAccel(float width);
 void DrawHealth(float width, float height);
 void DrawNames(float width, float height);
 
+.string netname;
+
 const vector ACCEL_GROUND_COLOR = '1 1 1';
 const vector ACCEL_WALL_COLOR = '1 1 1';
 const vector ACCEL_QW_COLOR = '0 1 0';
 const vector ACCEL_Q3_COLOR = '0.05 0.05 1';
 const vector ACCEL_NOCLIP_COLOR = '1 0 0';
 const vector ACCEL_FLY_COLOR = '0 1 0';
+const float BUTTON_ATTACK = 1;

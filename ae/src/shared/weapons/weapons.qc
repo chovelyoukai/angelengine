@@ -92,3 +92,40 @@ float PredictedProjectileUpdate(entity to, float entFlags)
     return TRUE;
 }
 #endif
+
+#ifdef CSQC
+void InitializeViewmodel()
+{
+    viewmodel = spawn();
+    viewmodel.drawmask |= MASK_VIEWMODEL | MASK_ENGINE;
+    viewmodel.renderflags |= RF_VIEWMODEL;
+    viewmodel.solid = SOLID_NOT;
+}
+
+void UpdateViewmodel()
+{
+    if (viewmodel.fireTimeout <= time)
+    {
+        viewmodel.frame = 0;
+        viewmodel.frame1time = 0;
+    }
+
+    viewmodel.frame1time += frametime;
+}
+
+void SetViewmodel(string modelName)
+{
+    setmodel(viewmodel, modelName);
+    viewmodel.frame1time = 0;
+    viewmodel.frame2time = time;
+    viewmodel.frame = 0;
+    viewmodel.lerpfrac = 0.5;
+}
+
+void ViewmodelAttack(float timeout)
+{
+    viewmodel.frame = 1;
+    viewmodel.frame1time = 0;
+    viewmodel.fireTimeout = time + timeout;
+}
+#endif

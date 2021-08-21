@@ -1,5 +1,6 @@
 #include "damager.qh"
 #include "../shared/player.qh"
+#include "../shared/weapons/sharedweapons.qh"
 
 .string netname;
 

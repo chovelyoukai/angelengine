@@ -1,5 +1,5 @@
-#include "viewmodel.qh"
 #include "../shared/math.qh"
 #include "../shared/pmove/pmove.qh"
+#include "../shared/weapons/sharedweapons.qh"
 
 void Predict();

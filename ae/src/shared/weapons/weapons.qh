@@ -15,3 +15,12 @@ void BecomeExplosion();
 void SendWeaponSpawn(float weaponType, entity target);
 float PredictedProjectileUpdate(entity to, float entFlags);
 #endif
+
+#ifdef CSQC
+entity viewmodel;
+
+void InitializeViewmodel();
+void UpdateViewmodel();
+void SetViewmodel(string modelName);
+void ViewmodelAttack(float timeout);
+#endif

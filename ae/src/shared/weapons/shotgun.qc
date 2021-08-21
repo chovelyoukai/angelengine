@@ -4,10 +4,17 @@ void ShotgunEquip(entity shotgun)
 {
     self.weaponType = WEP_SHOTGUN;
     shotgun.fireTimeout = time + deployTimes[WEP_SHOTGUN];
+#ifdef CSQC
+    SetViewmodel(viewmodels[WEP_SHOTGUN]);
+#endif
 }
 
 void ShotgunFire(entity shotgun)
 {
+    if (shotgun.fireTimeout > time)
+    {
+        return;
+    }
 #ifdef SSQC
     float i, j, k, flags = MOVE_LAGGED;
     float speed;
@@ -17,11 +24,6 @@ void ShotgunFire(entity shotgun)
     float hitCount = 0;
 
     vector aim;
-
-    if (shotgun.fireTimeout > time)
-    {
-        return;
-    }
 
     makevectors(self.v_angle);
     damage = vlen(self.velocity) / 120;
@@ -74,9 +76,11 @@ void ShotgunFire(entity shotgun)
 
     speed = 110 - (damage * 2);
     sound(self, CHAN_AUTO, "weapons/shotgun_fire.ogg", 0.5, ATTN_NORM, speed);
+#else
+    ViewmodelAttack(fireTimes[WEP_SHOTGUN]);
+#endif
 
     shotgun.fireTimeout = time + fireTimes[WEP_SHOTGUN];
-#endif
 }
 
 float ShotgunCanEquip(entity shotgun)

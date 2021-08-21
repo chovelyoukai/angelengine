@@ -54,11 +54,7 @@ float CanBhop()
         return FALSE;
     }
 
-#ifdef SSQC
     if (self.currentWeapon.classname == "weapon_rocketlauncher")
-#else
-    if (viewmodel.weaponType == WEP_ROCKETLAUNCHER)
-#endif
     {
         return FALSE;
     }

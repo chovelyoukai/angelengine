@@ -4,6 +4,9 @@ void ChovelEquip(entity chovel)
 {
     self.weaponType = WEP_CHOVEL;
     chovel.fireTimeout = time + deployTimes[WEP_CHOVEL];
+#ifdef CSQC
+    SetViewmodel(viewmodels[WEP_CHOVEL]);
+#endif
 }
 
 void ChovelFire(entity chovel)
@@ -16,6 +19,9 @@ void ChovelFire(entity chovel)
     chovel.think = ChovelAttack;
     chovel.nextthink = time + 0.25;
     chovel.fireTimeout = time + fireTimes[WEP_CHOVEL];
+#ifdef CSQC
+    ViewmodelAttack(fireTimes[WEP_CHOVEL]);
+#endif
 }
 
 void ChovelAttack()
