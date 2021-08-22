@@ -132,3 +132,25 @@ void DrawFillFullScreen(vector color, float alpha)
 {
     drawfill('0 0 0', realSize, color, alpha);
 }
+
+void DrawTextMenu(string title, string item0, string item1 = "",
+    string item2 = "", string item3 = "", string item4 = "", string item5 = "",
+    string item6 = "", string item7 = "", string item8 = "", string item9 = "")
+{
+    DrawFillFullScreen('0 0 0', 0.8);
+
+    AlignCoords(ALIGN_LEFT, ALIGN_TOP);
+    DrawTextInc(title, '24 24', '1 1 1', 1);
+    DrawTextInc(item0, '16 16', '1 1 1', 1);
+    DrawTextInc(item1, '16 16', '1 1 1', 1);
+    DrawTextInc(item2, '16 16', '1 1 1', 1);
+    DrawTextInc(item3, '16 16', '1 1 1', 1);
+    DrawTextInc(item4, '16 16', '1 1 1', 1);
+    DrawTextInc(item5, '16 16', '1 1 1', 1);
+    DrawTextInc(item6, '16 16', '1 1 1', 1);
+    DrawTextInc(item7, '16 16', '1 1 1', 1);
+    DrawTextInc(item8, '16 16', '1 1 1', 1);
+    DrawTextInc(item9, '16 16', '1 1 1', 1);
+
+    DrawCursor();
+}

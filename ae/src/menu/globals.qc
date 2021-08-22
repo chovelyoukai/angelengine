@@ -3,7 +3,6 @@
 float menuActive;
 float cursorPosition;
 float maxCursorPosition;
-entity menu;
-.void() currentMenu_draw;
-.void() currentMenu_select;
+var void currentMenu_draw();
+var void currentMenu_select();
 
