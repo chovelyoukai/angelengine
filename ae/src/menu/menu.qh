@@ -1,0 +1,7 @@
+#include "../shared/draw/draw.qh"
+
+void DrawCursor();
+void HandleKeypress(float scanx);
+void RootMenu();
+void RootMenu_Draw();
+void RootMenu_Select();

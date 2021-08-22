@@ -1,0 +1,24 @@
+const float ALIGN_LEFT = 1;
+const float ALIGN_RIGHT = 2;
+const float ALIGN_CENTER = 3;
+const float ALIGN_TOP = 4;
+const float ALIGN_BOTTOM = 5;
+
+float drawAlignX;
+float drawAlignY;
+vector relCoords;
+vector absCoords;
+vector realSize;
+
+void SetRealSize(vector size);
+void SetCoords(vector newCoords);
+void AddCoords(vector newCoords);
+vector RelToAbs(vector coords);
+vector AbsToRel(vector coords);
+void SetAlign(float alignX, float alignY);
+void AlignCoords(float alignX, float alignY);
+vector GetAbsAlignCoords(vector size);
+void DrawBox(vector size, vector color, float alpha);
+void DrawText(string text, vector scale, vector color, float alpha);
+void DrawTextInc(string text, vector scale, vector color, float alpha);
+void DrawFillFullScreen(vector color, float alpha);

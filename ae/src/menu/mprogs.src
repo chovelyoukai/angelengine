@@ -1,0 +1,7 @@
+../../menu.dat
+mdefs.qc
+../shared/subs.qc
+globals.qc
+menu.qc
+main.qc
+../shared/draw/draw.qc
