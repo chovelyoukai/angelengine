@@ -2,11 +2,14 @@
 
 void Predict()
 {
+    float interp = cvar("cl_moveinterp");
+    float correction = 1 - interp;
     if (player)
     {
         if (player.fixOrigin)
         {
-            setorigin(player, 0.9 * player.origin + 0.1 * player.correctOrigin);
+            setorigin(player, interp * player.origin + correction
+                * player.correctOrigin);
             if (vlen(player.origin - player.correctOrigin) > 0.1)
             {
                 player.fixOrigin = FALSE;
@@ -14,7 +17,7 @@ void Predict()
         }
         if (player.fixVelocity)
         {
-            player.velocity = 0.9 * player.velocity + 0.1
+            player.velocity = interp * player.velocity + correction
                 * player.correctVelocity;
             if (vlen(player.velocity - player.correctVelocity) > 0.1)
             {

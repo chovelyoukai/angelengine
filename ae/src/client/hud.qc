@@ -84,9 +84,9 @@ void DrawMeters(float width, float height)
                 accelReal = accel3D;
         }
 
-        accelSize.x = accelReal;
+        accelSize.x = accelReal * cvar("cl_accelmultiplier");
         accelSize.y = 12;
-        accelPos.x = (width - accelReal) / 2;
+        accelPos.x = (width - accelSize.x) / 2;
         accelPos.y = height / 2 + height / 32 + cursor;
         drawfill(accelPos, accelSize, accelColor, 1.0, DRAWFLAG_NORMAL);
     }
