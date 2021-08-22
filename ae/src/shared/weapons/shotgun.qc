@@ -9,6 +9,10 @@ void ShotgunEquip(entity shotgun)
 #endif
 }
 
+void ShotgunUnequip(entity shotgun)
+{
+}
+
 void ShotgunFire(entity shotgun)
 {
     if (shotgun.fireTimeout > time)
@@ -88,7 +92,7 @@ float ShotgunCanEquip(entity shotgun)
     return TRUE;
 }
 
-float ShotgunCanSwitch(entity shotgun)
+float ShotgunCanUnequip(entity shotgun)
 {
     return TRUE;
 }
@@ -98,9 +102,10 @@ entity ShotgunSpawn()
     entity shotgun = spawn();
 
     shotgun.Equip = ShotgunEquip;
+    shotgun.Unequip = ShotgunUnequip;
     shotgun.Fire = ShotgunFire;
     shotgun.CanEquip = ShotgunCanEquip;
-    shotgun.CanSwitch = ShotgunCanSwitch;
+    shotgun.CanUnequip = ShotgunCanUnequip;
     shotgun.Knockback = GenericKnockback;
     shotgun.classname = "weapon_shotgun";
     shotgun.owner = self;

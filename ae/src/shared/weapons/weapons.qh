@@ -2,8 +2,9 @@
 
 .void(entity weapon) Fire;
 .void(entity weapon) Equip;
+.void(entity weapon) Unequip;
 .float(entity weapon) CanEquip;
-.float(entity weapon) CanSwitch;
+.float(entity weapon) CanUnequip;
 .void(entity target, entity inflictor, entity attacker, float amount)
     Knockback;
 

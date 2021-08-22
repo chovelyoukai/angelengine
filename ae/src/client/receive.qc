@@ -54,6 +54,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     vector newOrigin;
     vector newVelocity;
     float flags;
+    float newMoveFlags;
     float moveInterp = cvar("cl_moveinterp");
     float frameDifference = clientcommandframe - servercommandframe;
 
@@ -108,14 +109,19 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
     if (flags & FL_MOVETYPE)
     {
         self.movetype = readlong();
-        if (isLocalPlayer && self.movetype == MOVETYPE_WALK)
+        if (isLocalPlayer && self.movetype == MOVETYPE_WALK
+            && cvar("cl_receive") > 0)
         {
             self.movetype = MOVETYPE_FLY;
         }
     }
     if (flags & FL_MOVEFLAGS)
     {
-        self.moveFlags = readlong();
+        newMoveFlags = readlong();
+        if (cvar("cl_receive") > 0)
+        {
+            self.moveFlags = newMoveFlags;
+        }
     }
     if (flags & FL_DISCONNECT && !(flags & FL_MODELINDEX))
     {

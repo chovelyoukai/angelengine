@@ -163,6 +163,7 @@ void PlayerSpawn()
     setorigin(self, spawnLocation.origin + '0 0 80');
     self.SendEntity = PlayerUpdate;
     self.SendFlags |= FL_SNAP;
+    self.moveFlags = 0;
 
     for (float i = 0; i < MAX_WEAPONS; i++)
     {

@@ -9,6 +9,10 @@ void ChovelEquip(entity chovel)
 #endif
 }
 
+void ChovelUnequip(entity shotgun)
+{
+}
+
 void ChovelFire(entity chovel)
 {
     if (chovel.fireTimeout > time)
@@ -71,7 +75,7 @@ float ChovelCanEquip(entity chovel)
     return TRUE;
 }
 
-float ChovelCanSwitch(entity chovel)
+float ChovelCanUnequip(entity chovel)
 {
     return TRUE;
 }
@@ -81,9 +85,10 @@ entity ChovelSpawn()
     entity chovel = spawn();
 
     chovel.Equip = ChovelEquip;
+    chovel.Unequip = ChovelUnequip;
     chovel.Fire = ChovelFire;
     chovel.CanEquip = ChovelCanEquip;
-    chovel.CanSwitch = ChovelCanSwitch;
+    chovel.CanUnequip = ChovelCanUnequip;
     chovel.Knockback = GenericKnockback;
     chovel.classname = "weapon_chovel";
     chovel.owner = self;

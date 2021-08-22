@@ -63,7 +63,14 @@ void AirMove()
     else
     {
         accel = cvar("sv_airaccelerate");
-        maxSpeed = cvar("sv_maxairspeed");
+        if (self.moveFlags & MF_BURDENED)
+        {
+            maxSpeed = cvar("sv_maxburdenedairspeed");
+        }
+        else
+        {
+            maxSpeed = cvar("sv_maxairspeed");
+        }
     }
 
     wishAngle += 0.03;

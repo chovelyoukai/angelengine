@@ -2,7 +2,8 @@
 #include "../../shared/math.qh"
 
 void ShotgunEquip(entity shotgun);
+void ShotgunUnequip(entity shotgun);
 void ShotgunFire(entity shotgun);
 float ShotgunCanEquip(entity shotgun);
-float ShotgunCanSwitch(entity shotgun);
+float ShotgunCanUnequip(entity shotgun);
 entity ShotgunSpawn();

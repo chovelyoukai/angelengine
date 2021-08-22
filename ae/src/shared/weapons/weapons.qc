@@ -36,9 +36,10 @@ void SwitchWeapons(float impulse)
 		// our current weapon must agree that it can be switched off of,
 		// and our desired weapon must agree that it can be equipped.
 		// this allows all kinds of weapon-specific behaviours.
-		if (self.currentWeapon.CanSwitch(self.currentWeapon) &&
+		if (self.currentWeapon.CanUnequip(self.currentWeapon) &&
 			self.weapons[impulse].CanEquip(self.weapons[impulse]))
 		{
+            self.currentWeapon.Unequip(self.currentWeapon);
 			self.currentWeapon = self.weapons[impulse];
 			self.currentWeapon.Equip(self.currentWeapon);
 		}

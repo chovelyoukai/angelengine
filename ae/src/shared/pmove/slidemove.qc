@@ -191,6 +191,12 @@ void StepSlideMove()
 	startVel = self.velocity;
 	startOrigin = up = self.origin;
 
+    if (self.moveFlags & MF_BURDENED && self.velocity.z > 270)
+    {
+        SlideMove();
+        return;
+    }
+
 	up.z += cvar("sv_stepsize");
 
 	TracePlayer(startOrigin, up);

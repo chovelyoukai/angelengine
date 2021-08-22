@@ -6,9 +6,16 @@ void RocketlauncherEquip(entity rocketLauncher)
     self.weaponType = WEP_ROCKETLAUNCHER;
     rocketLauncher.fireTimeout = time + deployTimes[WEP_ROCKETLAUNCHER];
 
+    self.moveFlags |= MF_BURDENED;
+
 #ifdef CSQC
     SetViewmodel(viewmodels[WEP_ROCKETLAUNCHER]);
 #endif
+}
+
+void RocketlauncherUnequip(entity rocketLauncher)
+{
+    self.moveFlags &= ~MF_BURDENED;
 }
 
 void RocketlauncherFire(entity rocketLauncher)
@@ -35,7 +42,7 @@ float RocketlauncherCanEquip(entity rocketLauncher)
     return TRUE;
 }
 
-float RocketlauncherCanSwitch(entity rocketLauncher)
+float RocketlauncherCanUnequip(entity rocketLauncher)
 {
     return TRUE;
 }
@@ -45,9 +52,10 @@ entity RocketlauncherSpawn()
     entity rocketLauncher = spawn();
 
     rocketLauncher.Equip = RocketlauncherEquip;
+    rocketLauncher.Unequip = RocketlauncherUnequip;
     rocketLauncher.Fire = RocketlauncherFire;
     rocketLauncher.CanEquip = RocketlauncherCanEquip;
-    rocketLauncher.CanSwitch = RocketlauncherCanSwitch;
+    rocketLauncher.CanUnequip = RocketlauncherCanUnequip;
     rocketLauncher.classname = "weapon_rocketlauncher";
     rocketLauncher.owner = self;
 

@@ -1,9 +1,10 @@
 #include "weapons.qh"
 
 void RocketlauncherEquip(entity rocketLauncher);
+void RocketlauncherUnequip(entity rocketlauncher);
 void RocketlauncherFire(entity rocketLauncher);
 float RocketlauncherCanEquip(entity rocketLauncher);
-float RocketlauncherCanSwitch(entity rocketLauncher);
+float RocketlauncherCanUnequip(entity rocketLauncher);
 entity RocketlauncherSpawn();
 void RocketRadiusKnockback(entity ignore);
 void RocketKnockback(entity target, entity inflictor, entity attacker,

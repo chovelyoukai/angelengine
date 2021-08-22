@@ -15,7 +15,7 @@ void JumpSpeedReduce()
     }
     else
     {
-        maxSpeed = cvar("sv_maxspeed");
+        maxSpeed = cvar("sv_maxburdenedspeed");
     }
 
     if (vlen2d(self.velocity) > maxSpeed)
@@ -54,11 +54,10 @@ float CanBhop()
         return FALSE;
     }
 
-    if (self.currentWeapon.classname == "weapon_rocketlauncher")
+    if (self.moveFlags & MF_BURDENED)
     {
         return FALSE;
     }
-
 
     return TRUE;
 }
@@ -69,12 +68,13 @@ float CheckJump()
     
     if (umove <= 0)
     {
+        self.moveFlags |= MF_JUMPRELEASED;
         return FALSE;
     }
 
     if (!CanBhop())
     {
-        if(!(self.moveFlags & MF_JUMPRELEASED))
+        if((self.moveFlags & MF_JUMPRELEASED) == 0)
         {
             return FALSE;
         }
@@ -149,17 +149,31 @@ void GroundMove()
     wishDir = normalize(wishDir);
 
     accel = cvar("sv_accelerate");
-    maxSpeed = cvar("sv_maxspeed");
+    if (self.moveFlags & MF_BURDENED)
+    {
+        maxSpeed = cvar("sv_maxburdenedspeed");
+    }
+    else
+    {
+        maxSpeed = cvar("sv_maxspeed");
+    }
 
     Accelerate(wishDir, wishSpeed, accel, maxSpeed);
 
     speed = vlen(self.velocity);
 
+
     self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
 
-    self.velocity = normalize(self.velocity);
-    self.velocity *= speed;
-
+    if (self.moveFlags & MF_BURDENED && speed > maxSpeed)
+    {
+        self.velocity = maxSpeed * normalize(self.velocity);
+    }
+    else
+    {
+        self.velocity = normalize(self.velocity);
+        self.velocity *= speed;
+    }
     StepSlideMove();
 
 #ifdef SSQC

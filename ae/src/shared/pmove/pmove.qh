@@ -5,6 +5,7 @@ const float MF_WATERJUMP = 1 << 1;
 const float MF_JUMPRELEASED = 1 << 2;
 const float MF_CANCRIT = 1 << 3;
 const float MF_SHOULDJUMP = 1 << 4;
+const float MF_BURDENED = 1 << 5;
 
 void SetOnGround(float onGround);
 void OnTouchGround();
