@@ -186,19 +186,26 @@ void StepSlideMove()
 {
 	vector startOrigin, startVel;
 	vector up, down;
+    vector noStepEnding, noStepVel;
 	float stepSize;
 
 	startVel = self.velocity;
 	startOrigin = up = self.origin;
+    
+    SlideMove();
+    noStepEnding = self.origin;
+    noStepVel = self.velocity;
 
+    // if we are burdened, we can never step up when our vertical
+    // speed is too high.
     if (self.moveFlags & MF_BURDENED && self.velocity.z > 270)
     {
-        SlideMove();
         return;
     }
 
+    // now move us up by one step size and see if we can move
+    // forward without hitting anything
 	up.z += cvar("sv_stepsize");
-
 	TracePlayer(startOrigin, up);
 	if (trace_allsolid)
 	{
@@ -208,8 +215,9 @@ void StepSlideMove()
 
 	stepSize = trace_endpos.z - startOrigin.z;
 
-	// try moving us up.
+	// try moving us up and reset our original velocity
     setorigin(self, trace_endpos);
+    self.velocity = startVel;
 
 	SlideMove();
 
@@ -225,12 +233,18 @@ void StepSlideMove()
 	}
 
 	// too steep, we can't step onto this.
-	if (trace_fraction < 1.0 && trace_plane_normal.z < 0.7)
-	{
-        setorigin(self, startOrigin);
-		self.velocity = startVel;
-		SlideMove();
-	}
+	if ((trace_fraction < 1.0 && trace_plane_normal.z < 0.7) ||
+    // now, we tried moving forward and we tried stepping up.
+    // we want to take whichever took us the furthest, because if we don't,
+    // we will always hit things above us because of the trace upwards from
+    // before.
+    (vlen(startOrigin - self.origin) < vlen(startOrigin - noStepEnding)))
+    {
+        setorigin(self, noStepEnding);
+        self.velocity = noStepVel;
+    }
+    // if we moved further on the step-up, then clip our velocity against
+    // the ground plain to avoid overbounces
 	else if (trace_fraction < 1.0)
 	{
 		ClipVelocity(trace_plane_normal, OVERBOUNCE);

@@ -4,6 +4,7 @@ void PrecacheModels()
 {
 	precache_model("models/player.iqm");
     precache_model("models/objects/health.iqm");
+    precache_model("models/objects/speed.iqm");
     precache_model("models/weapons/chovel.iqm");
     precache_model("models/weapons/shotgun.iqm");
 	precache_model("models/weapons/rocket.iqm");
@@ -12,8 +13,10 @@ void PrecacheModels()
     precache_sound("player/grind.ogg");
     precache_sound("player/step.wav");
     precache_sound("world/pickup_health.wav");
+    precache_sound("world/pickup_speed.wav");
     precache_sound("world/pickup_weapon.wav");
     precache_sound("world/respawn_health.wav");
+    precache_sound("world/respawn_speed.wav");
     precache_sound("world/respawn_weapon.wav");
     precache_sound("weapons/chovel_fire.wav");
     precache_sound("weapons/chovel_hit.wav");

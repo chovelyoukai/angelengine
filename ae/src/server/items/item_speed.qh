@@ -1,0 +1,8 @@
+#include "items.qh"
+#include "../../shared/pmove/pmove.qh"
+
+const float ITEM_SPEED_RESPAWN = 60;
+
+void item_speed();
+void item_speedTouch();
+void item_speedThink();

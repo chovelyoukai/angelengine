@@ -55,12 +55,7 @@ void AirMove()
     wishAngle = AngleToVelocity(wishDir);
     minQWAngle = QWAccelThreshold();
 
-    if (wishAngle > minQWAngle)
-    {
-        accel = cvar("sv_airstrafeaccelerate");
-        maxSpeed = cvar("sv_maxairstrafespeed");
-    }
-    else
+    if (wishAngle < minQWAngle && self.moveFlags & MF_DIFFERENTIAL)
     {
         accel = cvar("sv_airaccelerate");
         if (self.moveFlags & MF_BURDENED)
@@ -72,15 +67,20 @@ void AirMove()
             maxSpeed = cvar("sv_maxairspeed");
         }
     }
+    else
+    {
+        accel = cvar("sv_airstrafeaccelerate");
+        maxSpeed = cvar("sv_maxairstrafespeed");
+    }
 
     wishAngle += 0.03;
-    if (wishAngle > minQWAngle)
+    if (wishAngle < minQWAngle && self.moveFlags & MF_DIFFERENTIAL)
     {
-        self.accelType = ACCEL_QW;
+        self.accelType = ACCEL_Q3;
     }
     else
     {
-        self.accelType = ACCEL_Q3;
+        self.accelType = ACCEL_QW;
     }
 
     Accelerate(wishDir, wishSpeed, accel, maxSpeed);
