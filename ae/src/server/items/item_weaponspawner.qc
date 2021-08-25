@@ -39,6 +39,9 @@ void item_weaponspawnerTouch()
             case WEP_CHOVEL:
                 weapon = ChovelSpawn();
                 break;
+            case WEP_HAMMER:
+                weapon = HammerSpawn();
+                break;
         }
         weapon.owner = other;
         SendWeaponSpawn(self.weaponType, other);

@@ -188,6 +188,9 @@ void ReceiveWeaponSpawn()
         case WEP_CHOVEL:
             weapon = ChovelSpawn();
             break;
+        case WEP_HAMMER:
+            weapon = HammerSpawn();
+            break;
         default:
             return;
     }

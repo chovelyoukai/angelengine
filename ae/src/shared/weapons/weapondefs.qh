@@ -15,6 +15,7 @@ enum
     WEP_ROCKETLAUNCHER = 0,
     WEP_SHOTGUN,
     WEP_CHOVEL,
+    WEP_HAMMER,
     WEP_LAST
 };
 
@@ -30,27 +31,31 @@ string viewmodels[WEP_LAST] =
 {
     "models/weapons/rocketlauncher.iqm",
     "models/weapons/shotgun.iqm",
-    "models/weapons/chovel.iqm"
+    "models/weapons/chovel.iqm",
+    "models/weapons/hammer.iqm"
 };
 
 float fireTimes[WEP_LAST] =
 {
     0.8, // rocket launcher
     1.0, // shotgun
-    0.96  // chovel
+    0.96, // chovel
+    1.5 // hammer
 };
 
 float deployTimes[WEP_LAST] =
 {
     0.6, // rocket launcher
     0.6, // shotgun
-    0.6  // chovel
+    0.6, // chovel
+    0.6 // hammer
 };
 
 float slot[WEP_LAST] =
 {
     0,
     1,
+    2,
     2
 };
 
@@ -58,9 +63,19 @@ string classnames[WEP_LAST] =
 {
     "weapon_rocketlauncher",
     "weapon_shotgun",
-    "weapon_chovel"
+    "weapon_chovel",
+    "weapon_hammer"
 };
 
+/*
+var entity() spawnFunctions[WEP_LAST] =
+{
+    RocketlauncherSpawn,
+    ShotgunSpawn,
+    ChovelSpawn,
+    HammerSpawn
+}
+*/
 string worldmodels[PROJ_LAST] =
 {
     "models/weapons/rocket.iqm",

@@ -3,3 +3,4 @@
 #include "rocketlauncher.qh"
 #include "shotgun.qh"
 #include "chovel.qh"
+#include "hammer.qh"

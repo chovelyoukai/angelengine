@@ -24,4 +24,5 @@ main.qc
 ../shared/weapons/rocketlauncher.qc
 ../shared/weapons/chovel.qc
 ../shared/weapons/shotgun.qc
+../shared/weapons/hammer.qc
 

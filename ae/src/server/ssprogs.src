@@ -11,6 +11,7 @@ player.qc
 ../shared/weapons/rocketlauncher.qc
 ../shared/weapons/shotgun.qc
 ../shared/weapons/chovel.qc
+../shared/weapons/hammer.qc
 ../shared/weapons/damage.qc
 items/info_player_start.qc
 items/item_health.qc

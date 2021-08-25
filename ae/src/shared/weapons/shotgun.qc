@@ -1,4 +1,4 @@
-#include "rocketlauncher.qh"
+#include "shotgun.qh"
 
 void ShotgunEquip(entity shotgun)
 {
