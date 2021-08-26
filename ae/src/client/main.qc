@@ -44,7 +44,6 @@ void InitializePlayer()
     }
 
     player.weaponsHeld = 0;
-    player.weaponType = WEP_NONE;
     player.currentWeapon = world;
     player.moveFlags = 0;
 }

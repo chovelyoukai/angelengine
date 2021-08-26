@@ -176,7 +176,6 @@ void PlayerSpawn()
     }
 
     self.weaponsHeld = 0;
-    self.weaponType = WEP_NONE;
     self.currentWeapon = world;
 }
 

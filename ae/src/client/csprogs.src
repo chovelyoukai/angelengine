@@ -2,6 +2,15 @@
 csdefs.qc
 ../shared/subs.qc
 globals.qc
+
+../shared/weapons/weapons.qc
+../shared/weapons/damage.qc
+../shared/weapons/rocketlauncher.qc
+../shared/weapons/chovel.qc
+../shared/weapons/shotgun.qc
+../shared/weapons/hammer.qc
+../shared/weapons/weaponsfinal.qc
+
 hud.qc
 receive.qc
 input.qc
@@ -18,11 +27,3 @@ main.qc
 ../shared/pmove/noclipmove.qc
 ../shared/pmove/wallmove.qc
 ../shared/pmove/skatemove.qc
-
-../shared/weapons/weapons.qc
-../shared/weapons/damage.qc
-../shared/weapons/rocketlauncher.qc
-../shared/weapons/chovel.qc
-../shared/weapons/shotgun.qc
-../shared/weapons/hammer.qc
-

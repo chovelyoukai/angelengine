@@ -25,6 +25,9 @@ void CSQC_Parse_Event()
         case CMD_WEAPON_SPAWN:
             ReceiveWeaponSpawn();
             break;
+        case CMD_WEAPON_REMOVE:
+            ReceiveWeaponRemove();
+            break;
         case CMD_DEATH:
             InitializePlayer();
             break;
@@ -174,38 +177,15 @@ void ReceiveDamage(float isKnockback)
 void ReceiveWeaponSpawn()
 {
     float weaponType = readfloat();
-    entity weapon = world;
-    entity oldSelf;
 
-    switch (weaponType)
-    {
-        case WEP_ROCKETLAUNCHER:
-            weapon = RocketlauncherSpawn();
-            break;
-        case WEP_SHOTGUN:
-            weapon = ShotgunSpawn();
-            break;
-        case WEP_CHOVEL:
-            weapon = ChovelSpawn();
-            break;
-        case WEP_HAMMER:
-            weapon = HammerSpawn();
-            break;
-        default:
-            return;
-    }
+    GiveWeapon(player, weaponType);
+}
 
-    weapon.owner = player;
-    player.weapons[slot[weaponType]] = weapon;
-    if (player.weaponsHeld == 0)
-    {
-        player.currentWeapon = player.weapons[slot[weaponType]];
-        oldSelf = self;
-        self = player;
-        self.currentWeapon.Equip(self.currentWeapon);
-        self = oldSelf;
-    }
-    player.weaponsHeld++;
+void ReceiveWeaponRemove()
+{
+    float weaponType = readfloat();
+
+    RemoveWeapon(player, slot[weaponType]);
 }
 
 void ReceiveProjectile()

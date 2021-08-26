@@ -1,4 +1,7 @@
 #include "damage.qh"
+#ifdef SSQC
+#include "../../server/player.qh"
+#endif
 
 float CanDamage(entity target, entity inflictor)
 {

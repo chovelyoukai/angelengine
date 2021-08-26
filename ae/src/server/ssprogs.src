@@ -3,9 +3,6 @@ ssdefs.qc
 ../shared/subs.qc
 globals.qc
 world.qc
-client.qc
-impulses.qc
-player.qc
 
 ../shared/weapons/weapons.qc
 ../shared/weapons/rocketlauncher.qc
@@ -13,6 +10,12 @@ player.qc
 ../shared/weapons/chovel.qc
 ../shared/weapons/hammer.qc
 ../shared/weapons/damage.qc
+../shared/weapons/weaponsfinal.qc
+
+client.qc
+impulses.qc
+player.qc
+
 items/info_player_start.qc
 items/item_health.qc
 items/item_weaponspawner.qc

@@ -1,8 +1,10 @@
 #include "chovel.qh"
+#ifdef SSQC
+#include "../../server/player.qh"
+#endif
 
 void ChovelEquip(entity chovel)
 {
-    self.weaponType = WEP_CHOVEL;
     chovel.fireTimeout = time + deployTimes[WEP_CHOVEL];
 #ifdef CSQC
     SetViewmodel(viewmodels[WEP_CHOVEL]);
@@ -91,6 +93,7 @@ entity ChovelSpawn()
     chovel.CanUnequip = ChovelCanUnequip;
     chovel.Knockback = GenericKnockback;
     chovel.classname = "weapon_chovel";
+    chovel.weaponType = WEP_CHOVEL;
     chovel.owner = self;
 
     return chovel;

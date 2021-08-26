@@ -2,7 +2,6 @@
 
 void HammerEquip(entity hammer)
 {
-    self.weaponType = WEP_HAMMER;
     hammer.fireTimeout = time + deployTimes[WEP_HAMMER];
 #ifdef CSQC
     SetViewmodel(viewmodels[WEP_HAMMER]);
@@ -154,6 +153,7 @@ entity HammerSpawn()
     hammer.CanUnequip = HammerCanUnequip;
     hammer.Knockback = HammerKnockback;
     hammer.classname = "weapon_hammer";
+    hammer.weaponType = WEP_HAMMER;
     hammer.owner = self;
 
     return hammer;

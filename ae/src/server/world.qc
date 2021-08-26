@@ -32,7 +32,6 @@ void PrecacheModels()
 
 void Stats()
 {
-    clientstat(STAT_WEAPON, EV_FLOAT, weaponType);
 }
 
 void main()

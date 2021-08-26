@@ -57,6 +57,7 @@ entity RocketlauncherSpawn()
     rocketLauncher.CanEquip = RocketlauncherCanEquip;
     rocketLauncher.CanUnequip = RocketlauncherCanUnequip;
     rocketLauncher.classname = "weapon_rocketlauncher";
+    rocketLauncher.weaponType = WEP_ROCKETLAUNCHER;
     rocketLauncher.owner = self;
 
     return rocketLauncher;

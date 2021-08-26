@@ -1,4 +1,5 @@
 #include "damage.qh"
+#include "weapondefs.qh"
 
 .void(entity weapon) Fire;
 .void(entity weapon) Equip;
@@ -11,9 +12,14 @@
 float CheckWeapons();
 void SwitchWeapons(float impulse);
 void BecomeExplosion();
+void GiveWeapon(entity playerEnt, float weaponType);
+void RemoveWeapon(entity playerEnt, float slot);
+void NextWeapon(entity playerEnt, float currentSlot);
+void PreviousWeapon(entity playerEnt, float currentSlot);
 
 #ifdef SSQC
 void SendWeaponSpawn(float weaponType, entity target);
+void SendWeaponRemove(float weaponType, entity target);
 float PredictedProjectileUpdate(entity to, float entFlags);
 #endif
 

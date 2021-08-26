@@ -18,44 +18,13 @@ void item_weaponspawner()
 
 void item_weaponspawnerTouch()
 {
-    entity weapon, oldSelf;
-    weapon = world;
-
     if (other.classname == "player" && self.enabled)
     {
-        // do nothing if the player already has a weapon in this slot
         if (other.weapons[slot[self.weaponType]] != world)
         {
             return;
         }
-        switch(self.weaponType)
-        {
-            case WEP_ROCKETLAUNCHER:
-                weapon = RocketlauncherSpawn();
-                break;
-            case WEP_SHOTGUN:
-                weapon = ShotgunSpawn();
-                break;
-            case WEP_CHOVEL:
-                weapon = ChovelSpawn();
-                break;
-            case WEP_HAMMER:
-                weapon = HammerSpawn();
-                break;
-        }
-        weapon.owner = other;
-        SendWeaponSpawn(self.weaponType, other);
-        other.weapons[slot[self.weaponType]] = weapon;
-        if (other.weaponsHeld == 0)
-        {
-            other.currentWeapon = other.weapons[slot[self.weaponType]];
-            oldSelf = self;
-            self = other;
-            self.currentWeapon.Equip(self.currentWeapon);
-            self = oldSelf;
-        }
-        other.weaponsHeld++;
-
+        GiveWeapon(other, self.weaponType);
         self.enabled = FALSE;
         self.effects |= EF_ADDITIVE;
         self.nextthink = time + ITEM_WEAPONSPAWNER_RESPAWN;

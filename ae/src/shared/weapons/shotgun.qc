@@ -2,7 +2,6 @@
 
 void ShotgunEquip(entity shotgun)
 {
-    self.weaponType = WEP_SHOTGUN;
     shotgun.fireTimeout = time + deployTimes[WEP_SHOTGUN];
 #ifdef CSQC
     SetViewmodel(viewmodels[WEP_SHOTGUN]);
@@ -108,6 +107,7 @@ entity ShotgunSpawn()
     shotgun.CanUnequip = ShotgunCanUnequip;
     shotgun.Knockback = GenericKnockback;
     shotgun.classname = "weapon_shotgun";
+    shotgun.weaponType = WEP_SHOTGUN;
     shotgun.owner = self;
 
     return shotgun;

@@ -1,4 +1,7 @@
 #include "weapons.qh"
+#ifdef CSQC
+#include "../../client/hud.qh"
+#endif
 
 void Explode1() = [0, Explode2] {};
 void Explode2() = [1, Explode3] {};
@@ -36,7 +39,12 @@ void SwitchWeapons(float impulse)
 		// our current weapon must agree that it can be switched off of,
 		// and our desired weapon must agree that it can be equipped.
 		// this allows all kinds of weapon-specific behaviours.
-		if (self.currentWeapon.CanUnequip(self.currentWeapon) &&
+        if (self.currentWeapon == world)
+        {
+			self.currentWeapon = self.weapons[impulse];
+			self.currentWeapon.Equip(self.currentWeapon);
+        }
+		else if (self.currentWeapon.CanUnequip(self.currentWeapon) &&
 			self.weapons[impulse].CanEquip(self.weapons[impulse]))
 		{
             self.currentWeapon.Unequip(self.currentWeapon);
@@ -56,12 +64,85 @@ void BecomeExplosion()
     Explode1();
 }
 
+void NextWeapon(entity playerEnt, float currentSlot)
+{
+    float newSlot;
+    entity oldSelf;
+
+    newSlot = (currentSlot + 1) % MAX_WEAPONS;
+
+    while (newSlot != currentSlot)
+    {
+        if (playerEnt.weapons[newSlot] != world)
+        {
+            if (playerEnt.weapons[newSlot].CanEquip(playerEnt.weapons[newSlot]))
+            {
+                break;
+            }
+        }
+
+        newSlot = (newSlot + 1) % MAX_WEAPONS;
+    }
+
+    if (newSlot == currentSlot)
+    {
+        return;
+    }
+
+    playerEnt.currentWeapon = playerEnt.weapons[newSlot];
+    oldSelf = self;
+    self = playerEnt;
+    self.currentWeapon.Equip(self.currentWeapon);
+    self = oldSelf;
+}
+
+void PreviousWeapon(entity playerEnt, float currentSlot)
+{
+    float newSlot;
+    entity oldSelf;
+
+    newSlot = (currentSlot - 1) % MAX_WEAPONS;
+
+    while (newSlot != currentSlot)
+    {
+        if (playerEnt.weapons[newSlot] != world)
+        {
+            if (playerEnt.weapons[newSlot].CanEquip(playerEnt.weapons[newSlot]))
+            {
+                break;
+            }
+        }
+
+        newSlot = (newSlot - 1) % MAX_WEAPONS;
+    }
+
+    if (newSlot == currentSlot)
+    {
+        return;
+    }
+
+    playerEnt.currentWeapon = playerEnt.weapons[newSlot];
+    oldSelf = self;
+    self = playerEnt;
+    self.currentWeapon.Equip(self.currentWeapon);
+    self = oldSelf;
+}
+
 #ifdef SSQC
 void SendWeaponSpawn(float weaponType, entity target)
 {
     msg_entity = target;
     WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
     WriteByte(MSG_MULTICAST, CMD_WEAPON_SPAWN);
+    WriteFloat(MSG_MULTICAST, weaponType);
+    multicast('0 0 0', MULTICAST_ONE_R);
+}
+
+void SendWeaponRemove(float weaponType, entity target)
+{
+    msg_entity = target;
+    WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+    WriteByte(MSG_MULTICAST, CMD_WEAPON_REMOVE);
     WriteFloat(MSG_MULTICAST, weaponType);
     multicast('0 0 0', MULTICAST_ONE_R);
 }

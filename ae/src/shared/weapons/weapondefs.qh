@@ -67,15 +67,6 @@ string classnames[WEP_LAST] =
     "weapon_hammer"
 };
 
-/*
-var entity() spawnFunctions[WEP_LAST] =
-{
-    RocketlauncherSpawn,
-    ShotgunSpawn,
-    ChovelSpawn,
-    HammerSpawn
-}
-*/
 string worldmodels[PROJ_LAST] =
 {
     "models/weapons/rocket.iqm",
