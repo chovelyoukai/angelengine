@@ -45,6 +45,18 @@ void DrawMeters(float width, float height)
         drawstring(speedPos, speedString, '12 12', '1 1 1', 1.0, 1);
     }
 
+    if (cvar("cl_drawvspeed") > 0)
+    {
+        speedString = ftos(fabs(rint(player.velocity.z)));
+        speedString = strcat("V: ", speedString, " UPS");
+        speedWidth = stringwidth(speedString, TRUE, '12 12');
+        speedPos.x = (width - speedWidth) / 2;
+        speedPos.y = height / 2 + height / 32 + cursor;
+        cursor += 14;
+        drawstring(speedPos, speedString, '12 12', '1 1 1', 1.0, 1);
+    }
+
+
     if (cvar("cl_drawaccel") > 0)
     {
         accelColor = ACCEL_GROUND_COLOR;

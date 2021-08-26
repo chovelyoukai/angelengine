@@ -123,9 +123,9 @@ void SetViewmodel(string modelName)
     viewmodel.lerpfrac = 0.5;
 }
 
-void ViewmodelAttack(float timeout)
+void ViewmodelAttack(float timeout, float weaponFrame = 1)
 {
-    viewmodel.frame = 1;
+    viewmodel.frame = weaponFrame;
     viewmodel.frame1time = 0;
     viewmodel.fireTimeout = time + timeout;
 }

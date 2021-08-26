@@ -23,5 +23,5 @@ entity viewmodel;
 void InitializeViewmodel();
 void UpdateViewmodel();
 void SetViewmodel(string modelName);
-void ViewmodelAttack(float timeout);
+void ViewmodelAttack(float timeout, float weaponFrame = 1);
 #endif
