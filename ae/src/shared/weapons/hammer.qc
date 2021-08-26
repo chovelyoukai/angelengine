@@ -52,6 +52,11 @@ void HammerFire(entity hammer)
 
 void HammerAttack()
 {
+    if (self != self.owner.currentWeapon)
+    {
+        return;
+    }
+
 #ifdef SSQC
     float flags = MOVE_LAGGED;
     float speed;
@@ -95,6 +100,11 @@ void HammerAttack()
 
 void HammerAttack2()
 {
+    if (self != self.owner.currentWeapon)
+    {
+        return;
+    }
+
 #ifdef SSQC
     vector forward = '1 0 0';
     vector right = '0 1 0';
