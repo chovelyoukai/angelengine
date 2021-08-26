@@ -9,7 +9,7 @@ void RocketlauncherEquip(entity rocketLauncher)
     self.moveFlags |= MF_BURDENED;
 
 #ifdef CSQC
-    SetViewmodel(viewmodels[WEP_ROCKETLAUNCHER]);
+    SetViewmodel(viewmodels[WEP_ROCKETLAUNCHER], deployTimes[WEP_ROCKETLAUNCHER]);
 #endif
 }
 

@@ -4,7 +4,7 @@ void HammerEquip(entity hammer)
 {
     hammer.fireTimeout = time + deployTimes[WEP_HAMMER];
 #ifdef CSQC
-    SetViewmodel(viewmodels[WEP_HAMMER]);
+    SetViewmodel(viewmodels[WEP_HAMMER], deployTimes[WEP_HAMMER]);
 #endif
 }
 
@@ -34,7 +34,7 @@ void HammerFire(entity hammer)
         hammer.nextthink = time + 0.4;
         hammer.fireTimeout = time + fireTimes[WEP_HAMMER];
 #ifdef CSQC
-        ViewmodelAttack(fireTimes[WEP_HAMMER], 3);
+        ViewmodelAttack(fireTimes[WEP_HAMMER], 4);
 #endif
     }
     else

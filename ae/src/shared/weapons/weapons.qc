@@ -188,23 +188,24 @@ void UpdateViewmodel()
 {
     if (viewmodel.fireTimeout <= time)
     {
-        viewmodel.frame = 0;
+        viewmodel.frame = VM_IDLE;
         viewmodel.frame1time = 0;
     }
 
     viewmodel.frame1time += frametime;
 }
 
-void SetViewmodel(string modelName)
+void SetViewmodel(string modelName, float timeout = 0)
 {
     setmodel(viewmodel, modelName);
     viewmodel.frame1time = 0;
     viewmodel.frame2time = time;
-    viewmodel.frame = 0;
-    viewmodel.lerpfrac = 0.5;
+    viewmodel.frame = VM_DEPLOY;
+    viewmodel.lerpfrac = 0;
+    viewmodel.fireTimeout = time + timeout;
 }
 
-void ViewmodelAttack(float timeout, float weaponFrame = 1)
+void ViewmodelAttack(float timeout, float weaponFrame = VM_ATTACK)
 {
     viewmodel.frame = weaponFrame;
     viewmodel.frame1time = 0;

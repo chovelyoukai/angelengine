@@ -4,7 +4,7 @@ void ShotgunEquip(entity shotgun)
 {
     shotgun.fireTimeout = time + deployTimes[WEP_SHOTGUN];
 #ifdef CSQC
-    SetViewmodel(viewmodels[WEP_SHOTGUN]);
+    SetViewmodel(viewmodels[WEP_SHOTGUN], deployTimes[WEP_SHOTGUN]);
 #endif
 }
 

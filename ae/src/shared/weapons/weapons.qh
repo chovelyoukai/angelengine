@@ -26,8 +26,12 @@ float PredictedProjectileUpdate(entity to, float entFlags);
 #ifdef CSQC
 entity viewmodel;
 
+const float VM_IDLE = 1;
+const float VM_ATTACK = 2;
+const float VM_DEPLOY = 3;
+
 void InitializeViewmodel();
 void UpdateViewmodel();
-void SetViewmodel(string modelName);
-void ViewmodelAttack(float timeout, float weaponFrame = 1);
+void SetViewmodel(string modelName, float timeout = 0);
+void ViewmodelAttack(float timeout, float weaponFrame = VM_ATTACK);
 #endif

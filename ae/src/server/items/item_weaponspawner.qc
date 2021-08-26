@@ -9,7 +9,7 @@ void item_weaponspawner()
     }
     setmodel(self, viewmodels[self.weaponType]);
     setsize(self, '-16 -16 -16', '16 16 16');
-    self.frame = 2;
+    self.frame = 0;
     self.solid = SOLID_TRIGGER;
     self.enabled = TRUE;
     self.think = item_weaponspawnerThink;

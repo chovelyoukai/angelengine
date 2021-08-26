@@ -7,7 +7,7 @@ void ChovelEquip(entity chovel)
 {
     chovel.fireTimeout = time + deployTimes[WEP_CHOVEL];
 #ifdef CSQC
-    SetViewmodel(viewmodels[WEP_CHOVEL]);
+    SetViewmodel(viewmodels[WEP_CHOVEL], deployTimes[WEP_CHOVEL]);
 #endif
 }
 
