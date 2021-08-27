@@ -2,12 +2,12 @@
 
 void CSQC_Init(float apiVer, string engineName, float engineVer)
 {
-	precache_model("models/player.iqm");
+    precache_model("models/player.iqm");
     precache_model("models/objects/health.iqm");
     precache_model("models/weapons/chovel.iqm");
     precache_model("models/weapons/hammer.iqm");
-	precache_model("models/weapons/rocket.iqm");
-	precache_model("models/weapons/rocketlauncher.iqm");
+    precache_model("models/weapons/rocket.iqm");
+    precache_model("models/weapons/rocketlauncher.iqm");
     precache_model("models/weapons/shotgun.iqm");
     precache_sound("player/step.wav");
     precache_sound("ui/hit.wav");

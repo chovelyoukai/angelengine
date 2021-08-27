@@ -2,13 +2,13 @@
 
 void PrecacheModels()
 {
-	precache_model("models/player.iqm");
+    precache_model("models/player.iqm");
     precache_model("models/objects/health.iqm");
     precache_model("models/objects/speed.iqm");
     precache_model("models/weapons/chovel.iqm");
     precache_model("models/weapons/hammer.iqm");
-	precache_model("models/weapons/rocket.iqm");
-	precache_model("models/weapons/rocketlauncher.iqm");
+    precache_model("models/weapons/rocket.iqm");
+    precache_model("models/weapons/rocketlauncher.iqm");
     precache_model("models/weapons/shotgun.iqm");
     precache_sound("null.wav");
     precache_sound("player/grind.ogg");
@@ -40,7 +40,7 @@ void main()
 
 void worldspawn()
 {
-	PrecacheModels();
+    PrecacheModels();
 
     Stats();
 }

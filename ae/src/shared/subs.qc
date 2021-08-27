@@ -2,10 +2,10 @@
 
 void DoNothing()
 {
-	return;
+    return;
 }
 
 void RemoveSelf()
 {
-	remove(self);
+    remove(self);
 }
