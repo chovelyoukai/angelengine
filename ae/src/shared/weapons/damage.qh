@@ -13,7 +13,7 @@ void Damage(entity target, entity inflictor, entity attacker,
     float amount);
 void GenericKnockback(entity target, entity inflictor,
     entity attacker, float amount);
-    
+	
 #ifdef SSQC
 void SendHit(entity target, float damage);
 void SendKill(entity target);

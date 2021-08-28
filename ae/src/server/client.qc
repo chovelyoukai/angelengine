@@ -2,75 +2,75 @@
 
 void ClientConnect()
 {
-    bprint(10000, self.netname, " has connected.\n");
+	bprint(10000, self.netname, " has connected.\n");
 
-    for (float i = 0; i < MAX_WEAPONS; i++)
-    {
-        self.weapons[i] = world;
-    }
+	for (float i = 0; i < MAX_WEAPONS; i++)
+	{
+		self.weapons[i] = world;
+	}
 
-    self.oldNetname = "";
-    self.sendTime = time + 1;
+	self.oldNetname = "";
+	self.sendTime = time + 1;
 }
 
 void ClientDisconnect()
 {
-    self.SendFlags |= FL_DISCONNECT;
-    ClientKill();
+	self.SendFlags |= FL_DISCONNECT;
+	ClientKill();
 }
 
 void ClientKill()
 {
-    if (self.suicideTimeout > time)
-    {
-        return;
-    }
-    self.suicideTimeout = time + 5;
-    PlayerKill(self);
+	if (self.suicideTimeout > time)
+	{
+		return;
+	}
+	self.suicideTimeout = time + 5;
+	PlayerKill(self);
 }
 
 void PutClientInServer()
 {
-    PlayerSpawn();
+	PlayerSpawn();
 }
 
 entity SelectSpawn()
 {
-    entity spot, thing;
-    float nearby;
+	entity spot, thing;
+	float nearby;
 
-    spot = lastSpawn;
+	spot = lastSpawn;
 
-    while (TRUE)
-    {
-        spot = find(spot, classname, "info_player_start");
-        if (spot != world)
-        {
-            if (spot == lastSpawn)
-            {
-                return spot;
-            }
+	while (TRUE)
+	{
+		spot = find(spot, classname, "info_player_start");
+		if (spot != world)
+		{
+			if (spot == lastSpawn)
+			{
+				return spot;
+			}
 
-            nearby = 0;
-            thing = findradius(spot.origin, 32);
+			nearby = 0;
+			thing = findradius(spot.origin, 32);
 
-            while (thing)
-            {
-                if (thing.classname == "player")
-                {
-                    nearby++;
-                }
+			while (thing)
+			{
+				if (thing.classname == "player")
+				{
+					nearby++;
+				}
 
-                thing = thing.chain;
-            }
+				thing = thing.chain;
+			}
 
-            if (nearby == 0)
-            {
-                lastSpawn = spot;
-                return spot;
-            }
-        }
-    }
-    
-    return spot;
+			if (nearby == 0)
+			{
+				lastSpawn = spot;
+				return spot;
+			}
+		}
+	}
+	
+	return spot;
 }

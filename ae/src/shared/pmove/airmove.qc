@@ -2,114 +2,114 @@
 
 void ApplyGravity()
 {
-    float gravity = cvar("sv_gravity");
+	float gravity = cvar("sv_gravity");
 
-    if (cvar("sv_skate") > 0)
-    {
-        gravity /= 2;
-    }
+	if (cvar("sv_skate") > 0)
+	{
+		gravity /= 2;
+	}
 
-    if (self.moveFlags & MF_RAMPSLIDE)
-    {
-        return;
-    }
-    
-    self.velocity.z -= cvar("sv_gravity") * frametime;
+	if (self.moveFlags & MF_RAMPSLIDE)
+	{
+		return;
+	}
+	
+	self.velocity.z -= cvar("sv_gravity") * frametime;
 }
 
 void AirMove()
 {
-    float fmove, smove;
-    float wishSpeed;
-    float wishAngle;
-    float minQWAngle;
-    vector wishDir;
+	float fmove, smove;
+	float wishSpeed;
+	float wishAngle;
+	float minQWAngle;
+	vector wishDir;
 
-    float accel, maxSpeed;
+	float accel, maxSpeed;
 
-    if (self.moveFlags & MF_RAMPSLIDE)
-    {
-        CheckJump();
-    }
+	if (self.moveFlags & MF_RAMPSLIDE)
+	{
+		CheckJump();
+	}
 
 #ifdef SSQC
-    makevectors(self.v_angle);
+	makevectors(self.v_angle);
 #else
-    makevectors(view_angles);
+	makevectors(view_angles);
 #endif
 
-    fmove = input_movevalues.x;
-    smove = input_movevalues.y;
+	fmove = input_movevalues.x;
+	smove = input_movevalues.y;
 
-    v_forward.z = 0;
-    v_right.z = 0;
+	v_forward.z = 0;
+	v_right.z = 0;
 
-    v_forward = normalize(v_forward);
-    v_right = normalize(v_right);
+	v_forward = normalize(v_forward);
+	v_right = normalize(v_right);
 
-    wishDir = v_forward * fmove + v_right * smove;
-    wishDir.z = 0;
-    wishSpeed = vlen(wishDir);
-    wishDir = normalize(wishDir);
+	wishDir = v_forward * fmove + v_right * smove;
+	wishDir.z = 0;
+	wishSpeed = vlen(wishDir);
+	wishDir = normalize(wishDir);
 
-    wishAngle = AngleToVelocity(wishDir);
-    minQWAngle = QWAccelThreshold();
+	wishAngle = AngleToVelocity(wishDir);
+	minQWAngle = QWAccelThreshold();
 
-    if (wishAngle < minQWAngle && self.moveFlags & MF_DIFFERENTIAL)
-    {
-        accel = cvar("sv_airaccelerate");
-        if (self.moveFlags & MF_BURDENED)
-        {
-            maxSpeed = cvar("sv_maxburdenedairspeed");
-        }
-        else
-        {
-            maxSpeed = cvar("sv_maxairspeed");
-        }
-    }
-    else
-    {
-        accel = cvar("sv_airstrafeaccelerate");
-        maxSpeed = cvar("sv_maxairstrafespeed");
-    }
+	if (wishAngle < minQWAngle && self.moveFlags & MF_DIFFERENTIAL)
+	{
+		accel = cvar("sv_airaccelerate");
+		if (self.moveFlags & MF_BURDENED)
+		{
+			maxSpeed = cvar("sv_maxburdenedairspeed");
+		}
+		else
+		{
+			maxSpeed = cvar("sv_maxairspeed");
+		}
+	}
+	else
+	{
+		accel = cvar("sv_airstrafeaccelerate");
+		maxSpeed = cvar("sv_maxairstrafespeed");
+	}
 
-    wishAngle += 0.03;
-    if (wishAngle < minQWAngle && self.moveFlags & MF_DIFFERENTIAL)
-    {
-        self.accelType = ACCEL_Q3;
-    }
-    else
-    {
-        self.accelType = ACCEL_QW;
-    }
+	wishAngle += 0.03;
+	if (wishAngle < minQWAngle && self.moveFlags & MF_DIFFERENTIAL)
+	{
+		self.accelType = ACCEL_Q3;
+	}
+	else
+	{
+		self.accelType = ACCEL_QW;
+	}
 
-    Accelerate(wishDir, wishSpeed, accel, maxSpeed);
+	Accelerate(wishDir, wishSpeed, accel, maxSpeed);
 
-    ApplyGravity();
+	ApplyGravity();
 
-    StepSlideMove();
+	StepSlideMove();
 }
 
 float AngleToVelocity(vector direction)
 {
-    float angle;
-    vector vel2D = self.velocity;
-    vel2D.z = 0;
-    
-    if (vlen(direction) < 0.01)
-    {
-        return 0;
-    }
+	float angle;
+	vector vel2D = self.velocity;
+	vel2D.z = 0;
+	
+	if (vlen(direction) < 0.01)
+	{
+		return 0;
+	}
 
-    angle = acos(DotProduct(direction, vel2D) / (vlen(direction) * vlen(vel2D)));
-    return angle;
+	angle = acos(DotProduct(direction, vel2D) / (vlen(direction) * vlen(vel2D)));
+	return angle;
 }
 
 float QWAccelThreshold()
 {
-    float angle;
+	float angle;
 
-    angle = acos(cvar("sv_maxairstrafespeed") / vlen2d(self.velocity));
+	angle = acos(cvar("sv_maxairstrafespeed") / vlen2d(self.velocity));
 
-    return angle;
+	return angle;
 }

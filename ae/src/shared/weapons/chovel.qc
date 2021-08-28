@@ -5,9 +5,9 @@
 
 void ChovelEquip(entity chovel)
 {
-    chovel.fireTimeout = time + deployTimes[WEP_CHOVEL];
+	chovel.fireTimeout = time + deployTimes[WEP_CHOVEL];
 #ifdef CSQC
-    SetViewmodel(viewmodels[WEP_CHOVEL], deployTimes[WEP_CHOVEL]);
+	SetViewmodel(viewmodels[WEP_CHOVEL], deployTimes[WEP_CHOVEL]);
 #endif
 }
 
@@ -17,84 +17,84 @@ void ChovelUnequip(entity shotgun)
 
 void ChovelFire(entity chovel)
 {
-    if (chovel.fireTimeout > time)
-    {
-        return;
-    }
+	if (chovel.fireTimeout > time)
+	{
+		return;
+	}
 
-    chovel.think = ChovelAttack;
-    chovel.nextthink = time + 0.25;
-    chovel.fireTimeout = time + fireTimes[WEP_CHOVEL];
+	chovel.think = ChovelAttack;
+	chovel.nextthink = time + 0.25;
+	chovel.fireTimeout = time + fireTimes[WEP_CHOVEL];
 #ifdef CSQC
-    ViewmodelAttack(fireTimes[WEP_CHOVEL]);
+	ViewmodelAttack(fireTimes[WEP_CHOVEL]);
 #endif
 }
 
 void ChovelAttack()
 {
 #ifdef SSQC
-    float flags = MOVE_LAGGED;
-    vector aim;
-    vector mins, maxs;
-    entity player, oldSelf;
+	float flags = MOVE_LAGGED;
+	vector aim;
+	vector mins, maxs;
+	entity player, oldSelf;
 
-    player = self.owner;
-    if (player.currentWeapon != self)
-    {
-        return;
-    }
+	player = self.owner;
+	if (player.currentWeapon != self)
+	{
+		return;
+	}
 
-    makevectors(player.v_angle);
-    aim = player.origin + player.view_ofs + (72 * v_forward);
-    mins = '-24 -24 -24';
-    maxs = '24 24 24';
+	makevectors(player.v_angle);
+	aim = player.origin + player.view_ofs + (72 * v_forward);
+	mins = '-24 -24 -24';
+	maxs = '24 24 24';
 
-    tracebox(player.origin + player.view_ofs, mins, maxs, aim,
-        flags, player);
+	tracebox(player.origin + player.view_ofs, mins, maxs, aim,
+             flags, player);
 
-    if (trace_ent.classname == "player" && player.moveFlags & MF_CANCRIT)
-    {
-        SendKill(player);
-        oldSelf = self;
-        self = trace_ent;
-        PlayerKill(player);
-        self = oldSelf;
-    }
-    else if (trace_fraction < 1)
-    {
-        sound(self.owner, CHAN_AUTO, "weapons/chovel_hit.wav", 0.7, ATTN_NORM);
-        particle(trace_endpos, trace_plane_normal, 0, 5);
-    }
-    else
-    {
-        sound(self.owner, CHAN_AUTO, "weapons/chovel_fire.wav", 0.7, ATTN_NORM);
-    }
+	if (trace_ent.classname == "player" && player.moveFlags & MF_CANCRIT)
+	{
+		SendKill(player);
+		oldSelf = self;
+		self = trace_ent;
+		PlayerKill(player);
+		self = oldSelf;
+	}
+	else if (trace_fraction < 1)
+	{
+		sound(self.owner, CHAN_AUTO, "weapons/chovel_hit.wav", 0.7, ATTN_NORM);
+		particle(trace_endpos, trace_plane_normal, 0, 5);
+	}
+	else
+	{
+		sound(self.owner, CHAN_AUTO, "weapons/chovel_fire.wav", 0.7, ATTN_NORM);
+	}
 #endif
 }
 
 float ChovelCanEquip(entity chovel)
 {
-    return TRUE;
+	return TRUE;
 }
 
 float ChovelCanUnequip(entity chovel)
 {
-    return TRUE;
+	return TRUE;
 }
 
 entity ChovelSpawn()
 {
-    entity chovel = spawn();
+	entity chovel = spawn();
 
-    chovel.Equip = ChovelEquip;
-    chovel.Unequip = ChovelUnequip;
-    chovel.Fire = ChovelFire;
-    chovel.CanEquip = ChovelCanEquip;
-    chovel.CanUnequip = ChovelCanUnequip;
-    chovel.Knockback = GenericKnockback;
-    chovel.classname = "weapon_chovel";
-    chovel.weaponType = WEP_CHOVEL;
-    chovel.owner = self;
+	chovel.Equip = ChovelEquip;
+	chovel.Unequip = ChovelUnequip;
+	chovel.Fire = ChovelFire;
+	chovel.CanEquip = ChovelCanEquip;
+	chovel.CanUnequip = ChovelCanUnequip;
+	chovel.Knockback = GenericKnockback;
+	chovel.classname = "weapon_chovel";
+	chovel.weaponType = WEP_CHOVEL;
+	chovel.owner = self;
 
-    return chovel;
+	return chovel;
 }
