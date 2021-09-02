@@ -33,6 +33,7 @@ void HammerFire(entity hammer)
 		hammer.think = HammerAttack2;
 		hammer.nextthink = time + 0.4;
 		hammer.fireTimeout = time + fireTimes[WEP_HAMMER];
+		hammer.velocity.z = self.velocity.z;
 #ifdef CSQC
 		ViewmodelAttack(fireTimes[WEP_HAMMER], 4);
 #endif
@@ -131,6 +132,10 @@ void HammerAttack2()
 	setorigin(self, self.owner.origin);
 	RadiusDamage(self, self.owner, 100, 1000);
 #endif
+	if (input_movevalues.z > 0)
+	{
+		self.owner.velocity.z = -1 * self.velocity.z;
+	}
 }
 
 void HammerKnockback(entity target, entity inflictor, entity attacker, float amount)
