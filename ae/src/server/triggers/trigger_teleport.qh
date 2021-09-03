@@ -1,0 +1,10 @@
+#include "trigger.qh"
+#include "../../shared/player.qh"
+
+.float resetVelocity;
+.float redirectVelocity;
+.float dontRedirectAngles;
+
+void info_teleport_destination();
+void trigger_teleport();
+void trigger_teleportTouch();

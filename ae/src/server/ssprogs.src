@@ -22,6 +22,9 @@ items/item_weaponspawner.qc
 items/item_speed.qc
 items/item_prop.qc
 
+triggers/trigger.qc
+triggers/trigger_teleport.qc
+
 ../shared/math.qc
 ../shared/pmove/pmove.qc
 ../shared/pmove/slidemove.qc
