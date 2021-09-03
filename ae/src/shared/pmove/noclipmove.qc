@@ -14,6 +14,12 @@ void NoclipMove()
 	smove = input_movevalues.y * speedMult;
 	umove = input_movevalues.z * speedMult;
 
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		smove *= -1;
+		umove *= -1;
+	}
+
 #ifdef SSQC
 	makevectors(self.v_angle);
 #else

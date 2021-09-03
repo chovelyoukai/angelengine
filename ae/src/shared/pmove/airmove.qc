@@ -14,7 +14,14 @@ void ApplyGravity()
 		return;
 	}
 	
-	self.velocity.z -= cvar("sv_gravity") * frametime;
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		self.velocity.z += cvar("sv_gravity") * frametime;
+	}
+	else
+	{
+		self.velocity.z -= cvar("sv_gravity") * frametime;
+	}
 }
 
 void AirMove()
@@ -40,6 +47,11 @@ void AirMove()
 
 	fmove = input_movevalues.x;
 	smove = input_movevalues.y;
+
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		smove *= -1;
+	}
 
 	v_forward.z = 0;
 	v_right.z = 0;

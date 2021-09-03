@@ -14,21 +14,41 @@ void HammerUnequip(entity shotgun)
 
 void HammerFire(entity hammer)
 {
+	float gravityMultiplier = 1;
+
 	if (hammer.fireTimeout > time)
 	{
 		return;
 	}
 
-	traceline(self.origin, self.origin - '0 0 1000', 0, self);
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		gravityMultiplier = -1;
+	}
+
+	traceline(self.origin, self.origin - ('0 0 1000' * gravityMultiplier),
+	          0, self);
 	float dist = 1000 * trace_fraction;
 	float accel = cvar("sv_gravity");
-	float vel = self.velocity.z * -1;
+	//float vel = self.velocity.z * -1 * gravityMultiplier;
 
 	// how long will it take us to reach the ground?
 	float t = (-1 * dist) + sqrt((dist * dist) + (2 * accel * dist));
 	t /= (2 * accel);
 
-	if (trace_fraction < 1 && self.velocity.z < -1000 && t > 0.3 && t < 0.4)
+	if (trace_fraction < 1 && self.velocity.z < -1000 && t > 0.3 && t < 0.4 &&
+		!(self.moveFlags & MF_REVERSEGRAV))
+	{
+		hammer.think = HammerAttack2;
+		hammer.nextthink = time + 0.4;
+		hammer.fireTimeout = time + fireTimes[WEP_HAMMER];
+		hammer.velocity.z = self.velocity.z;
+#ifdef CSQC
+		ViewmodelAttack(fireTimes[WEP_HAMMER], 4);
+#endif
+	}
+	else if (trace_fraction < 1 && self.velocity.z > 1000 && t > 0.3 && t < 0.4 &&
+		self.moveFlags & MF_REVERSEGRAV)
 	{
 		hammer.think = HammerAttack2;
 		hammer.nextthink = time + 0.4;
@@ -75,6 +95,11 @@ void HammerAttack()
 
 	makevectors(self.owner.v_angle);
 
+	if (self.owner.moveFlags & MF_REVERSEGRAV)
+	{
+		v_right *= -1;
+	}
+
 	aim = ownerOrigin + (100 * v_forward) + ((self.frags - 10) * 10 * v_right);
 
 	traceline(ownerOrigin, aim, flags, self.owner);
@@ -111,13 +136,19 @@ void HammerAttack2()
 	vector right = '0 1 0';
 	vector down = '0 0 -1' * 1000;
 	vector ownerOrigin, aim;
-	float i;
+	float i, gravityMultiplier = 1;
+
+	if (self.owner.moveFlags & MF_REVERSEGRAV)
+	{
+		gravityMultiplier = -1;
+		down *= gravityMultiplier;
+	}
 
 	ownerOrigin = self.owner.origin;
 
-	traceline(ownerOrigin, ownerOrigin - '0 0 1000', 0, self.owner);
+	traceline(ownerOrigin, ownerOrigin - ('0 0 1000' * gravityMultiplier), 0, self.owner);
 	ownerOrigin = trace_endpos;
-	ownerOrigin += '0 0 500';
+	ownerOrigin += '0 0 500' * gravityMultiplier;
 	for (i = 0; i < 300; i++)
 	{
 		aim = ownerOrigin + down;

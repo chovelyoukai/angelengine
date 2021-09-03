@@ -70,9 +70,13 @@ float SlideMove()
 	oldVel = self.velocity;
 	lastValidOrigin = self.origin;
 
-	if (IsOnGround(self))
+	if (IsOnGround(self) && self.groundNormal.z == 1)
 	{
-		if (self.groundNormal.z == 1 && self.velocity.z < 0)
+		if ((self.moveFlags & MF_REVERSEGRAV) && self.velocity.z > 0)
+		{
+			self.velocity.z = 0;
+		}
+		else if (!(self.moveFlags & MF_REVERSEGRAV) && self.velocity.z < 0)
 		{
 			self.velocity.z = 0;
 		}
@@ -188,6 +192,12 @@ void StepSlideMove()
 	vector up, down;
 	vector noStepEnding, noStepVel;
 	float stepSize;
+	float gravityMultiplier = 1;
+
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		gravityMultiplier = -1;
+	}
 
 	startVel = self.velocity;
 	startOrigin = up = self.origin;
@@ -198,14 +208,20 @@ void StepSlideMove()
 
 	// if we are burdened, we can never step up when our vertical
 	// speed is too high.
-	if (self.moveFlags & MF_BURDENED && self.velocity.z > 270)
+	if (self.moveFlags & MF_BURDENED)
 	{
-		return;
+		if (self.moveFlags & MF_REVERSEGRAV && self.velocity.z < 270)
+		{
+			return;
+		}
+		else if (!(self.moveFlags & MF_REVERSEGRAV) && self.velocity.z > 270)
+		{
+			return;
+		}
 	}
-
 	// now move us up by one step size and see if we can move
 	// forward without hitting anything
-	up.z += cvar("sv_stepsize");
+	up.z += cvar("sv_stepsize") * gravityMultiplier;
 	TracePlayer(startOrigin, up);
 	if (trace_allsolid)
 	{
@@ -233,7 +249,7 @@ void StepSlideMove()
 	}
 
 	// too steep, we can't step onto this.
-	if ((trace_fraction < 1.0 && trace_plane_normal.z < 0.7) ||
+	if ((trace_fraction < 1.0 && !CanStand(trace_plane_normal.z)) ||
 	// now, we tried moving forward and we tried stepping up.
 	// we want to take whichever took us the furthest, because if we don't,
 	// we will always hit things above us because of the trace upwards from
@@ -244,10 +260,10 @@ void StepSlideMove()
 		self.velocity = noStepVel;
 	}
 	// if we moved further on the step-up, then clip our velocity against
-	// the ground plain to avoid overbounces
+	// the ground plane to avoid overbounces
 	else if (trace_fraction < 1.0)
 	{
-		ClipVelocity(trace_plane_normal, OVERBOUNCE);
+		self.velocity = ClipVelocity(trace_plane_normal, OVERBOUNCE);
 	}
 
 	if (self.wallclipTime > time)

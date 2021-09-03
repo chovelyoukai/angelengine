@@ -8,17 +8,21 @@ const float MF_SHOULDJUMP = 1 << 4;
 const float MF_BURDENED = 1 << 5;
 const float MF_SKATE = 1 << 6;
 const float MF_DIFFERENTIAL = 1 << 7;
+const float MF_REVERSEGRAV = 1 << 8;
 
 void SetOnGround(float onGround);
 void OnTouchGround();
 float IsOnGround(entity ent);
 void GroundTrace();
+float CanStand(float normal);
 void Accelerate(vector wishdir, float wishspeed, float accel, float maxspeed);
 void Friction(float friction, float stopSpeed);
 void PlayerMove();
 
 #ifdef SSQC
 void DoEffects();
+#else
+.vector view_ofs;
 #endif
 
 // groundmove.qc

@@ -4,6 +4,7 @@ void Predict()
 {
 	float interp = cvar("cl_moveinterp");
 	float correction = 1 - interp;
+	float sens;
 	if (player)
 	{
 		if (player.fixOrigin)
@@ -26,6 +27,40 @@ void Predict()
 		}
 		getinputstate(clientcommandframe - 1);
 		UpdateViewmodel();
-		setviewprop(VF_ORIGIN, player.origin + PLAYER_VIEW_STAND);
+		setviewprop(VF_ORIGIN, player.origin + player.view_ofs);
+		if (player.moveFlags & MF_REVERSEGRAV)
+		{
+			if (currentRoll < 180)
+			{
+				currentRoll += cvar("cl_rollrate") * frametime;
+				if (currentRoll > 180)
+				{
+					currentRoll = 180;
+				}
+			}
+			setviewprop(VF_ANGLES_Z, currentRoll);
+			sens = cvar("sensitivity");
+			if (sens > 0)
+			{
+				localcmd("sensitivity ", ftos(sens * -1), "\n");
+			}
+		}
+		else
+		{
+			if (currentRoll > 0)
+			{
+				currentRoll -= cvar("cl_rollrate") * frametime;
+				if (currentRoll < 0)
+				{
+					currentRoll = 0;
+				}
+			}
+			setviewprop(VF_ANGLES_Z, currentRoll);
+			sens = cvar("sensitivity");
+			if (sens < 0)
+			{
+				localcmd("sensitivity ", ftos(sens * -1), "\n");
+			}
+		}
 	}
 }

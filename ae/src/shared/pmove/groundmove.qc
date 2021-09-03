@@ -85,25 +85,44 @@ float CheckJump()
 	}
 	self.moveFlags &= ~MF_JUMPRELEASED;
 
-	if (self.moveFlags & MF_RAMPSLIDE && self.velocity.z < -180)
-	{
-		self.moveFlags |= MF_CANCRIT;
-	}
 	if (self.grinding)
 	{
 		self.moveFlags |= MF_CANCRIT;
 	}
-	self.velocity.z += 270;
-	if (self.velocity.z < 270)
+	if (self.moveFlags & MF_REVERSEGRAV)
 	{
-		self.velocity.z = 270;
-	}
+		self.velocity.z -= 270;
+		if (self.velocity.z > -270)
+		{
+			self.velocity.z = -270;
+		}
 
-	if (self.velocity.z > 300)
+		if (self.velocity.z < -300)
+		{
+			self.moveFlags |= MF_CANCRIT;
+		}
+		if (self.moveFlags & MF_RAMPSLIDE && self.velocity.z > 180)
+		{
+			self.moveFlags |= MF_CANCRIT;
+		}
+	}
+	else
 	{
-		self.moveFlags |= MF_CANCRIT;
-	}
+		self.velocity.z += 270;
+		if (self.velocity.z < 270)
+		{
+			self.velocity.z = 270;
+		}
 
+		if (self.velocity.z > 300)
+		{
+			self.moveFlags |= MF_CANCRIT;
+		}
+		if (self.moveFlags & MF_RAMPSLIDE && self.velocity.z < -180)
+		{
+			self.moveFlags |= MF_CANCRIT;
+		}
+	}
 	return TRUE;
 }
 
@@ -135,6 +154,11 @@ void GroundMove()
 	fmove = input_movevalues.x;
 	smove = input_movevalues.y;
 
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		smove *= -1;
+	}
+
 	v_forward.z = 0;
 	v_right.z = 0;
 
@@ -142,7 +166,6 @@ void GroundMove()
 	v_right = ClipVector(v_right, self.groundNormal, OVERBOUNCE);
 	v_forward = normalize(v_forward);
 	v_right = normalize(v_right);
-
 
 	wishDir = v_forward * fmove + v_right * smove;
 	wishSpeed = vlen(wishDir);
@@ -162,17 +185,11 @@ void GroundMove()
 
 	speed = vlen(self.velocity);
 
-	self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
-
 	if (self.moveFlags & MF_BURDENED && speed > maxSpeed)
 	{
 		self.velocity = maxSpeed * normalize(self.velocity);
 	}
-	else
-	{
-		self.velocity = normalize(self.velocity);
-		self.velocity *= speed;
-	}
+
 	StepSlideMove();
 
 #ifdef SSQC

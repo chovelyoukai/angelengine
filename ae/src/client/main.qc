@@ -27,11 +27,14 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 	drawfont = loadfont("", autocvar(menu_font, "LiberationMono-Regular.ttf"),
 	                    "12", -1, 0, 0);
 	InitializeViewmodel();
+
+	currentRoll = 0;
 }
 
 void InitializePlayer()
 {
 	SetViewmodel("");
+	currentRoll = 0;
 
 	for (float i = 0; i < MAX_WEAPONS; i++)
 	{

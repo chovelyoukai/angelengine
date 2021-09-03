@@ -155,7 +155,7 @@ void PlayerSpawn()
 	setsize(self, PLAYER_MIN_STAND, PLAYER_MAX_STAND);
 	self.angles = spawnLocation.angles;
 	self.fixangle = TRUE;
-	self.view_ofs = PLAYER_VIEW_STAND;
+	//self.view_ofs = PLAYER_VIEW_STAND;
 	self.velocity = '0 0 0';
 	self.movetype = MOVETYPE_FLY;
 	self.solid = SOLID_SLIDEBOX;

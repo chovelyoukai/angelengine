@@ -26,7 +26,11 @@ void OnTouchGround()
 
 	self.wallclipTime = time + cvar("sv_wallcliptime");
 	self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
-	if (self.velocity.z < oldZVel)
+	if (self.moveFlags & MF_REVERSEGRAV && self.velocity.z > oldZVel)
+	{
+		self.velocity.z = oldZVel;
+	}
+	if (!(self.moveFlags & MF_REVERSEGRAV) && self.velocity.z < oldZVel)
 	{
 		self.velocity.z = oldZVel;
 	}
@@ -62,7 +66,14 @@ void GroundTrace()
 	vector end;
 
 	end = self.origin;
-	end.z -= 0.25;
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		end.z += 0.25;
+	}
+	else
+	{
+		end.z -= 0.25;
+	}
 
 	TracePlayer(self.origin, end);
 
@@ -75,7 +86,11 @@ void GroundTrace()
 		SetOnGround(FALSE);
 	}
 	// if the ground is too steep, we can't stand on it
-	else if (trace_plane_normal.z < 0.7)
+	else if (!(self.moveFlags & MF_REVERSEGRAV) && trace_plane_normal.z < 0.7)
+	{
+		SetOnGround(FALSE);
+	}
+	else if (self.moveFlags & MF_REVERSEGRAV && trace_plane_normal.z > -0.7)
 	{
 		SetOnGround(FALSE);
 	}
@@ -91,6 +106,22 @@ void GroundTrace()
 	else
 	{
 		SetOnGround(TRUE);
+	}
+}
+
+float CanStand(float normal)
+{
+	if (self.moveFlags & MF_REVERSEGRAV && normal > -0.7)
+	{
+		return FALSE;
+	}
+	else if (!(self.moveFlags & MF_REVERSEGRAV) && normal < 0.7)
+	{
+		return FALSE;
+	}
+	else
+	{
+		return TRUE;
 	}
 }
 
@@ -202,6 +233,15 @@ void PlayerMove()
 		GroundTrace();
 		WallTrace();
 		CheckJumpReleased();
+
+		if (self.moveFlags & MF_REVERSEGRAV)
+		{
+			self.view_ofs = -PLAYER_VIEW_STAND;
+		}
+		else
+		{
+			self.view_ofs = PLAYER_VIEW_STAND;
+		}
 
 		if (self.movetype == MOVETYPE_NONE)
 		{

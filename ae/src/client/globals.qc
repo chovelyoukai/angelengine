@@ -5,3 +5,5 @@ float oldSpeed2D;
 float oldAccel2D;
 float oldSpeed;
 float oldAccel;
+
+float currentRoll;

@@ -69,6 +69,7 @@ void RocketRadiusKnockback(entity ignore)
 	float amount;
 	entity target;
 	vector center, bottom, closest;
+	float gravityMultiplier;
 
 	target = findradius(self.origin, ROCKET_RADIUS);
 
@@ -90,8 +91,17 @@ void RocketRadiusKnockback(entity ignore)
 
 		center = target.origin;
 		bottom = target.origin;
-		bottom.z -= 40;
+		if (target.moveFlags & MF_REVERSEGRAV)
+		{
+			gravityMultiplier = -1;
+		}
+		else
+		{
+			gravityMultiplier = 1;
+		}
 
+		bottom.z -= 40 * gravityMultiplier;
+		
 		if (vlen(bottom - self.origin) < vlen(center - self.origin))
 		{
 			closest = bottom;
@@ -132,10 +142,16 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
 	vector direction;
 	float distance;
 	float multiplier;
+	float gravityMultiplier = 1;
 
 	if (target.classname != "player")
 	{
 		return;
+	}
+
+	if (target.moveFlags & MF_REVERSEGRAV)
+	{
+		gravityMultiplier = -1;
 	}
 
 	direction = target.origin - (inflictor.absmin + inflictor.absmax) * 0.5;
@@ -156,11 +172,11 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
 	{
 		target.velocity.x = target.landingVelocity.x;
 		target.velocity.y = target.landingVelocity.y;
-		direction.z = 2;
+		direction.z = 2 * gravityMultiplier;
 	}
 
 	target.velocity += (direction * amount * multiplier);
-	setorigin(target, target.origin + '0 0 1');
+	setorigin(target, target.origin + ('0 0 1' * gravityMultiplier));
 #ifdef SSQC
 	target.moveFlags |= MF_CANCRIT;
 	SendDamage(target, amount, inflictor.origin, TRUE);
@@ -178,7 +194,7 @@ void EmitRocket()
 	start = self.origin + self.view_ofs;
 #else
 	makevectors(view_angles);
-	start = self.origin + PLAYER_VIEW_STAND;
+	start = self.origin + self.view_ofs;
 #endif
 	muzzle = start + (v_forward * 19) + (v_up * -3);
 
