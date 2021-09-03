@@ -20,6 +20,7 @@ items/info_player_start.qc
 items/item_health.qc
 items/item_weaponspawner.qc
 items/item_speed.qc
+items/item_prop.qc
 
 ../shared/math.qc
 ../shared/pmove/pmove.qc
