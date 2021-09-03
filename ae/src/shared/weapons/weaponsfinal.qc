@@ -46,6 +46,7 @@ void GiveWeapon(entity playerEnt, float weaponType)
 void RemoveWeapon(entity playerEnt, float currentSlot)
 {
 	float wepType;
+	float shouldSwitch = FALSE;
 
 	if (currentSlot < 0 || currentSlot >= MAX_WEAPONS)
 	{
@@ -62,12 +63,19 @@ void RemoveWeapon(entity playerEnt, float currentSlot)
 
 	wepType = (playerEnt.weapons[currentSlot]).weaponType;
 
-	playerEnt.weapons[currentSlot].Unequip(playerEnt.weapons[currentSlot]);
+	if (playerEnt.currentWeapon == playerEnt.weapons[currentSlot])
+	{
+		playerEnt.weapons[currentSlot].Unequip(playerEnt.weapons[currentSlot]);
+		shouldSwitch = TRUE;
+	}
 	remove(playerEnt.weapons[currentSlot]);
-	playerEnt.weapons[currentSlot] = world;
-	playerEnt.currentWeapon = world;
 	playerEnt.weaponsHeld--;
-	NextWeapon(playerEnt, currentSlot);
+	playerEnt.weapons[currentSlot] = world;
+	if (shouldSwitch == TRUE)
+	{
+		playerEnt.currentWeapon = world;
+		NextWeapon(playerEnt, currentSlot);
+	}
 
 #ifdef SSQC
 	SendWeaponRemove(wepType, playerEnt);

@@ -1,0 +1,5 @@
+#include "trigger.qh"
+#include "../../shared/weapons/sharedweapons.qh"
+
+void trigger_weaponstrip();
+void trigger_weaponstripTouch();
