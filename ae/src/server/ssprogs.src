@@ -25,6 +25,7 @@ items/item_prop.qc
 triggers/trigger.qc
 triggers/trigger_teleport.qc
 triggers/trigger_weaponstrip.qc
+triggers/trigger_moveflags.qc
 
 ../shared/math.qc
 ../shared/pmove/pmove.qc

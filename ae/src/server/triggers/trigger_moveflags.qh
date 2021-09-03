@@ -1,0 +1,7 @@
+#include "trigger.qh"
+#include "../../shared/pmove/pmove.qh"
+
+.float removeFlags;
+
+void trigger_moveflags();
+void trigger_moveflagsTouch();
