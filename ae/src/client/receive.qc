@@ -156,7 +156,7 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
 		setmodel(self, "models/player.iqm");
 	}
 	setsize(self, PLAYER_MIN_STAND, PLAYER_MAX_STAND);
-	self.solid = SOLID_BBOX;
+	self.solid = SOLID_SLIDEBOX;
 }
 
 void ReceiveDamage(float isKnockback)
