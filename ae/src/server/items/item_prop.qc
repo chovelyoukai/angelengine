@@ -14,5 +14,4 @@ void item_prop()
 void item_propThink()
 {
 	setmodel(self, self.modelPath);
-	setsize(self, self.minSize, self.maxSize);
 }

@@ -1,9 +1,6 @@
 #include "items.qh"
 
-.string ambientSound;
 .string modelPath;
-.vector minSize;
-.vector maxSize;
 
 void item_prop();
 void item_propThink();
