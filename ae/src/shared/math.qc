@@ -22,6 +22,11 @@ vector CrossProduct(vector u, vector v)
 	return out;
 }
 
+vector Projection(vector u, vector v)
+{
+	return (DotProduct(u, v) / DotProduct(v, v)) * v;
+}
+
 float RadiansToDegrees(float angle)
 {
 	return angle * 180 / PI;

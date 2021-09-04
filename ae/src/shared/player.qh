@@ -32,6 +32,10 @@
 
 .float weaponsHeld;
 
+.entity currentHook;
+.float grappled;
+.float hookDistance;
+
 const vector PLAYER_MIN_STAND = '-24 -24 -40';
 const vector PLAYER_MAX_STAND = '24 24 40';
 const vector PLAYER_VIEW_STAND = '0 0 28';
@@ -39,7 +43,9 @@ const float ENT_PLAYER = 65;
 const float ENT_PLAYER_OTHER = 66;
 const float FL_ORIGIN = 1;
 const float FL_VELOCITY = 2;
+const float FL_HOOKOWNER = 4;
 const float FL_MOVETYPE = 4;
+const float FL_OWNERORIGIN = 8;
 const float FL_MOVEFLAGS = 8;
 const float FL_DISCONNECT = 16;
 const float FL_MODELINDEX = 128;

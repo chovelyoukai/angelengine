@@ -17,6 +17,7 @@ void GroundTrace();
 float CanStand(float normal);
 void Accelerate(vector wishdir, float wishspeed, float accel, float maxspeed);
 void Friction(float friction, float stopSpeed);
+void CutHookVelocity();
 void PlayerMove();
 
 #ifdef SSQC

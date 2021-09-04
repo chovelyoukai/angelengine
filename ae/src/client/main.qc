@@ -5,7 +5,9 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 	precache_model("models/player.iqm");
 	precache_model("models/objects/health.iqm");
 	precache_model("models/weapons/chovel.iqm");
+	precache_model("models/weapons/grapple.iqm");
 	precache_model("models/weapons/hammer.iqm");
+	precache_model("models/weapons/hook.iqm");
 	precache_model("models/weapons/rocket.iqm");
 	precache_model("models/weapons/rocketlauncher.iqm");
 	precache_model("models/weapons/shotgun.iqm");
@@ -20,6 +22,7 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 	precache_sound("weapons/chovel_hit.wav");
 	precache_sound("weapons/hammer_fire.wav");
 	precache_sound("weapons/hammer_hit.ogg");
+	precache_sound("weapons/hook_fire.ogg");
 	precache_sound("weapons/rocket_fire.ogg");
 	precache_sound("weapons/shotgun_fire.ogg");
 	precache_sound("weapons/r_exp3.wav");
@@ -47,6 +50,12 @@ void InitializePlayer()
 
 		player.weapons[i] = world;
 	}
+	if (self.currentHook != world)
+	{
+		remove(self.currentHook);
+		self.currentHook = world;
+	}
+	self.grappled = FALSE;
 
 	player.weaponsHeld = 0;
 	player.currentWeapon = world;
@@ -71,6 +80,7 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 	addentities((intermission ? 0 : MASK_VIEWMODEL) | MASK_ENGINE);
 
 	Predict();
+	DrawGrappleLines();
 
 	renderscene();
 

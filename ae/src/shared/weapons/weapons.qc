@@ -153,6 +153,8 @@ float PredictedProjectileUpdate(entity to, float entFlags)
 	{
 		return FALSE;
 	}
+
+	entFlags &= ~(FL_HOOKOWNER | FL_OWNERORIGIN);
 	
 	WriteByte(MSG_ENTITY, ENT_PROJECTILE);
 	WriteLong(MSG_ENTITY, entFlags);

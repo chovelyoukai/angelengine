@@ -3,6 +3,7 @@
 #include "../shared/weapons/sharedweapons.qh"
 
 .string netname;
+.vector ownerOrigin;
 
 void ReceivePlayer(float isNew, float isLocalPlayer);
 void ReceiveDamage(float isKnockback);

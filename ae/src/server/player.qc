@@ -149,7 +149,7 @@ float PlayerUpdate(entity to, float entFlags)
 	}
 	if (entFlags & FL_VANGLE)
 	{
-		WriteCoord(MSG_ENTITY, self.v_angle.x);
+		WriteCoord(MSG_ENTITY, self.v_angle.y);
 	}
 
 	return TRUE;
@@ -185,6 +185,13 @@ void PlayerSpawn()
 
 		self.weapons[i] = world;
 	}
+
+	if (self.currentHook != world)
+	{
+		remove(self.currentHook);
+		self.currentHook = world;
+	}
+	self.grappled = FALSE;
 
 	self.weaponsHeld = 0;
 	self.currentWeapon = world;

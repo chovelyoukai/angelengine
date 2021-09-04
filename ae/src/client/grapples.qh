@@ -1,0 +1,4 @@
+#include "receive.qh"
+
+void DrawLine(vector start, vector end);
+void DrawGrappleLines();

@@ -10,7 +10,8 @@ var entity() weaponSpawns[WEP_LAST] =
 	RocketlauncherSpawn,
 	ShotgunSpawn,
 	ChovelSpawn,
-	HammerSpawn
+	HammerSpawn,
+	GrappleSpawn
 }
 
 void GiveWeapon(entity playerEnt, float weaponType)

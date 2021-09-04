@@ -199,6 +199,8 @@ void StepSlideMove()
 		gravityMultiplier = -1;
 	}
 
+	CutHookVelocity();
+
 	startVel = self.velocity;
 	startOrigin = up = self.origin;
 	

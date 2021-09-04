@@ -1,0 +1,14 @@
+#include "weapons.qh"
+#include "../pmove/pmove.qh"
+
+void GrappleEquip(entity rocketLauncher);
+void GrappleUnequip(entity rocketlauncher);
+void GrappleFire(entity rocketLauncher);
+float GrappleCanEquip(entity rocketLauncher);
+float GrappleCanUnequip(entity rocketLauncher);
+entity GrappleSpawn();
+void HookTouch();
+#ifdef SSQC
+void EmitHook();
+float HookUpdate(entity to, float entFlags);
+#endif

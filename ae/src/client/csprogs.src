@@ -9,6 +9,7 @@ globals.qc
 ../shared/weapons/chovel.qc
 ../shared/weapons/shotgun.qc
 ../shared/weapons/hammer.qc
+../shared/weapons/grapple.qc
 ../shared/weapons/weaponsfinal.qc
 
 hud.qc
@@ -16,6 +17,7 @@ receive.qc
 input.qc
 predict.qc
 damager.qc
+grapples.qc
 main.qc
 
 ../shared/math.qc

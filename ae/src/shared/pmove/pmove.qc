@@ -197,6 +197,38 @@ void Friction(float friction, float stopSpeed)
 	self.velocity = self.velocity * newSpeed;
 }
 
+void CutHookVelocity()
+{
+	vector direction;
+	float distance;
+	float difference;
+
+	if (self.currentHook == world)
+	{
+		return;
+	}
+#ifdef SSQC
+	self.currentHook.SendFlags |= FL_OWNERORIGIN;
+#endif
+	if (self.grappled == FALSE)
+	{
+		return;
+	}
+
+	direction = self.origin - self.currentHook.origin;
+	distance = vlen(direction);
+	difference = distance - self.hookDistance;
+
+	if (distance > self.hookDistance && DotProduct(self.velocity, direction) > 0)
+	{
+		self.velocity -= Projection(self.velocity, direction);
+		if (difference > 10)
+		{
+			self.velocity -= difference * normalize(direction);
+		}
+	}
+}
+
 #ifdef SSQC
 void DoEffects()
 {

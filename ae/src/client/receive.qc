@@ -202,7 +202,12 @@ void ReceiveWeaponRemove()
 void ReceiveProjectile()
 {
 	float flags = readlong();
-	float projectileType = readbyte();
+	float projType = readbyte();
+	self.projectileType = projType;
+
+	self.drawmask = MASK_ENGINE;
+	setmodel(self, worldmodels[projType]);
+
 
 	if (flags & FL_ORIGIN)
 	{
@@ -210,6 +215,14 @@ void ReceiveProjectile()
 		self.origin.y = readcoord();
 		self.origin.z = readcoord();
 		setorigin(self, self.origin);
+		if (projType == PROJ_HOOK)
+		{
+			self.movetype = MOVETYPE_FLYMISSILE;
+			self.solid = SOLID_BBOX;
+			self.touch = HookTouch;
+			self.owner = world;
+			setsize(self, '0 0 0', '0 0 0');
+		}
 	}
 	if (flags & FL_VELOCITY)
 	{
@@ -219,12 +232,26 @@ void ReceiveProjectile()
 		self.movetype = MOVETYPE_FLYMISSILE;
 		self.angles = vectoangles(self.velocity);
 	}
-
-	self.drawmask = MASK_ENGINE;
-	setmodel(self, worldmodels[projectileType]);
+	if (flags & FL_HOOKOWNER && self.movetype != MOVETYPE_NONE)
+	{
+		self.owner = player;
+		player.currentHook = self;
+	}
+	if (flags & FL_OWNERORIGIN)
+	{
+		print("reading\n");
+		self.ownerOrigin.x = readcoord();
+		self.ownerOrigin.y = readcoord();
+		self.ownerOrigin.z = readcoord();
+	}
 }
 
 void CSQC_Ent_Remove()
 {
+	if (self == player.currentHook)
+	{
+		player.grappled = FALSE;
+		player.currentHook = world;
+	}
 	remove(self);
 }

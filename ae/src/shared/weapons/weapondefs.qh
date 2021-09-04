@@ -6,6 +6,7 @@ const float ROCKET_FIRE_TIME = 0.8;
 const float ROCKET_VELOCITY = 1100;
 const float ROCKET_RADIUS = 146;
 const float ROCKET_DAMAGE = 90;
+const float HOOK_VELOCITY = 2000;
 const float SVC_TEMPENTITY = 23;
 const float ENT_PROJECTILE = 79;
 
@@ -16,6 +17,7 @@ enum
 	WEP_SHOTGUN,
 	WEP_CHOVEL,
 	WEP_HAMMER,
+	WEP_GRAPPLE,
 	WEP_LAST
 };
 
@@ -23,7 +25,7 @@ enum
 {
 	PROJ_NONE = -1,
 	PROJ_ROCKET = 0,
-	PROJ_GRENADE,
+	PROJ_HOOK,
 	PROJ_LAST
 };
 
@@ -32,7 +34,8 @@ string viewmodels[WEP_LAST] =
 	"models/weapons/rocketlauncher.iqm",
 	"models/weapons/shotgun.iqm",
 	"models/weapons/chovel.iqm",
-	"models/weapons/hammer.iqm"
+	"models/weapons/hammer.iqm",
+	"models/weapons/grapple.iqm"
 };
 
 float fireTimes[WEP_LAST] =
@@ -40,7 +43,8 @@ float fireTimes[WEP_LAST] =
 	0.8, // rocket launcher
 	1.0, // shotgun
 	0.96, // chovel
-	1.5 // hammer
+	1.5, // hammer
+	0.2 // grapple
 };
 
 float deployTimes[WEP_LAST] =
@@ -48,7 +52,8 @@ float deployTimes[WEP_LAST] =
 	0.6, // rocket launcher
 	0.6, // shotgun
 	0.6, // chovel
-	0.6 // hammer
+	0.6, // hammer
+	0.3 // grapple
 };
 
 float slot[WEP_LAST] =
@@ -56,7 +61,8 @@ float slot[WEP_LAST] =
 	0,
 	1,
 	2,
-	2
+	2,
+	0
 };
 
 string classnames[WEP_LAST] =
@@ -64,11 +70,12 @@ string classnames[WEP_LAST] =
 	"weapon_rocketlauncher",
 	"weapon_shotgun",
 	"weapon_chovel",
-	"weapon_hammer"
+	"weapon_hammer",
+	"weapon_grapple"
 };
 
 string worldmodels[PROJ_LAST] =
 {
 	"models/weapons/rocket.iqm",
-	"models/weapons/grenade.iqm"
+	"models/weapons/hook.iqm",
 };
