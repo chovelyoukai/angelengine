@@ -188,6 +188,12 @@ void EmitRocket()
 	vector start, muzzle;
 	entity rocket;
 	float traceFlags = MOVE_NORMAL;
+	float gravityMultiplier = 1;
+
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		gravityMultiplier = -1;
+	}
 
 #ifdef SSQC
 	makevectors(self.v_angle);
@@ -196,7 +202,7 @@ void EmitRocket()
 	makevectors(view_angles);
 	start = self.origin + self.view_ofs;
 #endif
-	muzzle = start + (v_forward * 19) + (v_up * -3);
+	muzzle = start + (v_forward * 19) + (v_up * -3 * gravityMultiplier);
 
 	traceline(start, muzzle, traceFlags, self);
 

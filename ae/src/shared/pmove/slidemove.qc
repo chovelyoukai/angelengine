@@ -210,7 +210,7 @@ void StepSlideMove()
 	// speed is too high.
 	if (self.moveFlags & MF_BURDENED)
 	{
-		if (self.moveFlags & MF_REVERSEGRAV && self.velocity.z < 270)
+		if (self.moveFlags & MF_REVERSEGRAV && self.velocity.z < -270)
 		{
 			return;
 		}
