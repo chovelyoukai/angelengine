@@ -29,12 +29,14 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 	InitializeViewmodel();
 
 	currentRoll = 0;
+	currentHeight = PLAYER_VIEW_STAND.z;
 }
 
 void InitializePlayer()
 {
 	SetViewmodel("");
 	currentRoll = 0;
+	currentHeight = PLAYER_VIEW_STAND.z;
 
 	for (float i = 0; i < MAX_WEAPONS; i++)
 	{

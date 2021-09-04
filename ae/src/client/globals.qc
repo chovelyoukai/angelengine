@@ -7,3 +7,4 @@ float oldSpeed;
 float oldAccel;
 
 float currentRoll;
+float currentHeight;

@@ -27,7 +27,7 @@ void Predict()
 		}
 		getinputstate(clientcommandframe - 1);
 		UpdateViewmodel();
-		setviewprop(VF_ORIGIN, player.origin + player.view_ofs);
+		vector currentView = '0 0 0';
 		if (player.moveFlags & MF_REVERSEGRAV)
 		{
 			if (currentRoll < 180)
@@ -43,6 +43,14 @@ void Predict()
 			if (sens > 0)
 			{
 				localcmd("sensitivity ", ftos(sens * -1), "\n");
+			}
+			if (currentHeight > player.view_ofs.z)
+			{
+				currentHeight -= 10;
+			}
+			if (currentHeight < player.view_ofs.z)
+			{
+				currentHeight = player.view_ofs.z;
 			}
 		}
 		else
@@ -61,6 +69,16 @@ void Predict()
 			{
 				localcmd("sensitivity ", ftos(sens * -1), "\n");
 			}
+			if (currentHeight < player.view_ofs.z)
+			{
+				currentHeight += 10;
+			}
+			if (currentHeight > player.view_ofs.z)
+			{
+				currentHeight = player.view_ofs.z;
+			}
 		}
+		currentView.z = currentHeight;
+		setviewprop(VF_ORIGIN, player.origin + currentView);
 	}
 }
