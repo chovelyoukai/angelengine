@@ -17,6 +17,7 @@ impulses.qc
 player.qc
 
 items/info_player_start.qc
+items/info_null.qc
 items/item_health.qc
 items/item_weaponspawner.qc
 items/item_speed.qc
@@ -27,6 +28,7 @@ triggers/trigger_teleport.qc
 triggers/trigger_weaponstrip.qc
 triggers/trigger_weapongive.qc
 triggers/trigger_moveflags.qc
+triggers/trigger_catapult.qc
 
 ../shared/math.qc
 ../shared/pmove/pmove.qc

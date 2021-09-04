@@ -19,7 +19,7 @@ void trigger_teleportTouch()
 		return;
 	}
 
-	destination = find (world, targetname, self.target);
+	destination = find(world, targetname, self.target);
 
 	if (destination)
 	{
