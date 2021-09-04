@@ -23,6 +23,10 @@ void PlayerPreThink()
 	{
 		self.SendFlags |= FL_MOVEFLAGS;
 	}
+	if (self.oldVAngle != self.v_angle)
+	{
+		self.SendFlags |= FL_VANGLE;
+	}
 	self.oldOrigin = self.origin;
 	self.oldVelocity = self.velocity;
 	self.oldMovetype = self.movetype;
@@ -57,13 +61,17 @@ void PlayerPostThink()
 	{
 		self.SendFlags |= FL_MOVEFLAGS;
 	}
+	if (self.oldVAngle != self.v_angle)
+	{
+		self.SendFlags |= FL_VANGLE;
+	}
 	if (self.sendTime < time)
 	{
 		self.SendFlags |= FL_NETNAME;
 		self.oldNetname = self.netname;
 
 		self.SendFlags |= FL_ORIGIN | FL_VELOCITY | FL_MOVETYPE |
-		                  FL_MOVEFLAGS;
+		                  FL_MOVEFLAGS | FL_VANGLE;
 
 		self.sendTime = time + cvar("sv_send_interval");
 	}
@@ -139,6 +147,10 @@ float PlayerUpdate(entity to, float entFlags)
 	{
 		WriteString(MSG_ENTITY, self.netname);
 	}
+	if (entFlags & FL_VANGLE)
+	{
+		WriteCoord(MSG_ENTITY, self.v_angle.x);
+	}
 
 	return TRUE;
 }
@@ -155,7 +167,6 @@ void PlayerSpawn()
 	setsize(self, PLAYER_MIN_STAND, PLAYER_MAX_STAND);
 	self.angles = spawnLocation.angles;
 	self.fixangle = TRUE;
-	//self.view_ofs = PLAYER_VIEW_STAND;
 	self.velocity = '0 0 0';
 	self.movetype = MOVETYPE_FLY;
 	self.solid = SOLID_SLIDEBOX;

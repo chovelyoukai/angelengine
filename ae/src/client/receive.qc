@@ -128,13 +128,24 @@ void ReceivePlayer(float isNew, float isLocalPlayer)
 	}
 	if (flags & FL_DISCONNECT && !(flags & FL_MODELINDEX))
 	{
-		setmodel(self, "");
-		setsize(self, '0 0 0', '0 0 0');
-		return;
+		self.think = CSQC_Ent_Remove;
+		self.nextthink = time + 0.1;
 	}
 	if (flags & FL_NETNAME)
 	{
 		self.netname = readstring();
+	}
+	if (flags & FL_VANGLE)
+	{
+		self.angles.y = readcoord();
+		if (self.moveFlags & MF_REVERSEGRAV)
+		{
+			self.angles.z = 180;
+		}
+		else
+		{
+			self.angles.z = 0;
+		}
 	}
 	if (flags & FL_MODELINDEX)
 	{
