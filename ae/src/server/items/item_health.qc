@@ -3,7 +3,7 @@
 void item_health()
 {
 	setmodel(self, "models/objects/health.iqm");
-	setsize(self, '-16 -16 -16', '16 16 16');
+	setsize(self, '-24 -24 -24', '24 24 24');
 	self.solid = SOLID_TRIGGER;
 	self.enabled = TRUE;
 	self.think = item_healthThink;

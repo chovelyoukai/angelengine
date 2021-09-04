@@ -3,7 +3,7 @@
 void item_speed()
 {
 	setmodel(self, "models/objects/speed.iqm");
-	setsize(self, '-16 -16 -16', '16 16 16');
+	setsize(self, '-32 -32 -32', '32 32 32');
 	self.frame = 0;
 	self.solid = SOLID_TRIGGER;
 	self.enabled = TRUE;

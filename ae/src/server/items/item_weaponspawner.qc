@@ -8,7 +8,7 @@ void item_weaponspawner()
 		return;
 	}
 	setmodel(self, viewmodels[self.weaponType]);
-	setsize(self, '-16 -16 -16', '16 16 16');
+	setsize(self, '-24 -24 -24', '24 24 24');
 	self.frame = 0;
 	self.solid = SOLID_TRIGGER;
 	self.enabled = TRUE;
