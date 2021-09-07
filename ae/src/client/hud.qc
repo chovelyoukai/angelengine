@@ -256,6 +256,5 @@ void DrawNames(float width, float height)
 		location = project(location);
 		location.x -= stringwidth(trace_ent.netname, TRUE, '12 12') / 2;
 		drawstring(location, trace_ent.netname, '12 12', '1 1 1', 1.0, 1);
-
 	}
 }

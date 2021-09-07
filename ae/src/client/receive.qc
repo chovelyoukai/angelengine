@@ -239,7 +239,6 @@ void ReceiveProjectile()
 	}
 	if (flags & FL_OWNERORIGIN)
 	{
-		print("reading\n");
 		self.ownerOrigin.x = readcoord();
 		self.ownerOrigin.y = readcoord();
 		self.ownerOrigin.z = readcoord();

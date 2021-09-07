@@ -30,7 +30,6 @@ void HammerFire(entity hammer)
 	          0, self);
 	float dist = 1000 * trace_fraction;
 	float accel = cvar("sv_gravity");
-	//float vel = self.velocity.z * -1 * gravityMultiplier;
 
 	// how long will it take us to reach the ground?
 	float t = (-1 * dist) + sqrt((dist * dist) + (2 * accel * dist));
@@ -149,7 +148,7 @@ void HammerAttack2()
 	traceline(ownerOrigin, ownerOrigin - ('0 0 1000' * gravityMultiplier), 0, self.owner);
 	ownerOrigin = trace_endpos;
 	ownerOrigin += '0 0 500' * gravityMultiplier;
-	for (i = 0; i < 300; i++)
+	for (i = 0; i < 100; i++)
 	{
 		aim = ownerOrigin + down;
 		aim += forward * ((random() * 1000) - 500);
@@ -158,6 +157,7 @@ void HammerAttack2()
 		particle(trace_endpos, trace_plane_normal, 96, 10);
 		particle(trace_endpos, trace_plane_normal, 192, 20);
 	}
+
 	sound(self.owner, CHAN_AUTO, "weapons/hammer_hit3.ogg", 0.7, ATTN_NORM);
 
 	setorigin(self, self.owner.origin);
