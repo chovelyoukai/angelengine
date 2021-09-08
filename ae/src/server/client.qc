@@ -16,6 +16,7 @@ void ClientConnect()
 void ClientDisconnect()
 {
 	self.SendFlags |= FL_DISCONNECT;
+	self.suicideTimeout = 0;
 	ClientKill();
 }
 

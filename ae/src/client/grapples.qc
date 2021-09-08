@@ -22,7 +22,16 @@ void DrawGrappleLines()
 		{
 			if (hook == player.currentHook)
 			{
-				end = player.origin;
+				makevectors(view_angles);
+				end = player.origin + player.view_ofs + (20 * v_forward);
+				if (player.moveFlags & MF_REVERSEGRAV)
+				{
+					end += 10 * v_up;
+				}
+				else
+				{
+					end -= 10 * v_up;
+				}
 			}
 			else
 			{

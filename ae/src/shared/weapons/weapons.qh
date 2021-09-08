@@ -21,6 +21,7 @@ void PreviousWeapon(entity playerEnt, float currentSlot);
 void SendWeaponSpawn(float weaponType, entity target);
 void SendWeaponRemove(float weaponType, entity target);
 float PredictedProjectileUpdate(entity to, float entFlags);
+float ProjectileUpdate(entity to, float entFlags);
 #endif
 
 #ifdef CSQC

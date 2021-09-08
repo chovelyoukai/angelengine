@@ -70,6 +70,10 @@ entity GrappleSpawn()
 
 void HookTouch()
 {
+	if (other.classname == "player")
+	{
+		return;
+	}
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;
 	if (self.owner != world)
@@ -100,8 +104,8 @@ void EmitHook()
 	hook.solid = SOLID_BBOX;
 	hook.velocity = v_forward * HOOK_VELOCITY;
 	hook.angles = vectoangles(hook.velocity);
-	hook.SendEntity = HookUpdate;
-	hook.SendFlags |= FL_ORIGIN | FL_VELOCITY | FL_HOOKOWNER | FL_OWNERORIGIN;
+	hook.SendEntity = ProjectileUpdate;
+	hook.SendFlags |= FL_ORIGIN | FL_VELOCITY | FL_OWNER | FL_OWNERORIGIN;
 
 	self.currentHook = hook;
 
@@ -111,38 +115,5 @@ void EmitHook()
 
 	hook.effects |= EF_DIMLIGHT;
 	hook.touch = HookTouch;
-}
-
-float HookUpdate(entity to, float entFlags)
-{
-	if (to != self.owner)
-	{
-		entFlags &= ~FL_HOOKOWNER;
-	}
-	
-	WriteByte(MSG_ENTITY, ENT_PROJECTILE);
-	WriteLong(MSG_ENTITY, entFlags);
-	WriteByte(MSG_ENTITY, self.projectileType);
-
-	if (entFlags & FL_ORIGIN)
-	{
-		WriteCoord(MSG_ENTITY, self.origin.x);
-		WriteCoord(MSG_ENTITY, self.origin.y);
-		WriteCoord(MSG_ENTITY, self.origin.z);
-	}
-	if (entFlags & FL_VELOCITY)
-	{
-		WriteCoord(MSG_ENTITY, self.velocity.x);
-		WriteCoord(MSG_ENTITY, self.velocity.y);
-		WriteCoord(MSG_ENTITY, self.velocity.z);
-	}
-	if (entFlags & FL_OWNERORIGIN)
-	{
-		WriteCoord(MSG_ENTITY, self.owner.origin.x);
-		WriteCoord(MSG_ENTITY, self.owner.origin.y);
-		WriteCoord(MSG_ENTITY, self.owner.origin.z);
-	}
-
-	return TRUE;
 }
 #endif

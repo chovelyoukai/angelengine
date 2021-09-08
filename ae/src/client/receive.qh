@@ -9,6 +9,6 @@ void ReceivePlayer(float isNew, float isLocalPlayer);
 void ReceiveDamage(float isKnockback);
 void ReceiveWeaponSpawn();
 void ReceiveWeaponRemove();
-void ReceiveProjectile();
+void ReceiveProjectile(float isNew);
 // defined in main.qc
 void InitializePlayer();

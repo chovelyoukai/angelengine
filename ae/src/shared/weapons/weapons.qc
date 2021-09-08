@@ -154,7 +154,17 @@ float PredictedProjectileUpdate(entity to, float entFlags)
 		return FALSE;
 	}
 
-	entFlags &= ~(FL_HOOKOWNER | FL_OWNERORIGIN);
+	entFlags &= ~FL_OWNER;
+
+	return ProjectileUpdate(to, entFlags);
+}
+
+float ProjectileUpdate(entity to, float entFlags)
+{
+	if (to != self.owner && entFlags & FL_OWNER)
+	{
+		entFlags &= ~FL_OWNER;
+	}
 	
 	WriteByte(MSG_ENTITY, ENT_PROJECTILE);
 	WriteLong(MSG_ENTITY, entFlags);
@@ -171,6 +181,12 @@ float PredictedProjectileUpdate(entity to, float entFlags)
 		WriteCoord(MSG_ENTITY, self.velocity.x);
 		WriteCoord(MSG_ENTITY, self.velocity.y);
 		WriteCoord(MSG_ENTITY, self.velocity.z);
+	}
+	if (entFlags & FL_OWNERORIGIN)
+	{
+		WriteCoord(MSG_ENTITY, self.owner.origin.x);
+		WriteCoord(MSG_ENTITY, self.owner.origin.y);
+		WriteCoord(MSG_ENTITY, self.owner.origin.z);
 	}
 
 	return TRUE;

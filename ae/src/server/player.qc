@@ -203,6 +203,12 @@ void PlayerKill(entity killer)
 	self.solid = SOLID_NOT;
 	self.deadflag = DEAD_YES;
 
+	if (self.currentHook != world)
+	{
+		remove(self.currentHook);
+		self.grappled = FALSE;
+	}
+
 	self.SendFlags |= FL_ORIGIN;
 	self.SendFlags |= FL_VELOCITY;
 	self.SendFlags |= FL_MOVETYPE;

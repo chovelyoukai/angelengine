@@ -47,7 +47,7 @@ void CSQC_Ent_Update(float isNew)
 		ReceivePlayer(isNew, FALSE);
 		break;
 	case ENT_PROJECTILE:
-		ReceiveProjectile();
+		ReceiveProjectile(isNew);
 		break;
 	}
 }
@@ -199,7 +199,7 @@ void ReceiveWeaponRemove()
 	RemoveWeapon(player, slot[weaponType]);
 }
 
-void ReceiveProjectile()
+void ReceiveProjectile(float isNew)
 {
 	float flags = readlong();
 	float projType = readbyte();
@@ -208,6 +208,17 @@ void ReceiveProjectile()
 	self.drawmask = MASK_ENGINE;
 	setmodel(self, worldmodels[projType]);
 
+	if (isNew)
+	{
+		if (projType == PROJ_HOOK)
+		{
+			self.touch = HookTouch;
+			self.owner = world;
+		}
+		self.movetype = MOVETYPE_FLYMISSILE;
+		self.solid = SOLID_BBOX;
+		setsize(self, '0 0 0', '0 0 0');
+	}
 
 	if (flags & FL_ORIGIN)
 	{
@@ -215,24 +226,15 @@ void ReceiveProjectile()
 		self.origin.y = readcoord();
 		self.origin.z = readcoord();
 		setorigin(self, self.origin);
-		if (projType == PROJ_HOOK)
-		{
-			self.movetype = MOVETYPE_FLYMISSILE;
-			self.solid = SOLID_BBOX;
-			self.touch = HookTouch;
-			self.owner = world;
-			setsize(self, '0 0 0', '0 0 0');
-		}
 	}
 	if (flags & FL_VELOCITY)
 	{
 		self.velocity.x = readcoord();
 		self.velocity.y = readcoord();
 		self.velocity.z = readcoord();
-		self.movetype = MOVETYPE_FLYMISSILE;
 		self.angles = vectoangles(self.velocity);
 	}
-	if (flags & FL_HOOKOWNER && self.movetype != MOVETYPE_NONE)
+	if (flags & FL_OWNER)
 	{
 		self.owner = player;
 		player.currentHook = self;

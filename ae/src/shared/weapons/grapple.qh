@@ -1,6 +1,9 @@
 #include "weapons.qh"
 #include "../pmove/pmove.qh"
 
+.entity stuckEntity;
+.vector stuckOffset;
+
 void GrappleEquip(entity rocketLauncher);
 void GrappleUnequip(entity rocketlauncher);
 void GrappleFire(entity rocketLauncher);
@@ -10,5 +13,4 @@ entity GrappleSpawn();
 void HookTouch();
 #ifdef SSQC
 void EmitHook();
-float HookUpdate(entity to, float entFlags);
 #endif

@@ -26,6 +26,9 @@ void DoEffects();
 .vector view_ofs;
 #endif
 
+.entity stuckEntity;
+.vector stuckOffset;
+
 // groundmove.qc
 
 void JumpSpeedReduce();
