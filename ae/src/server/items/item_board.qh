@@ -1,0 +1,8 @@
+#include "items.qh"
+#include "../../shared/pmove/pmove.qh"
+
+const float ITEM_BOARD_RESPAWN = 60;
+
+void item_board();
+void item_boardTouch();
+void item_boardThink();

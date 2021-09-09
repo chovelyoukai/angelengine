@@ -49,9 +49,9 @@ float CanBhop()
 		return TRUE;
 	}
 
-	if (cvar("sv_skate") > 0)
+	if (self.moveFlags & MF_GRINDING)
 	{
-		return FALSE;
+		return TRUE;
 	}
 
 	if (self.moveFlags & MF_BURDENED)
@@ -85,7 +85,7 @@ float CheckJump()
 	}
 	self.moveFlags &= ~MF_JUMPRELEASED;
 
-	if (self.grinding)
+	if (self.moveFlags & MF_GRINDING)
 	{
 		self.moveFlags |= MF_CANCRIT;
 	}
@@ -129,11 +129,10 @@ float CheckJump()
 void GroundMove()
 {
 	float fmove, smove;
+	float friction, accel, maxSpeed;
 	float wishSpeed;
 	float speed;
 	vector wishDir;
-
-	float accel, maxSpeed;
 
 	if (CheckJump())
 	{
@@ -143,20 +142,51 @@ void GroundMove()
 
 	self.accelType = ACCEL_GROUND;
 
-	Friction(cvar("sv_friction"), cvar("sv_stopspeed"));
-
-#ifdef SSQC
-	makevectors(self.v_angle);
-#else
-	makevectors(view_angles);
-#endif
-
 	fmove = input_movevalues.x;
 	smove = input_movevalues.y;
 
-	if (self.moveFlags & MF_REVERSEGRAV)
+	accel = cvar("sv_accelerate");
+	maxSpeed = cvar("sv_maxspeed");
+
+	if (self.moveFlags & MF_SKATE)
 	{
-		smove *= -1;
+		if (CheckGrind())
+		{
+			self.moveFlags |= MF_GRINDING;
+		}
+		else
+		{
+			self.moveFlags &= ~MF_GRINDING;
+		}
+	}
+	else
+	{
+		self.moveFlags &= ~MF_GRINDING;
+	}
+
+	if (self.moveFlags & MF_GRINDING)
+	{
+		maxSpeed *= 1.7;
+		friction = 0;
+		smove = 0;
+		if (fmove >= 0)
+		{
+			fmove = maxSpeed;
+		}
+		else
+		{
+			fmove = 0;
+		}
+		makevectors(vectoangles(self.velocity));
+	}
+	else
+	{
+		friction = cvar("sv_friction");
+#ifdef SSQC
+		makevectors(self.v_angle);
+#else
+		makevectors(view_angles);
+#endif
 	}
 
 	v_forward.z = 0;
@@ -167,53 +197,74 @@ void GroundMove()
 	v_forward = normalize(v_forward);
 	v_right = normalize(v_right);
 
+	Friction(friction, cvar("sv_stopspeed"));
+
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		smove *= -1;
+	}
+
 	wishDir = v_forward * fmove + v_right * smove;
 	wishSpeed = vlen(wishDir);
 	wishDir = normalize(wishDir);
 
-	accel = cvar("sv_accelerate");
-	if (self.moveFlags & MF_BURDENED)
+	if (self.moveFlags & MF_GRINDING)
+	{
+		maxSpeed *= 1.2;
+	}
+	else if (self.moveFlags & MF_BURDENED)
 	{
 		maxSpeed = cvar("sv_maxburdenedspeed");
-	}
-	else
-	{
-		maxSpeed = cvar("sv_maxspeed");
 	}
 
 	Accelerate(wishDir, wishSpeed, accel, maxSpeed);
 
 	speed = vlen(self.velocity);
+	self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
+	self.velocity = normalize(self.velocity);
+	self.velocity *= speed;
 
 	if (self.moveFlags & MF_BURDENED && speed > maxSpeed)
 	{
 		self.velocity = maxSpeed * normalize(self.velocity);
 	}
+	if (self.moveFlags & MF_GRINDING)
+	{
+		ApplyGravity();
+	}
 
 	StepSlideMove();
 
-#ifdef SSQC
-	float stepTimeout;
-	float pitch;
-	speed = vlen(self.velocity);
-	if (speed < 1)
+	if (self.moveFlags & MF_GRINDING)
 	{
-		return;
-	}
-	else if (speed >= cvar("sv_maxspeed"))
-	{
-		stepTimeout = 0.4;
-	}
-	else
-	{
-		stepTimeout = 1.4 - (vlen(self.velocity) / cvar("sv_maxspeed"));
+		StickToGround();
 	}
 
-	if (time - self.stepTime > stepTimeout)
+#ifdef SSQC
+	if (!(self.moveFlags & MF_GRINDING))
 	{
-		pitch = 100 + (10 * random()) - 5;
-		self.stepTime = time;
-		sound(self, CHAN_AUTO, "player/step.wav", 0.3, ATTN_NORM, pitch);
+		float stepTimeout;
+		float pitch;
+		speed = vlen(self.velocity);
+		if (speed < 1)
+		{
+			return;
+		}
+		else if (speed >= cvar("sv_maxspeed"))
+		{
+			stepTimeout = 0.4;
+		}
+		else
+		{
+			stepTimeout = 1.4 - (vlen(self.velocity) / cvar("sv_maxspeed"));
+		}
+
+		if (time - self.stepTime > stepTimeout)
+		{
+			pitch = 100 + (10 * random()) - 5;
+			self.stepTime = time;
+			sound(self, CHAN_AUTO, "player/step.wav", 0.3, ATTN_NORM, pitch);
+		}
 	}
 #endif
 }

@@ -4,7 +4,7 @@ void SetOnGround(float onGround)
 {
 	if (onGround == FALSE)
 	{
-		self.grinding = FALSE;
+		self.moveFlags &= ~MF_GRINDING;
 		self.groundEntity = self;
 	}
 	else
@@ -97,7 +97,7 @@ void GroundTrace()
 	// if we *did* hit the ground but still have some vertical velocity,
 	// make us not on the ground (rampsliding)
 	else if ((clippedVelocity.z > 180 || clippedVelocity.z < -180) &&
-	         cvar("sv_skate") == 0)
+	         !(self.moveFlags & MF_GRINDING))
 	{
 		self.velocity = clippedVelocity;
 		self.moveFlags |= MF_RAMPSLIDE;
@@ -232,9 +232,16 @@ void CutHookVelocity()
 #ifdef SSQC
 void DoEffects()
 {
-	if (self.grinding)
+	if (self.moveFlags & MF_GRINDING)
 	{
-		particle(self.origin - '0 0 40', self.groundNormal, 192, 4);
+		if (self.moveFlags & MF_REVERSEGRAV)
+		{
+			particle(self.origin + '0 0 40', self.groundNormal, 192, 4);
+		}
+		else
+		{
+			particle(self.origin - '0 0 40', self.groundNormal, 192, 4);
+		}
 	}
 	else if (self.grindTime > 0)
 	{
@@ -285,10 +292,6 @@ void PlayerMove()
 		else if (cvar("sv_fly") > 0)
 		{
 			FlyMove();
-		}
-		else if (cvar("sv_skate") > 0 && IsOnGround(self))
-		{
-			SkateMove();
 		}
 		else if (IsOnGround(self))
 		{

@@ -22,6 +22,7 @@ items/info_null.qc
 items/item_health.qc
 items/item_weaponspawner.qc
 items/item_speed.qc
+items/item_board.qc
 items/item_prop.qc
 
 triggers/trigger.qc

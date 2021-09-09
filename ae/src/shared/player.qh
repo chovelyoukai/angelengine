@@ -19,7 +19,6 @@
 .vector landingVelocity;
 .float stepTime;
 .float grindTime;
-.float grinding;
 
 .float nextHealthTick;
 

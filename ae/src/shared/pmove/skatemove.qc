@@ -7,12 +7,18 @@ void SetGrindOrigin()
 	vector average;
 	vector boxMins, boxMaxs;
 	float flags = MOVE_NORMAL;
+	float gravityMultiplier = 1;
+
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		gravityMultiplier = -1;
+	}
 
 	boxMins = '-4 -4 -4';
 	boxMaxs = '4 4 4';
 
-	bottom.z += self.mins.z;
-	bottom.z -= 8;
+	bottom.z += self.mins.z * gravityMultiplier;
+	bottom.z -= 8 * gravityMultiplier;
 
 	start = bottom;
 	start += v_right * 24;
@@ -35,10 +41,22 @@ void SetGrindOrigin()
 
 void StickToGround()
 {
-	TracePlayer(self.origin, self.origin - '0 0 18');
-	if (trace_fraction < 1 && trace_plane_normal.z > 0.7)
+
+	if (self.moveFlags & MF_REVERSEGRAV)
 	{
-		setorigin(self, trace_endpos);
+		TracePlayer(self.origin, self.origin + '0 0 18');
+		if (trace_fraction < 1 && trace_plane_normal.z < -0.7)
+		{
+			setorigin(self, trace_endpos);
+		}
+	}
+	else
+	{
+		TracePlayer(self.origin, self.origin - '0 0 18');
+		if (trace_fraction < 1 && trace_plane_normal.z > 0.7)
+		{
+			setorigin(self, trace_endpos);
+		}
 	}
 }
 
@@ -52,6 +70,13 @@ float CheckGrind()
 	float flags = MOVE_NORMAL;
 	float i, j;
 	float hitRight, hitLeft, hit;
+	float gravityMultiplier = 1;
+
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		gravityMultiplier = -1;
+	}
+
 	hitRight = hitLeft = hit = FALSE;
 
 	boxMins = '-4 -4 -4';
@@ -67,7 +92,7 @@ float CheckGrind()
 	forward = backward = '0 0 0';
 
 	bottom = self.origin;
-	bottom.z += self.mins.z;
+	bottom.z += self.mins.z * gravityMultiplier;
 
 	for (i = -1; i <= 0; i++)
 	{
@@ -81,7 +106,7 @@ float CheckGrind()
 			start = bottom;
 			start += (v_forward * i * 24) + (v_right * j * 24);
 			stop = start;
-			stop.z -= 1;
+			stop.z -= 1 * gravityMultiplier;
 
 			traceline(start, stop, flags, self);
 
@@ -107,8 +132,8 @@ float CheckGrind()
 
 	if (hit)
 	{
-		bottom.z -= 8;
-		stopLocation.z -= 7;
+		bottom.z -= 8 * gravityMultiplier;
+		stopLocation.z -= 7 * gravityMultiplier;
 
 		tracebox(stopLocation, boxMins, boxMaxs, bottom, flags, self);
 		if (trace_fraction == 1)
@@ -170,101 +195,5 @@ float CheckGrind()
 	else
 	{
 		return FALSE;
-	}
-}
-
-void SkateMove()
-{
-	float fmove, smove;
-	float friction, accel, maxSpeed;
-	float wishSpeed;
-	float speed;
-	vector wishDir;
-	vector oldDir = normalize(self.velocity);
-
-	if (CheckJump())
-	{
-		AirMove();
-		return;
-	}
-
-	self.accelType = ACCEL_GROUND;
-
-	fmove = input_movevalues.x;
-	smove = input_movevalues.y;
-
-	accel = cvar("sv_accelerate");
-	maxSpeed = cvar("sv_maxskatespeed");
-
-	self.grinding = CheckGrind();
-	if (self.grinding)
-	{
-		maxSpeed *= 1.2;
-	}
-
-	if (!self.grinding)
-	{
-#ifdef SSQC
-		makevectors(self.v_angle);
-#else
-		makevectors(view_angles);
-#endif
-	}
-
-	v_forward.z = 0;
-	v_right.z = 0;
-
-	v_forward = ClipVector(v_forward, self.groundNormal, OVERBOUNCE);
-	v_right = ClipVector(v_right, self.groundNormal, OVERBOUNCE);
-	v_forward = normalize(v_forward);
-	v_right = normalize(v_right);
-
-	if (fmove >= 0)
-	{
-		fmove = maxSpeed;
-		friction = cvar("sv_friction") / 4;
-	}
-	else
-	{
-		fmove = 0;
-		friction = cvar("sv_friction");
-	}
-
-	if (self.grinding)
-	{
-		friction = 0;
-	}
-
-	Friction(friction, cvar("sv_stopspeed"));
-
-	wishDir = v_forward * fmove;
-	wishSpeed = vlen(wishDir);
-	wishDir = normalize(wishDir);
-
-	speed = vlen(self.velocity);
-	Accelerate(wishDir, wishSpeed, accel, maxSpeed);
-	if (speed > maxSpeed && vlen(self.velocity) > speed)
-	{
-		self.velocity = normalize(self.velocity);
-		self.velocity *= speed;
-	}
-
-	speed = vlen(self.velocity);
-
-	self.velocity = ClipVelocity(self.groundNormal, OVERBOUNCE);
-	self.velocity = normalize(self.velocity);
-
-	self.velocity *= speed;
-
-	if (self.grinding && !(speed > 700 && self.velocity.z < 0))
-	{
-		ApplyGravity();
-	}
-
-	StepSlideMove();
-
-	if (self.grinding)
-	{
-		StickToGround();
 	}
 }

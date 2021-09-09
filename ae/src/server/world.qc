@@ -3,6 +3,7 @@
 void PrecacheModels()
 {
 	precache_model("models/player.iqm");
+	precache_model("models/objects/board.iqm");
 	precache_model("models/objects/health.iqm");
 	precache_model("models/objects/speed.iqm");
 	precache_model("models/weapons/chovel.iqm");
