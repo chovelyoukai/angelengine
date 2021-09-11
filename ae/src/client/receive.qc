@@ -34,6 +34,9 @@ void CSQC_Parse_Event()
 		case CMD_GAMEMODE:
 			ReceiveGameMode();
 			break;
+		case CMD_HAMMER:
+			ReceiveHammerAttack();
+			break;
 	}
 }
 
@@ -270,6 +273,19 @@ void ReceiveGameMode()
 			print("Playing to ", ftos(winPoints), " kills\n");
 			break;
 	}
+}
+
+void ReceiveHammerAttack()
+{
+	vector position;
+	float direction;
+
+	position.x = readcoord();
+	position.y = readcoord();
+	position.z = readcoord();
+	direction = readlong();
+
+	HammerEffects(position, direction);
 }
 
 void CSQC_Ent_Remove()

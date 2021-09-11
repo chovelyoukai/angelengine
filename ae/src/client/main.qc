@@ -84,14 +84,6 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 
 	addentities((intermission ? 0 : MASK_VIEWMODEL) | MASK_ENGINE);
 
-	entity p = world;
-	p = find(p, classname, "player");
-	while (p)
-	{
-		print(infokey(p, "name"), "\n");
-		p = find(p, classname, "player");
-	}
-
 	Predict();
 	DrawGrappleLines();
 

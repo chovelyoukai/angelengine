@@ -131,42 +131,79 @@ void HammerAttack2()
 	}
 
 #ifdef SSQC
-	vector forward = '1 0 0';
-	vector right = '0 1 0';
-	vector down = '0 0 -1' * 1000;
-	vector ownerOrigin, aim;
-	float i, gravityMultiplier = 1;
-
-	if (self.owner.moveFlags & MF_REVERSEGRAV)
-	{
-		gravityMultiplier = -1;
-		down *= gravityMultiplier;
-	}
-
-	ownerOrigin = self.owner.origin;
-
-	traceline(ownerOrigin, ownerOrigin - ('0 0 1000' * gravityMultiplier), 0, self.owner);
-	ownerOrigin = trace_endpos;
-	ownerOrigin += '0 0 500' * gravityMultiplier;
-	for (i = 0; i < 100; i++)
-	{
-		aim = ownerOrigin + down;
-		aim += forward * ((random() * 1000) - 500);
-		aim += right * ((random() * 1000) - 500);
-		traceline(ownerOrigin, aim, 0, self.owner);
-		particle(trace_endpos, trace_plane_normal, 96, 10);
-		particle(trace_endpos, trace_plane_normal, 192, 20);
-	}
-
-	sound(self.owner, CHAN_AUTO, "weapons/hammer_hit3.ogg", 0.7, ATTN_NORM);
-
+	SendHammerAttack();
 	setorigin(self, self.owner.origin);
 	RadiusDamage(self, self.owner, 100, 1000);
+#else
+	vector effectOrigin;
+	float direction = self.owner.moveFlags & MF_REVERSEGRAV ? -1 : 1;
+	effectOrigin = self.owner.origin;
+	effectOrigin.z += PLAYER_MIN_STAND.z * direction;
+	HammerEffects(effectOrigin, direction);
 #endif
 	if (input_movevalues.z > 0)
 	{
 		self.owner.velocity.z = -1 * self.velocity.z;
 	}
+}
+
+#ifdef SSQC
+void SendHammerAttack()
+{
+	entity player = world;
+	vector ownerOrigin = self.owner.origin;
+
+	player = find(player, classname, "player");
+	ownerOrigin.z += PLAYER_MIN_STAND.z * 
+		(self.owner.moveFlags & MF_REVERSEGRAV ? -1 : 1);
+
+	while (player != world)
+	{
+		if (player != self.owner)
+		{
+			msg_entity = player;
+			WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+			WriteByte(MSG_MULTICAST, CMD_HAMMER);
+			WriteCoord(MSG_MULTICAST, ownerOrigin.x);
+			WriteCoord(MSG_MULTICAST, ownerOrigin.y);
+			WriteCoord(MSG_MULTICAST, ownerOrigin.z);
+			WriteLong(MSG_MULTICAST, self.owner.moveFlags & MF_REVERSEGRAV ? -1 : 1);
+			multicast('0 0 0', MULTICAST_ONE_R);
+		}
+		player = find(player, classname, "player");
+	}
+}
+#endif
+
+void HammerEffects(vector position, float direction)
+{
+	vector forward = '1 0 0';
+	vector right = '0 1 0';
+	vector down = '0 0 -1' * 1000 * direction;
+	vector aim;
+	float i, gravityMultiplier = 1;
+
+	traceline(position, position - ('0 0 1000' * direction), 0, world);
+	position = trace_endpos;
+	position += '0 0 500' * direction;
+	for (i = 0; i < 75; i++)
+	{
+		aim = position + down;
+		aim += forward * ((random() * 1000) - 500);
+		aim += right * ((random() * 1000) - 500);
+		traceline(position, aim, 0, world);
+		particle(trace_endpos, trace_plane_normal, 96, 5);
+		aim = position + down;
+		aim += forward * ((random() * 1000) - 500);
+		aim += right * ((random() * 1000) - 500);
+		traceline(position, aim, 0, world);
+		particle(trace_endpos, trace_plane_normal, 192, 10);
+	}
+
+	entity tempEnt = spawn();
+	setorigin(tempEnt, position);
+	sound(tempEnt, CHAN_AUTO, "weapons/hammer_hit3.ogg", 0.7, ATTN_NORM);
+	remove(tempEnt);
 }
 
 void HammerKnockback(entity target, entity inflictor, entity attacker, float amount)

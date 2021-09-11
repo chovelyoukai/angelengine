@@ -5,6 +5,10 @@ void HammerUnequip(entity hammer);
 void HammerFire(entity hammer);
 void HammerAttack();
 void HammerAttack2();
+#ifdef SSQC
+void SendHammerAttack();
+#endif
+void HammerEffects(vector position, float direction);
 void HammerKnockback(entity target, entity inflictor, entity attacker, float amount);
 float HammerCanEquip(entity hammer);
 float HammerCanUnequip(entity hammer);

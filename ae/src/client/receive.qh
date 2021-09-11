@@ -11,5 +11,6 @@ void ReceiveWeaponSpawn();
 void ReceiveWeaponRemove();
 void ReceiveProjectile(float isNew);
 void ReceiveGameMode();
+void ReceiveHammerAttack();
 // defined in main.qc
 void InitializePlayer();
