@@ -9,6 +9,8 @@ void ClientConnect()
 		self.weapons[i] = world;
 	}
 
+	SendGameMode(self);
+
 	self.oldNetname = "";
 	self.sendTime = time + 1;
 }

@@ -1,2 +1,6 @@
 const float TRUE = 1;
 const float FALSE = 0;
+
+const float GM_TRICKJUMP = 0;
+const float GM_FFADM = 1;
+const float GM_FFABALL = 2;

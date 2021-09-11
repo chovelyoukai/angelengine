@@ -19,6 +19,7 @@ player.qc
 
 items/info_player_start.qc
 items/info_null.qc
+items/info_game.qc
 items/item_health.qc
 items/item_weaponspawner.qc
 items/item_speed.qc

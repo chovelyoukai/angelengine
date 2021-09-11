@@ -10,5 +10,6 @@ void ReceiveDamage(float isKnockback);
 void ReceiveWeaponSpawn();
 void ReceiveWeaponRemove();
 void ReceiveProjectile(float isNew);
+void ReceiveGameMode();
 // defined in main.qc
 void InitializePlayer();

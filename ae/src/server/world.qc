@@ -46,6 +46,9 @@ void worldspawn()
 {
 	PrecacheModels();
 
+	gameMode = GM_FFADM;
+	winPoints = 20;
+
 	Stats();
 }
 

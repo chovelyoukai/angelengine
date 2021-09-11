@@ -1,4 +1,5 @@
 #include "player.qh"
+#include "items/info_game.qh"
 #include "../shared/player.qh"
 #include "../shared/weapons/sharedweapons.qh"
 

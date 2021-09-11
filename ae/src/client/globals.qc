@@ -8,3 +8,6 @@ float oldAccel;
 
 float currentRoll;
 float currentHeight;
+
+float gameMode;
+float winPoints;

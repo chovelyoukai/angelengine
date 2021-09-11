@@ -1,0 +1,6 @@
+.float mode;
+.float points;
+
+void info_game();
+void SetGameMode(float newMode, float newPoints);
+void SendGameMode(entity to);

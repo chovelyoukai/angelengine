@@ -31,6 +31,9 @@ void CSQC_Parse_Event()
 		case CMD_DEATH:
 			InitializePlayer();
 			break;
+		case CMD_GAMEMODE:
+			ReceiveGameMode();
+			break;
 	}
 }
 
@@ -244,6 +247,28 @@ void ReceiveProjectile(float isNew)
 		self.ownerOrigin.x = readcoord();
 		self.ownerOrigin.y = readcoord();
 		self.ownerOrigin.z = readcoord();
+	}
+}
+
+void ReceiveGameMode()
+{
+	gameMode = readbyte();
+	winPoints = readlong();
+
+	print("Welcome to ");
+	switch (gameMode)
+	{
+		case GM_TRICKJUMP:
+			print("Trickjump!\n");
+			break;
+		case GM_FFADM:
+			print("Free-for-all Deathmatch!\n");
+			print("Playing to ", ftos(winPoints), " kills\n");
+			break;
+		case GM_FFABALL:
+			print("Keepaway Deathmatch!\n");
+			print("Playing to ", ftos(winPoints), " kills\n");
+			break;
 	}
 }
 

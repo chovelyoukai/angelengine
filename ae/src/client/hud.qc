@@ -252,7 +252,7 @@ void DrawNames(float width, float height)
 	if (trace_ent.classname == "player")
 	{
 		location = trace_ent.origin;
-		location.z += 50;
+		location.z += 50 + (trace_fraction * 500);
 		location = project(location);
 		location.x -= stringwidth(trace_ent.netname, TRUE, '12 12') / 2;
 		drawstring(location, trace_ent.netname, '12 12', '1 1 1', 1.0, 1);
