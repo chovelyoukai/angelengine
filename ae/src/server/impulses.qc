@@ -7,7 +7,7 @@ void CheckImpulses()
 		SwitchWeapons(self.impulse);
 	}
 
-	if (self.impulse == 69)
+	if (self.impulse == IMP_DROP)
 	{
 		RemoveWeapon(self, slot[self.currentWeapon.weaponType]);
 	}
