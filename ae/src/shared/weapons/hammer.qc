@@ -134,12 +134,6 @@ void HammerAttack2()
 	SendHammerAttack();
 	setorigin(self, self.owner.origin);
 	RadiusDamage(self, self.owner, 100, 1000);
-#else
-	vector effectOrigin;
-	float direction = self.owner.moveFlags & MF_REVERSEGRAV ? -1 : 1;
-	effectOrigin = self.owner.origin;
-	effectOrigin.z += PLAYER_MIN_STAND.z * direction;
-	HammerEffects(effectOrigin, direction);
 #endif
 	if (input_movevalues.z > 0)
 	{
@@ -159,17 +153,14 @@ void SendHammerAttack()
 
 	while (player != world)
 	{
-		if (player != self.owner)
-		{
-			msg_entity = player;
-			WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
-			WriteByte(MSG_MULTICAST, CMD_HAMMER);
-			WriteCoord(MSG_MULTICAST, ownerOrigin.x);
-			WriteCoord(MSG_MULTICAST, ownerOrigin.y);
-			WriteCoord(MSG_MULTICAST, ownerOrigin.z);
-			WriteLong(MSG_MULTICAST, self.owner.moveFlags & MF_REVERSEGRAV ? -1 : 1);
-			multicast('0 0 0', MULTICAST_ONE_R);
-		}
+		msg_entity = player;
+		WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+		WriteByte(MSG_MULTICAST, CMD_HAMMER);
+		WriteCoord(MSG_MULTICAST, ownerOrigin.x);
+		WriteCoord(MSG_MULTICAST, ownerOrigin.y);
+		WriteCoord(MSG_MULTICAST, ownerOrigin.z);
+		WriteLong(MSG_MULTICAST, self.owner.moveFlags & MF_REVERSEGRAV ? -1 : 1);
+		multicast('0 0 0', MULTICAST_ONE_R);
 		player = find(player, classname, "player");
 	}
 }
