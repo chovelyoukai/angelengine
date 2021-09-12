@@ -7,6 +7,8 @@ void PrecacheModels()
 	precache_model("models/objects/health.iqm");
 	precache_model("models/objects/speed.iqm");
 	precache_model("models/weapons/chovel.iqm");
+	precache_model("models/weapons/grenade.iqm");
+	precache_model("models/weapons/grenadelauncher.iqm");
 	precache_model("models/weapons/grapple.iqm");
 	precache_model("models/weapons/hammer.iqm");
 	precache_model("models/weapons/hook.iqm");
@@ -28,6 +30,7 @@ void PrecacheModels()
 	precache_sound("weapons/hammer_hit.ogg");
 	precache_sound("weapons/hammer_hit2.ogg");
 	precache_sound("weapons/hammer_hit3.ogg");
+	precache_sound("weapons/grenade_fire.ogg");
 	precache_sound("weapons/hook_fire.ogg");
 	precache_sound("weapons/rocket_fire.ogg");
 	precache_sound("weapons/shotgun_fire.ogg");

@@ -1,0 +1,14 @@
+#include "weapons.qh"
+#include "../../shared/math.qh"
+
+void GrenadelauncherEquip(entity grenadelauncher);
+void GrenadelauncherUnequip(entity grenadelauncher);
+void GrenadelauncherFire(entity grenadelauncher);
+float GrenadelauncherCanEquip(entity grenadelauncher);
+float GrenadelauncherCanUnequip(entity grenadelauncher);
+entity GrenadelauncherSpawn();
+#ifdef SSQC
+void EmitGrenade(vector muzzle, vector direction);
+void GrenadeTouch();
+void GrenadeThink();
+#endif

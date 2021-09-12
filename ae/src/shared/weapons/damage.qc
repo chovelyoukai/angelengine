@@ -57,7 +57,7 @@ void RadiusDamage(entity inflictor, entity attacker, float amount,
 
 		realAmount = amount * (1 - (realAmount / radius));
 
-		if (realAmount > 0 && target != attacker && target.classname == "player")
+		if (realAmount > 0 && target.classname == "player")
 		{
 			Damage(target, inflictor, attacker, realAmount);
 		}

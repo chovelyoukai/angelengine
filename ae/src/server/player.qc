@@ -199,7 +199,14 @@ void PlayerSpawn()
 
 void PlayerKill(entity killer)
 {
-	killer.frags++;
+	if (killer != self)
+	{
+		killer.frags++;
+	}
+	else
+	{
+		killer.frags--;
+	}
 
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;
