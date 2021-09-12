@@ -46,6 +46,7 @@ float CanDamage(entity target, entity inflictor)
 void RadiusDamage(entity inflictor, entity attacker, float amount,
     float radius)
 {
+#ifdef SSQC
 	entity target;
 	float realAmount;
 
@@ -59,11 +60,22 @@ void RadiusDamage(entity inflictor, entity attacker, float amount,
 
 		if (realAmount > 0 && target.classname == "player")
 		{
-			Damage(target, inflictor, attacker, realAmount);
+			if (target == attacker)
+			{
+				if (inflictor.spawnflags & WF_SELFDAMAGE)
+				{
+					Damage(target, inflictor, attacker, realAmount);
+				}
+			}
+			else
+			{
+				Damage(target, inflictor, attacker, realAmount);
+			}
 		}
 
 		target = target.chain;
 	}
+#endif
 }
 
 void RadiusKnockback(entity inflictor, entity attacker, float amount,

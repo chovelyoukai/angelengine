@@ -108,6 +108,7 @@ void EmitGrenade(vector muzzle, vector direction)
 	grenade.touch = GrenadeTouch;
 	grenade.think = GrenadeThink;
 	grenade.nextthink = time + 2.5 + (1 * random());
+	grenade.spawnflags |= WF_SELFDAMAGE;
 
 	if (self.moveFlags & MF_REVERSEGRAV)
 	{

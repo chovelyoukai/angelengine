@@ -11,6 +11,8 @@ const float GRENADE_VELOCITY = 900;
 const float SVC_TEMPENTITY = 23;
 const float ENT_PROJECTILE = 79;
 
+const float WF_SELFDAMAGE = 1;
+
 enum
 {
 	WEP_NONE = -1,
