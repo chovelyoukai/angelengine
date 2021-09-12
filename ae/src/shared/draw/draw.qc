@@ -1,3 +1,5 @@
+#include "draw.qh"
+
 void SetRealSize(vector size)
 {
 	realSize = size;
@@ -124,7 +126,8 @@ void DrawTextInc(string text, vector scale, vector color, float alpha)
 {
 	vector increment = '0 0 0';
 	DrawText(text, scale, color, alpha);
-	increment.y = AbsToRel(scale).y + 2;
+	scale.y += 2;
+	increment.y = AbsToRel(scale).y;
 	AddCoords(increment);
 }
 
@@ -153,4 +156,21 @@ void DrawTextMenu(string title, string item0, string item1 = "",
 	DrawTextInc(item9, '16 16', '1 1 1', 1);
 
 	DrawCursor();
+}
+
+void DrawCursor()
+{
+	float i;
+
+	AlignCoords(ALIGN_LEFT, ALIGN_TOP);
+	AddCoords('-2 0 0');
+
+	DrawTextInc("", '24 24 0', '0 0 0', 0);
+
+	for (i = 0; i < cursorPosition; i++)
+	{
+		DrawTextInc("", '16 16 0', '0 0 0', 0);
+	}
+	
+	DrawTextInc(">", '16 16 0', '1 1 1', 1);
 }

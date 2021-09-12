@@ -1,22 +1,5 @@
 #include "menu.qh"
 
-void DrawCursor()
-{
-	float i;
-
-	AlignCoords(ALIGN_LEFT, ALIGN_TOP);
-	AddCoords('-2 0 0');
-
-	DrawTextInc("", '24 24 0', '0 0 0', 0);
-
-	for (i = 0; i < cursorPosition; i++)
-	{
-		DrawTextInc("", '16 16 0', '0 0 0', 0);
-	}
-	
-	DrawTextInc(">", '16 16 0', '1 1 1', 1);
-}
-
 void HandleKeypress(float scanx)
 {
 	switch (scanx)

@@ -199,6 +199,8 @@ void PlayerSpawn()
 
 void PlayerKill(entity killer)
 {
+	killer.frags++;
+
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;
 	self.deadflag = DEAD_YES;

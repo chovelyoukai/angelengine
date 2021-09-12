@@ -3,7 +3,6 @@
 const vector MENU_BG_COLOR = '0 0 0';
 const float MENU_BG_ALPHA = 0.8;
 
-void DrawCursor();
 void HandleKeypress(float scanx);
 void RootMenu();
 void RootMenu_Draw();

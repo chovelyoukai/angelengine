@@ -9,6 +9,7 @@ void DrawHud(float width, float height)
 		DrawHealth(width, height);
 		DrawDamageIndicators(width, height);
 		DrawNames(width, height);
+		DrawScoreboard(width, height);
 	}
 }
 
@@ -245,7 +246,7 @@ void DrawNames(float width, float height)
 	vector start, end;
 	vector location;
 	makevectors(view_angles);
-	start = self.origin + PLAYER_VIEW_STAND;
+	start = self.origin + self.view_ofs;
 	end = start + (v_forward * 10000);
 	traceline(start, end, MOVE_NORMAL, self);
 
@@ -256,5 +257,63 @@ void DrawNames(float width, float height)
 		location = project(location);
 		location.x -= stringwidth(trace_ent.netname, TRUE, '12 12') / 2;
 		drawstring(location, trace_ent.netname, '12 12', '1 1 1', 1.0, 1);
+	}
+}
+
+void DrawScoreboard(float width, float height)
+{
+	float i;
+	vector position = SB_BG_POS;
+	entity nextPlayer = world;
+
+	if (cvar("cl_drawscoreboard") == 0)
+	{
+		return;
+	}
+	SetRealSize([width, height]);
+	SetCoords(position);
+	SetAlign(ALIGN_LEFT, ALIGN_TOP);
+	DrawBox(SB_BG_SIZE, SB_BG_COLOR, SB_BG_ALPHA);
+
+	position.x += 1;
+	position.y += 2;
+	SetCoords(position);
+
+	vector fSize = SB_FONT_SIZE;
+	vector fColor = SB_FONT_COLOR;
+	float fAlpha = SB_FONT_ALPHA;
+
+	DrawText("Score", fSize, fColor, fAlpha);
+	AddCoords([5, 0]);
+	DrawText("Name", fSize, fColor, fAlpha);
+	AddCoords([20, 0]);
+	DrawTextInc("Ping", fSize, fColor, fAlpha);
+	AddCoords([-25, 0]);
+
+	string frags = getplayerkeyvalue(player_localnum, INFOKEY_P_FRAGS);
+	string name = getplayerkeyvalue(player_localnum, INFOKEY_P_NAME);
+	string ping = getplayerkeyvalue(player_localnum, INFOKEY_P_PING);
+	DrawText(frags, fSize, fColor, fAlpha);
+	AddCoords([5, 0]);
+	DrawText(name, fSize, fColor, fAlpha);
+	AddCoords([20, 0]);
+	DrawTextInc(ping, fSize, fColor, fAlpha);
+	AddCoords([-25, 0]);
+
+	for (i = 0; i < maxclients; i++)
+	{
+		if (i == player_localnum)
+		{
+			continue;
+		}
+		frags = getplayerkeyvalue(i, INFOKEY_P_FRAGS);
+		name = getplayerkeyvalue(i, INFOKEY_P_NAME);
+		ping = getplayerkeyvalue(i, INFOKEY_P_PING);
+		DrawText(frags, fSize, fColor, fAlpha);
+		AddCoords([5, 0]);
+		DrawText(name, fSize, fColor, fAlpha);
+		AddCoords([20, 0]);
+		DrawTextInc(ping, fSize, fColor, fAlpha);
+		AddCoords([-25, 0]);
 	}
 }

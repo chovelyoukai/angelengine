@@ -9,6 +9,7 @@ float drawAlignY;
 vector relCoords;
 vector absCoords;
 vector realSize;
+float cursorPosition;
 
 void SetRealSize(vector size);
 void SetCoords(vector newCoords);
@@ -25,3 +26,4 @@ void DrawFillFullScreen(vector color, float alpha);
 void DrawTextMenu(string title, string item0, string item1 = "",
     string item2 = "", string item2 = "", string item4 = "", string item5 = "",
     string item6 = "", string item7 = "", string item8 = "", string item9 = "");
+void DrawCursor();

@@ -2,6 +2,7 @@
 #include "../shared/player.qh"
 #include "../shared/math.qh"
 #include "../shared/pmove/pmove.qh"
+#include "../shared/draw/draw.qh"
 
 void DrawHealth(float width, float height);
 void DrawMeters(float width, float height);
@@ -10,6 +11,7 @@ float UpdateAccel2D(float width);
 float UpdateAccel(float width);
 void DrawHealth(float width, float height);
 void DrawNames(float width, float height);
+void DrawScoreboard(float width, float height);
 
 .string netname;
 
@@ -22,3 +24,11 @@ const vector ACCEL_FLY_COLOR = '0 1 0';
 const vector HEALTH_COLOR = '0.455 0.008 0.008' * 0.4;
 const vector OVERHEAL_COLOR = '0.310 0.486 0.675' * 0.4;
 const float BUTTON_ATTACK = 1;
+
+const vector SB_BG_COLOR = '0 0 0';
+const vector SB_BG_SIZE = '30 35 0';
+const vector SB_BG_POS = '65 10 0';
+const float SB_BG_ALPHA = 0.8;
+const vector SB_FONT_SIZE = '12 12 0';
+const vector SB_FONT_COLOR = '1 1 1';
+const float SB_FONT_ALPHA = 1;
