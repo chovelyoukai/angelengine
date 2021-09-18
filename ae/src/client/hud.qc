@@ -2,14 +2,18 @@
 
 void DrawHud(float width, float height)
 {
+	SetFont(monoFont);
+
 	if (cvar("cl_drawhud") > 0)
 	{
+		SetRealSize([width, height]);
 		DrawMeters(width, height);
 		DrawKeys(width, height);
 		DrawHealth(width, height);
 		DrawDamageIndicators(width, height);
 		DrawNames(width, height);
 		DrawScoreboard(width, height);
+		DrawTimer(width, height);
 	}
 }
 
@@ -23,6 +27,8 @@ void DrawMeters(float width, float height)
 	vector accelColor;
 	float accel2D, accel3D, accelReal;
 	float health = getstatf(STAT_HEALTH);
+
+	SetFont(textFont);
 
 	if (cvar("cl_drawhspeed") > 0)
 	{
@@ -158,10 +164,12 @@ void DrawHealth(float width, float height)
 	string healthString = ftos(health);
 	healthString = strcat("Health: ", healthString);
 
+	SetFont(textFont);
+
 	healthPos.x = 3 * (width / 4);
 	healthPos.y = 3 * (height / 4);
 
-	drawstring(healthPos, healthString, '12 12', '1 1 1', 1.0, 0);
+	drawstring(healthPos, healthString, '16 16', '1 1 1', 1.0, 0);
 
 	healthPos.y += 14;
 	healthSize.y = 12;
@@ -196,6 +204,8 @@ void DrawKeys(float width, float height)
 	{
 		return;
 	}
+
+	SetFont(monoFont);
 
 	left = right = forward = backward = jump = attack = " ";
 
@@ -270,7 +280,6 @@ void DrawScoreboard(float width, float height)
 	{
 		return;
 	}
-	SetRealSize([width, height]);
 	SetCoords(position);
 	SetAlign(ALIGN_LEFT, ALIGN_TOP);
 	DrawBox(SB_BG_SIZE, SB_BG_COLOR, SB_BG_ALPHA);
@@ -283,22 +292,24 @@ void DrawScoreboard(float width, float height)
 	vector fColor = SB_FONT_COLOR;
 	float fAlpha = SB_FONT_ALPHA;
 
+	SetFont(titleFont);
 	DrawText("Score", fSize, fColor, fAlpha);
-	AddCoords([5, 0]);
+	AddCoords([7, 0]);
 	DrawText("Name", fSize, fColor, fAlpha);
-	AddCoords([20, 0]);
+	AddCoords([17, 0]);
 	DrawTextInc("Ping", fSize, fColor, fAlpha);
-	AddCoords([-25, 0]);
+	AddCoords([-24, 0]);
 
+	SetFont(textFont);
 	string frags = getplayerkeyvalue(player_localnum, INFOKEY_P_FRAGS);
 	string name = getplayerkeyvalue(player_localnum, INFOKEY_P_NAME);
 	string ping = getplayerkeyvalue(player_localnum, INFOKEY_P_PING);
 	DrawText(frags, fSize, fColor, fAlpha);
-	AddCoords([5, 0]);
+	AddCoords([7, 0]);
 	DrawText(name, fSize, fColor, fAlpha);
-	AddCoords([20, 0]);
+	AddCoords([17, 0]);
 	DrawTextInc(ping, fSize, fColor, fAlpha);
-	AddCoords([-25, 0]);
+	AddCoords([-24, 0]);
 
 	for (i = 0; i < maxclients; i++)
 	{
@@ -316,4 +327,45 @@ void DrawScoreboard(float width, float height)
 		DrawTextInc(ping, fSize, fColor, fAlpha);
 		AddCoords([-25, 0]);
 	}
+}
+
+void DrawTimer(float width, float height)
+{
+	float minutes;
+	float seconds;
+	string minutesText, secondsText, text;
+
+	vector position = '0 5 0';
+	position.x = cvar("cl_timer_x");
+
+	SetCoords(position);
+	AlignCoords(ALIGN_CENTER, ALIGN_TOP);
+	SetAlign(ALIGN_CENTER, ALIGN_BOTTOM);
+	SetFont(textFont);
+
+	if (gameTime < 0)
+	{
+		minutes = 99;
+		seconds = 99;
+	}
+	else
+	{
+		minutes = floor(gameTime / 60);
+		seconds = gameTime - (minutes * 60);
+	}
+
+	minutesText = ftos(minutes);
+	if (minutes < 10)
+	{
+		minutesText = strcat("0", minutesText);
+	}
+	secondsText = ftos(seconds);
+	if (seconds < 10)
+	{
+		secondsText = strcat("0", secondsText);
+	}
+
+	text = strcat(minutesText, ":", secondsText);
+
+	DrawText(text, TIMER_FONT_SIZE, TIMER_COLOR, 1);
 }

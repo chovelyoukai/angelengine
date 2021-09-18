@@ -11,3 +11,4 @@ float currentHeight;
 
 float gameMode;
 float winPoints;
+float gameTime;

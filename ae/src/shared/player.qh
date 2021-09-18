@@ -72,6 +72,7 @@ const float CMD_DEATH = 5;
 const float CMD_WEAPON_REMOVE = 6;
 const float CMD_GAMEMODE = 7;
 const float CMD_HAMMER = 8;
+const float CMD_GAMETIME = 9;
 
 const float BUTTON4 = 8;
 

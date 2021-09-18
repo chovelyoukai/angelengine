@@ -37,6 +37,9 @@ void CSQC_Parse_Event()
 		case CMD_HAMMER:
 			ReceiveHammerAttack();
 			break;
+		case CMD_GAMETIME:
+			ReceiveGameTime();
+			break;
 	}
 }
 
@@ -286,6 +289,11 @@ void ReceiveHammerAttack()
 	direction = readlong();
 
 	HammerEffects(position, direction);
+}
+
+void ReceiveGameTime()
+{
+	gameTime = readlong();
 }
 
 void CSQC_Ent_Remove()

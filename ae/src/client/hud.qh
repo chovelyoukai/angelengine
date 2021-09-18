@@ -3,6 +3,10 @@
 #include "../shared/math.qh"
 #include "../shared/pmove/pmove.qh"
 #include "../shared/draw/draw.qh"
+#include "../shared/draw/font.qh"
+
+void DrawHud(float width, float height);
+void SetFont(float fontNumber);
 
 void DrawHealth(float width, float height);
 void DrawMeters(float width, float height);
@@ -12,6 +16,7 @@ float UpdateAccel(float width);
 void DrawHealth(float width, float height);
 void DrawNames(float width, float height);
 void DrawScoreboard(float width, float height);
+void DrawTimer(float width, float height);
 
 .string netname;
 
@@ -32,3 +37,6 @@ const float SB_BG_ALPHA = 0.8;
 const vector SB_FONT_SIZE = '12 12 0';
 const vector SB_FONT_COLOR = '1 1 1';
 const float SB_FONT_ALPHA = 1;
+
+const vector TIMER_COLOR = '1 1 1';
+const vector TIMER_FONT_SIZE = '24 24 0';
