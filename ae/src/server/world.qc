@@ -51,6 +51,7 @@ void worldspawn()
 
 	gameMode = GM_FFADM;
 	winPoints = 20;
+	gameInfo = world;
 
 	Stats();
 }

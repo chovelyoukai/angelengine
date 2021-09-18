@@ -22,6 +22,8 @@ void info_game()
 	self.nextthink = time + 0.1;
 	self.think = info_gameThink;
 
+	gameInfo = self;
+
 	SetGameMode(self.mode, self.points);
 }
 
