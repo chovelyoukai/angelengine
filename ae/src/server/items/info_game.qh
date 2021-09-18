@@ -1,6 +1,15 @@
 .float mode;
 .float points;
+.float setupTime;
+.float gameTime;
+.float winTime;
+.float currentStatus;
+
+const float STATUS_SETUP = 0;
+const float STATUS_GAME = 1;
+const float STATUS_WIN = 2;
 
 void info_game();
+void info_gameThink();
 void SetGameMode(float newMode, float newPoints);
 void SendGameMode(entity to);
