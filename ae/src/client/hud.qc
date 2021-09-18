@@ -260,6 +260,8 @@ void DrawNames(float width, float height)
 	end = start + (v_forward * 10000);
 	traceline(start, end, MOVE_NORMAL, self);
 
+	SetFont(textFont);
+
 	if (trace_ent.classname == "player")
 	{
 		location = trace_ent.origin;

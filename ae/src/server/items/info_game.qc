@@ -19,7 +19,7 @@ void info_game()
 	self.currentStatus = STATUS_SETUP;
 	self.winTime = 15;
 
-	self.nextthink = time + 1;
+	self.nextthink = time + 0.1;
 	self.think = info_gameThink;
 
 	SetGameMode(self.mode, self.points);
