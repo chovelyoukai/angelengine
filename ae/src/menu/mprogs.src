@@ -5,3 +5,4 @@ globals.qc
 menu.qc
 main.qc
 ../shared/draw/draw.qc
+../shared/draw/font.qc

@@ -23,6 +23,7 @@ main.qc
 
 ../shared/math.qc
 ../shared/draw/draw.qc
+../shared/draw/font.qc
 ../shared/pmove/pmove.qc
 ../shared/pmove/slidemove.qc
 ../shared/pmove/groundmove.qc

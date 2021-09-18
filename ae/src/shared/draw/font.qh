@@ -1,0 +1,4 @@
+float monoFont, textFont, titleFont;
+
+void LoadFonts();
+void SetFont(float fontNumber);

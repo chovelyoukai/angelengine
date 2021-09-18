@@ -111,10 +111,11 @@ void DrawBox(vector size, vector color, float alpha)
 
 void DrawText(string text, vector scale, vector color, float alpha)
 {
-	vector size;
+	vector size = '0 0 0';
 	vector position;
 
-	size.x = stringwidth(text, TRUE, '12 12');
+	size.x = stringwidth(text, TRUE, scale);
+	size.x = AbsToRel(size).x;
 	size.y = AbsToRel(scale).y + 2;
 
 	position = GetAbsAlignCoords(size);
@@ -143,7 +144,9 @@ void DrawTextMenu(string title, string item0, string item1 = "",
 	DrawFillFullScreen('0 0 0', 0.8);
 
 	AlignCoords(ALIGN_LEFT, ALIGN_TOP);
-	DrawTextInc(title, '24 24', '1 1 1', 1);
+	SetFont(titleFont);
+	DrawTextInc(title, '32 32', '1 1 1', 1);
+	SetFont(textFont);
 	DrawTextInc(item0, '16 16', '1 1 1', 1);
 	DrawTextInc(item1, '16 16', '1 1 1', 1);
 	DrawTextInc(item2, '16 16', '1 1 1', 1);
@@ -165,8 +168,10 @@ void DrawCursor()
 	AlignCoords(ALIGN_LEFT, ALIGN_TOP);
 	AddCoords('-2 0 0');
 
-	DrawTextInc("", '24 24 0', '0 0 0', 0);
+	SetFont(titleFont);
+	DrawTextInc("", '32 32 0', '0 0 0', 0);
 
+	SetFont(textFont);
 	for (i = 0; i < cursorPosition; i++)
 	{
 		DrawTextInc("", '16 16 0', '0 0 0', 0);

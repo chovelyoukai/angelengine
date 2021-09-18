@@ -31,9 +31,9 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 	precache_sound("weapons/rocket_fire.ogg");
 	precache_sound("weapons/shotgun_fire.ogg");
 	precache_sound("weapons/r_exp3.wav");
-	
-	drawfont = loadfont("", autocvar(menu_font, "LiberationMono-Regular.ttf"),
-	                    "12", -1, 0, 0);
+
+	LoadFonts();
+
 	InitializeViewmodel();
 
 	currentRoll = 0;

@@ -1,5 +1,6 @@
 #include "menu.qh"
 #include "../shared/draw/draw.qh"
+#include "../shared/draw/font.qh"
 
 void m_close()
 {
@@ -20,9 +21,9 @@ void m_init()
 	menuActive = FALSE;
 	RootMenu();
 	setwindowcaption("Angel Engine");
-	drawfont = loadfont("", autocvar(menu_font, "LiberationMono-Regular.ttf"),
-	                    "12 16 24", -1, 0, 0);
 	cursorPosition = 0;
+
+	LoadFonts();
 }
 
 void m_shutdown()
