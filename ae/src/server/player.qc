@@ -201,7 +201,7 @@ void PlayerKill(entity killer)
 {
 	if (killer != self)
 	{
-		killer.frags++;
+		UpdatePoints(killer);
 	}
 	else
 	{

@@ -35,6 +35,28 @@ void PrecacheModels()
 	precache_sound("weapons/rocket_fire.ogg");
 	precache_sound("weapons/shotgun_fire.ogg");
 	precache_sound("weapons/r_exp3.wav");
+
+	precache_sound("music/countdown.wav");
+	precache_sound("music/ends/end1.wav");
+	precache_sound("music/ends/end2.wav");
+	precache_sound("music/ends/end3.wav");
+	precache_sound("music/ends/end4.wav");
+	precache_sound("music/ends/end5.wav");
+	precache_sound("music/ends/end6.wav");
+	precache_sound("music/ends/end7.wav");
+	precache_sound("music/ends/end8.wav");
+	precache_sound("music/ends/end9.wav");
+	precache_sound("music/ends/end10.wav");
+	precache_sound("music/starts/start1.wav");
+	precache_sound("music/starts/start2.wav");
+	precache_sound("music/starts/start3.wav");
+	precache_sound("music/starts/start4.wav");
+	precache_sound("music/starts/start5.wav");
+	precache_sound("music/starts/start6.wav");
+	precache_sound("music/starts/start7.wav");
+	precache_sound("music/starts/start8.wav");
+	precache_sound("music/starts/start9.wav");
+	precache_sound("music/starts/start10.wav");
 }
 
 void Stats()

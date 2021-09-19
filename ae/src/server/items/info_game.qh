@@ -11,5 +11,11 @@ const float STATUS_WIN = 2;
 
 void info_game();
 void info_gameThink();
+void PlayStartSound();
+void PlayEndSound();
 void SetGameMode(float newMode, float newPoints);
 void SendGameMode(entity to);
+void EndGame();
+void WinGame(entity player);
+void LoseGame();
+void UpdatePoints(entity player);

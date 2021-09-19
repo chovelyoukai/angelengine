@@ -42,7 +42,7 @@ void info_gameThink()
 			self.gameTime--;
 			break;
 		case STATUS_WIN:
-			timeToSend = -1;
+			timeToSend = self.winTime;
 			self.winTime--;
 			break;
 	}
@@ -52,12 +52,51 @@ void info_gameThink()
 	WriteLong(MSG_MULTICAST, timeToSend);
 	multicast('0 0 0', MULTICAST_ALL);
 
-	if (timeToSend - 1 == 0 && self.currentStatus != STATUS_WIN)
+	if (timeToSend - 1 == 0)
 	{
-		self.currentStatus++;
+		if (self.currentStatus != STATUS_WIN)
+		{
+			self.currentStatus++;
+			if (self.currentStatus == STATUS_GAME)
+			{
+				self.think = PlayStartSound;
+			}
+			else if (self.currentStatus == STATUS_WIN)
+			{
+				LoseGame();
+			}
+		}
+		else
+		{
+			EndGame();
+		}
+	}
+	else if (timeToSend == 10 && self.currentStatus != STATUS_WIN)
+	{
+		sound(world, CHAN_AUTO, "music/countdown.wav", 1.0, ATTN_NONE);
 	}
 
 	self.nextthink = time + 1;
+}
+
+void PlayStartSound()
+{
+	string fname = "music/starts/start";
+	fname = strcat(fname, ftos(floor(10 * random()) + 1), ".wav");
+	sound(world, CHAN_AUTO, fname, 1.0, ATTN_NONE);
+
+	self.think = info_gameThink;
+	self.think();
+}
+
+void PlayEndSound()
+{
+	string fname = "music/ends/end";
+	fname = strcat(fname, ftos(floor(10 * random()) + 1), ".wav");
+	sound(world, CHAN_AUTO, fname, 1.0, ATTN_NONE);
+
+	self.think = info_gameThink;
+	self.think();
 }
 
 void SetGameMode(float newMode, float newPoints)
@@ -86,4 +125,52 @@ void SendGameMode(entity to)
 	WriteByte(MSG_MULTICAST, gameMode);
 	WriteLong(MSG_MULTICAST, winPoints);
 	multicast('0 0 0', MULTICAST_ONE_R);
+}
+
+void EndGame()
+{
+	changelevel(mapname);
+}
+
+void WinGame(entity player)
+{
+	bprint(10000, player.netname, " has won the game!\n");
+	gameInfo.currentStatus = STATUS_WIN;
+	gameInfo.think = PlayEndSound;
+}
+
+void LoseGame()
+{
+	bprint(10000, "No one could win the game...\n");
+	gameInfo.currentStatus = STATUS_WIN;
+	gameInfo.think = PlayEndSound;
+}
+
+void UpdatePoints(entity player)
+{
+	if (gameInfo == world)
+	{
+		player.frags++;
+	}
+
+	switch(gameInfo.mode)
+	{
+		case GM_FFADM:
+			player.frags++;
+			if (player.frags >= gameInfo.points)
+			{
+				WinGame(player);
+			}
+			break;
+		case GM_FFABALL:
+			if (ball.owner == player)
+			{
+				player.frags++;
+			}
+			if (player.frags >= gameInfo.points)
+			{
+				WinGame(player);
+			}
+			break;
+	}
 }
