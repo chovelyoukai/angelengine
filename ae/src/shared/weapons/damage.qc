@@ -95,7 +95,7 @@ void RadiusKnockback(entity inflictor, entity attacker, float amount,
 void Damage(entity target, entity inflictor, entity attacker, float amount)
 {
 #ifdef SSQC
-	if (gameInfo.currentStatus == STATUS_GAME)
+	if (gameInfo == world || gameInfo.currentStatus == STATUS_GAME)
 	{
 		target.health -= amount;
 	}
