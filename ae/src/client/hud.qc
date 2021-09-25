@@ -197,8 +197,8 @@ void DrawKeys(float width, float height)
 {
 	float fmove, smove, umove;
 	vector keysPos; 
-	string topText, bottomText;
-	string left, right, forward, backward, jump, attack;
+	string topText, middleText, bottomText;
+	string left, right, forward, backward, jump, attack, mod;
 
 	if (cvar("cl_drawkeys") == 0)
 	{
@@ -207,7 +207,7 @@ void DrawKeys(float width, float height)
 
 	SetFont(monoFont);
 
-	left = right = forward = backward = jump = attack = " ";
+	left = right = forward = backward = jump = attack = mod = " ";
 
 	fmove = input_movevalues.x;
 	smove = input_movevalues.y;
@@ -237,9 +237,14 @@ void DrawKeys(float width, float height)
 	{
 		attack = "A";
 	}
+	if (input_buttons & BUTTON4)
+	{
+		mod = "o";
+	}
 
 	topText = strcat(jump, " ", forward, " ", attack);
-	bottomText = strcat(left, " ", backward, " ", right);
+	middleText = strcat(left, " ", mod, " ", right);
+	bottomText = strcat("  ", backward, "  ");
 
 	keysPos.x = cvar("cl_drawkeys_x");
 	keysPos.y = cvar("cl_drawkeys_y");
@@ -247,6 +252,8 @@ void DrawKeys(float width, float height)
 	keysPos.x = keysPos.x * (width - stringwidth(topText, TRUE, '12 12'));
 	keysPos.y = keysPos.y * height;
 	drawstring(keysPos, topText, '12 12', '1 1 1', 1.0, 1);
+	keysPos.y += 14;
+	drawstring(keysPos, middleText, '12 12', '1 1 1', 1.0, 1);
 	keysPos.y += 14;
 	drawstring(keysPos, bottomText, '12 12', '1 1 1', 1.0, 1);
 }
