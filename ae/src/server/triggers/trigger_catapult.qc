@@ -17,6 +17,9 @@ void trigger_catapultTouch()
 
 	destination = find(world, targetname, self.target);
 
+	other.groundEntity = other;
+	setorigin(other, other.origin + '0 0 1' * (other.moveFlags & MF_REVERSEGRAV ? -1 : 1));
+
 	if (destination)
 	{
 		vector diff = destination.origin - other.origin;
