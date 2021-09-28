@@ -71,7 +71,7 @@ void PlayerPostThink()
 		self.oldNetname = self.netname;
 
 		self.SendFlags |= FL_ORIGIN | FL_VELOCITY | FL_MOVETYPE |
-		                  FL_MOVEFLAGS | FL_VANGLE;
+		                  FL_MOVEFLAGS | FL_VANGLE | FL_SNAP;
 
 		self.sendTime = time + cvar("sv_send_interval");
 	}

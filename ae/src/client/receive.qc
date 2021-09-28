@@ -196,9 +196,30 @@ void ReceiveDamage(float isKnockback)
 
 void ReceiveWeaponSpawn()
 {
-	float weaponType = readfloat();
+	float type = readfloat();
+	entity delayedWeapon;
 
-	GiveWeapon(player, weaponType);
+	if (player == world)
+	{
+		delayedWeapon = spawn();
+		delayedWeapon.weaponType = type;
+		delayedWeapon.think = SpawnDelayedWeapon;
+		delayedWeapon.nextthink = time + 0.1;
+		return;
+	}
+
+	GiveWeapon(player, type);
+}
+
+void SpawnDelayedWeapon()
+{
+	if (player == world)
+	{
+		self.nextthink = time + 0.1;
+		return;
+	}
+
+	GiveWeapon(player, self.weaponType);
 }
 
 void ReceiveWeaponRemove()
@@ -294,6 +315,11 @@ void ReceiveHammerAttack()
 void ReceiveGameTime()
 {
 	gameTime = readlong();
+
+	if (gameTime == 10 && cvar("cl_countdown") != 0)
+	{
+		sound(world, CHAN_AUTO, "music/countdown.wav", 1.0, ATTN_NONE);
+	}
 }
 
 void CSQC_Ent_Remove()
