@@ -71,10 +71,6 @@ void info_gameThink()
 			EndGame();
 		}
 	}
-	else if (timeToSend == 10 && self.currentStatus != STATUS_WIN)
-	{
-		sound(world, CHAN_AUTO, "music/countdown.wav", 1.0, ATTN_NONE);
-	}
 
 	self.nextthink = time + 1;
 }
@@ -82,8 +78,12 @@ void info_gameThink()
 void PlayStartSound()
 {
 	string fname = "music/starts/start";
-	fname = strcat(fname, ftos(floor(10 * random()) + 1), ".wav");
-	sound(world, CHAN_AUTO, fname, 1.0, ATTN_NONE);
+
+	if (cvar("sv_playsounds") != 0)
+	{
+		fname = strcat(fname, ftos(floor(10 * random()) + 1), ".wav");
+		sound(world, CHAN_AUTO, fname, 1.0, ATTN_NONE);
+	}
 
 	self.think = info_gameThink;
 	self.think();
@@ -92,8 +92,12 @@ void PlayStartSound()
 void PlayEndSound()
 {
 	string fname = "music/ends/end";
-	fname = strcat(fname, ftos(floor(10 * random()) + 1), ".wav");
-	sound(world, CHAN_AUTO, fname, 1.0, ATTN_NONE);
+
+	if (cvar("sv_playsounds") != 0)
+	{
+		fname = strcat(fname, ftos(floor(10 * random()) + 1), ".wav");
+		sound(world, CHAN_AUTO, fname, 1.0, ATTN_NONE);
+	}
 
 	self.think = info_gameThink;
 	self.think();

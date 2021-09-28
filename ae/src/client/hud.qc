@@ -14,6 +14,7 @@ void DrawHud(float width, float height)
 		DrawNames(width, height);
 		DrawScoreboard(width, height);
 		DrawTimer(width, height);
+		DrawScanlines(width, height);
 	}
 }
 
@@ -377,4 +378,19 @@ void DrawTimer(float width, float height)
 	text = strcat(minutesText, ":", secondsText);
 
 	DrawText(text, TIMER_FONT_SIZE, TIMER_COLOR, 1);
+}
+
+void DrawScanlines(float width, float height)
+{
+	float y;
+
+	if (cvar("cl_scanlines") == 0)
+	{
+		return;
+	}
+
+	for (y = 0; y <= height; y+= height / 100)
+	{
+		drawfill([0, (y + time * 3) % height], [width, height / 200], '0 0 0', 0.5);
+	}
 }

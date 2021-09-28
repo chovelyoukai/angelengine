@@ -17,6 +17,7 @@ void DrawHealth(float width, float height);
 void DrawNames(float width, float height);
 void DrawScoreboard(float width, float height);
 void DrawTimer(float width, float height);
+void DrawScanlines(float width, float height);
 
 .string netname;
 
