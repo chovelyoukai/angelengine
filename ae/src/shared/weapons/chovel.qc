@@ -8,11 +8,14 @@ void ChovelEquip(entity chovel)
 	chovel.fireTimeout = time + deployTimes[WEP_CHOVEL];
 #ifdef CSQC
 	SetViewmodel(viewmodels[WEP_CHOVEL], deployTimes[WEP_CHOVEL]);
+	chovel.think = ChovelThink;
+	chovel.nextthink = time + cvar("sv_pmovetime");
 #endif
 }
 
-void ChovelUnequip(entity shotgun)
+void ChovelUnequip(entity chovel)
 {
+	chovel.nextthink = 0;
 }
 
 void ChovelFire(entity chovel)
@@ -26,7 +29,14 @@ void ChovelFire(entity chovel)
 	chovel.nextthink = time + 0.25;
 	chovel.fireTimeout = time + fireTimes[WEP_CHOVEL];
 #ifdef CSQC
-	ViewmodelAttack(fireTimes[WEP_CHOVEL]);
+	if (player.moveFlags & MF_CANCRIT)
+	{
+		ViewmodelAttack(fireTimes[WEP_CHOVEL] + 1, VM_CHOVEL_CRIT_ATTACK);
+	}
+	else
+	{
+		ViewmodelAttack(fireTimes[WEP_CHOVEL]);
+	}
 #endif
 }
 
@@ -69,6 +79,33 @@ void ChovelAttack()
 	{
 		sound(self.owner, CHAN_AUTO, "weapons/chovel_fire.wav", 0.7, ATTN_NORM);
 	}
+#else
+	self.think = ChovelThink;
+	self.nextthink = time + 0.75;
+#endif
+}
+
+void ChovelThink()
+{
+#ifdef CSQC
+	if (player.moveFlags & MF_CANCRIT &&
+		viewmodel.frame != VM_CHOVEL_CRIT_IDLE &&
+		viewmodel.frame != VM_CHOVEL_CRIT_ATTACK)
+	{
+		viewmodel.frame = VM_CHOVEL_CRIT_IDLE;
+		viewmodel.frame1time = 0;
+	}
+
+	if (!(player.moveFlags & MF_CANCRIT))
+	{
+		viewmodel.fireTimeout = 0;
+	}
+	else
+	{
+		viewmodel.fireTimeout = time + 1;
+	}
+	
+	self.nextthink = time + cvar("sv_pmovetime");
 #endif
 }
 

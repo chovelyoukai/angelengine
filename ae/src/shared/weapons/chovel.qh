@@ -4,6 +4,10 @@ void ChovelEquip(entity chovel);
 void ChovelUnequip(entity chovel);
 void ChovelFire(entity chovel);
 void ChovelAttack();
+void ChovelThink();
 float ChovelCanEquip(entity chovel);
 float ChovelCanUnequip(entity chovel);
 entity ChovelSpawn();
+
+const float VM_CHOVEL_CRIT_IDLE = 4;
+const float VM_CHOVEL_CRIT_ATTACK = 5;
