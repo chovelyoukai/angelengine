@@ -11,3 +11,4 @@ entity ChovelSpawn();
 
 const float VM_CHOVEL_CRIT_IDLE = 4;
 const float VM_CHOVEL_CRIT_ATTACK = 5;
+const float VM_CHOVEL_UNCRIT_IDLE = 6;

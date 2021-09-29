@@ -95,15 +95,14 @@ void ChovelThink()
 		viewmodel.frame = VM_CHOVEL_CRIT_IDLE;
 		viewmodel.frame1time = 0;
 	}
-
-	if (!(player.moveFlags & MF_CANCRIT))
+	else if (!(player.moveFlags & MF_CANCRIT) &&
+		(viewmodel.frame == VM_CHOVEL_CRIT_IDLE ||
+		viewmodel.frame == VM_CHOVEL_CRIT_ATTACK))
 	{
-		viewmodel.fireTimeout = 0;
+		viewmodel.frame = VM_CHOVEL_UNCRIT_IDLE;
+		viewmodel.frame1time = 0;
 	}
-	else
-	{
-		viewmodel.fireTimeout = time + 1;
-	}
+	viewmodel.fireTimeout = time + 1;
 	
 	self.nextthink = time + cvar("sv_pmovetime");
 #endif
