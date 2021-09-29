@@ -85,12 +85,18 @@ float CheckJump()
 	}
 	self.moveFlags &= ~MF_JUMPRELEASED;
 
+	#ifdef SSQC
+	if (self.moveFlags & MF_RAMPSLIDE)
+	{
+		self.moveFlags &= ~MF_CANCRIT;
+		sound(self, CHAN_AUTO, "player/step.wav", 0.3, ATTN_NORM);
+	}
 	if (self.moveFlags & MF_GRINDING)
 	{
-		#ifdef SSQC
 		self.moveFlags |= MF_CANCRIT;
-		#endif
 	}
+	#endif
+	
 	if (self.moveFlags & MF_REVERSEGRAV)
 	{
 		self.velocity.z -= 270;
@@ -99,18 +105,16 @@ float CheckJump()
 			self.velocity.z = -270;
 		}
 
+		#ifdef SSQC
 		if (self.velocity.z < -300)
 		{
-			#ifdef SSQC
 			self.moveFlags |= MF_CANCRIT;
-			#endif
 		}
 		if (self.moveFlags & MF_RAMPSLIDE && self.velocity.z > 180)
 		{
-			#ifdef SSQC
 			self.moveFlags |= MF_CANCRIT;
-			#endif
 		}
+		#endif
 	}
 	else
 	{
@@ -120,18 +124,16 @@ float CheckJump()
 			self.velocity.z = 270;
 		}
 
+		#ifdef SSQC
 		if (self.velocity.z > 300)
 		{
-			#ifdef SSQC
 			self.moveFlags |= MF_CANCRIT;
-			#endif
 		}
 		if (self.moveFlags & MF_RAMPSLIDE && self.velocity.z < -180)
 		{
-			#ifdef SSQC
 			self.moveFlags |= MF_CANCRIT;
-			#endif
 		}
+		#endif
 	}
 	return TRUE;
 }
