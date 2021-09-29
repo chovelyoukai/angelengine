@@ -14,6 +14,15 @@ void item_weaponspawner()
 	self.enabled = TRUE;
 	self.think = item_weaponspawnerThink;
 	self.touch = item_weaponspawnerTouch;
+
+	if (self.respawnTime == 0)
+	{
+		self.respawnTime = ITEM_WEAPONSPAWNER_RESPAWN;
+	}
+	else if (self.respawnTime == -1)
+	{
+		self.respawnTime = 0;
+	}
 }
 
 void item_weaponspawnerTouch()
@@ -27,7 +36,7 @@ void item_weaponspawnerTouch()
 		GiveWeapon(other, self.weaponType);
 		self.enabled = FALSE;
 		self.effects |= EF_ADDITIVE;
-		self.nextthink = time + ITEM_WEAPONSPAWNER_RESPAWN;
+		self.nextthink = time + self.respawnTime;
 		sound(self, CHAN_AUTO, "world/pickup_weapon.wav", 1, ATTN_NORM);
 	}
 }
