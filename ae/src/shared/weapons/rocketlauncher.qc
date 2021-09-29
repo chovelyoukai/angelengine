@@ -167,7 +167,8 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
 		multiplier = 7.455;
 	}
 
-	if (IsOnGround(target) && target.landingTime > time &&
+	if (IsOnGround(target) && time - target.landingTime <
+		cvar("sv_speedshot_window") &&
 		!(target.moveFlags & MF_RAMPSLIDE))
 	{
 		target.velocity.x = target.landingVelocity.x;
