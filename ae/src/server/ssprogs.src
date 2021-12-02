@@ -34,6 +34,9 @@ triggers/trigger_weapongive.qc
 triggers/trigger_moveflags.qc
 triggers/trigger_catapult.qc
 
+npcs/ai.qc
+npcs/npc_test.qc
+
 ../shared/math.qc
 ../shared/pmove/pmove.qc
 ../shared/pmove/slidemove.qc

@@ -1,0 +1,5 @@
+#include "ai.qh"
+
+void npc_test();
+void npc_testIdle();
+void npc_testWalk();

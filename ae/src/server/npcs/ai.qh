@@ -1,0 +1,7 @@
+#include "../../shared/pmove/pmove.qh"
+
+float CanMoveTo(vector direction, float minDist, float maxDist);
+float NewMoveDir();
+
+.float moveDist;
+.float moveTime;
