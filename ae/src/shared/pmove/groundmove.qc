@@ -86,6 +86,7 @@ float CheckJump()
 	self.moveFlags &= ~MF_JUMPRELEASED;
 
 	#ifdef SSQC
+	#ifdef AFPS
 	if (self.moveFlags & MF_RAMPSLIDE)
 	{
 		self.moveFlags &= ~MF_CANCRIT;
@@ -95,6 +96,7 @@ float CheckJump()
 	{
 		self.moveFlags |= MF_CANCRIT;
 	}
+	#endif
 	#endif
 	
 	if (self.moveFlags & MF_REVERSEGRAV)
@@ -106,6 +108,7 @@ float CheckJump()
 		}
 
 		#ifdef SSQC
+		#ifdef AFPS
 		if (self.velocity.z < -300)
 		{
 			self.moveFlags |= MF_CANCRIT;
@@ -114,6 +117,7 @@ float CheckJump()
 		{
 			self.moveFlags |= MF_CANCRIT;
 		}
+		#endif
 		#endif
 	}
 	else
@@ -125,6 +129,7 @@ float CheckJump()
 		}
 
 		#ifdef SSQC
+		#ifdef AFPS
 		if (self.velocity.z > 300)
 		{
 			self.moveFlags |= MF_CANCRIT;
@@ -133,6 +138,7 @@ float CheckJump()
 		{
 			self.moveFlags |= MF_CANCRIT;
 		}
+		#endif
 		#endif
 	}
 	return TRUE;
