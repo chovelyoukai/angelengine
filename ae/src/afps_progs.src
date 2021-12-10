@@ -1,0 +1,5 @@
+#define AFPS
+
+#pragma sourcefile server/ssprogs.src
+#pragma sourcefile client/csprogs.src
+#pragma sourcefile menu/mprogs.src
