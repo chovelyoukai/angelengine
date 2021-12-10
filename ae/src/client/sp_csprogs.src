@@ -1,4 +1,5 @@
 ../../csprogs.dat
+#define SP
 csdefs.qc
 ../shared/subs.qc
 globals.qc

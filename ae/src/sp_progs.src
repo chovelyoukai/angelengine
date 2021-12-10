@@ -1,5 +1,5 @@
 #define SP
 
-#pragma sourcefile server/ssprogs.src
-#pragma sourcefile client/csprogs.src
-#pragma sourcefile menu/mprogs.src
+#pragma sourcefile server/sp_ssprogs.src
+#pragma sourcefile client/sp_csprogs.src
+#pragma sourcefile menu/sp_mprogs.src

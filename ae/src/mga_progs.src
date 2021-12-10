@@ -1,5 +1,5 @@
 #define MGA
 
-#pragma sourcefile server/ssprogs.src
-#pragma sourcefile client/csprogs.src
-#pragma sourcefile menu/mprogs.src
+#pragma sourcefile server/mga_ssprogs.src
+#pragma sourcefile client/mga_csprogs.src
+#pragma sourcefile menu/mga_mprogs.src

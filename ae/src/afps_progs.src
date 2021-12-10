@@ -1,5 +1,5 @@
 #define AFPS
 
-#pragma sourcefile server/ssprogs.src
-#pragma sourcefile client/csprogs.src
-#pragma sourcefile menu/mprogs.src
+#pragma sourcefile server/afps_ssprogs.src
+#pragma sourcefile client/afps_csprogs.src
+#pragma sourcefile menu/afps_mprogs.src
