@@ -6,6 +6,9 @@
 void ChovelEquip(entity chovel)
 {
 	chovel.fireTimeout = time + deployTimes[WEP_CHOVEL];
+#ifdef MGA
+	self.moveFlags |= MF_BURDENED;
+#endif
 #ifdef CSQC
 	SetViewmodel(viewmodels[WEP_CHOVEL], deployTimes[WEP_CHOVEL]);
 	chovel.think = ChovelThink;
@@ -15,6 +18,9 @@ void ChovelEquip(entity chovel)
 
 void ChovelUnequip(entity chovel)
 {
+#ifdef MGA
+	self.moveFlags &= ~MF_BURDENED;
+#endif
 	chovel.nextthink = 0;
 }
 
