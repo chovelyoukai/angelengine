@@ -195,6 +195,11 @@ void PlayerSpawn()
 
 	self.weaponsHeld = 0;
 	self.currentWeapon = world;
+
+#ifdef MGA
+	GiveWeapon(self, WEP_ROCKETLAUNCHER);
+	GiveWeapon(self, WEP_CHOVEL);
+#endif
 }
 
 void PlayerKill(entity killer)
