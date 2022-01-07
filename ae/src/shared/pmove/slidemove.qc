@@ -270,8 +270,6 @@ void StepSlideMove()
 
 	if (self.wallclipTime > time)
 	{
-		float oldZ = self.velocity.z;
 		self.velocity = startVel;
-		self.velocity.z = oldZ;
 	}
 }
