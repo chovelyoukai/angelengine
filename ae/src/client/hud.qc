@@ -238,7 +238,7 @@ void DrawKeys(float width, float height)
 	{
 		attack = "A";
 	}
-	if (input_buttons & BUTTON4)
+	if (input_buttons & BUTTON_MOD1)
 	{
 		mod = "o";
 	}

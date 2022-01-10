@@ -215,7 +215,7 @@ void GroundMove()
 	v_forward = normalize(v_forward);
 	v_right = normalize(v_right);
 
-	if (!((self.moveFlags & MF_SKATE) && (input_buttons & BUTTON4) && vlen(self.velocity) < 700))
+	if (!((self.moveFlags & MF_SKATE) && (input_buttons & BUTTON_MOD1) && vlen(self.velocity) < 700))
 	{
 		Friction(friction, cvar("sv_stopspeed"));
 	}

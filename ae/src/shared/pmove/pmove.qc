@@ -97,7 +97,7 @@ void GroundTrace()
 	// if we *did* hit the ground but still have some vertical velocity,
 	// make us not on the ground (rampsliding)
 	else if ((clippedVelocity.z > 180 || clippedVelocity.z < -180) &&
-	         !(input_buttons & BUTTON4))
+	         !(input_buttons & BUTTON_MOD1))
 	{
 		self.velocity = clippedVelocity;
 		self.moveFlags |= MF_RAMPSLIDE;

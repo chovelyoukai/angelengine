@@ -82,7 +82,7 @@ float CheckGrind()
 	boxMins = '-4 -4 -4';
 	boxMaxs = '4 4 4';
 
-	if (!(input_buttons & BUTTON4))
+	if (!(input_buttons & BUTTON_MOD1))
 	{
 		return FALSE;
 	}
