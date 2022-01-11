@@ -53,7 +53,7 @@ void WallTrace()
 {
 	vector start, end;
 
-	if (cvar("sv_wallrun") == 0)
+	if (!(self.moveFlags & MF_WALLRUN))
 	{
 		SetOnWall(FALSE);
 		return;
@@ -224,6 +224,11 @@ void WallMove()
 		{
 			oldVel = self.velocity;
 			Friction(cvar("sv_wallrun_friction"), cvar("sv_stopspeed"));
+			oldVel.z = 0;
+			if (vlen(oldVel) < cvar("sv_maxwallspeed"))
+			{
+				oldVel = cvar("sv_maxwallspeed") * normalize(oldVel);
+			}
 			self.velocity.x = oldVel.x;
 			self.velocity.y = oldVel.y;
 		}

@@ -3,7 +3,7 @@
 const vector WALL_TRACE_MIN = '-20 -20 -10';
 const vector WALL_TRACE_MAX = '20 20 10';
 const float WALL_JUMP_ZVEL = 300;
-const float WALL_JUMP_OUTVEL = 250;
+const float WALL_JUMP_OUTVEL = 350;
 const float WALL_JUMP_FORWARDVEL = 50;
 
 const float MF_RAMPSLIDE = 1 << 0;
@@ -15,7 +15,7 @@ const float MF_BURDENED = 1 << 5;
 const float MF_SKATE = 1 << 6;
 const float MF_DIFFERENTIAL = 1 << 7;
 const float MF_REVERSEGRAV = 1 << 8;
-const float SIDE_LEFT = 1;
+const float MF_WALLRUN = 1 << 9;
 
 void SetOnGround(float onGround);
 void OnTouchGround();
