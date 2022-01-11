@@ -8,25 +8,38 @@ void SetOnWall(float onWall)
 	}
 	else
 	{
-		self.wallNormal = trace_plane_normal;
-
 		if (self.wallEntity == self)
 		{
-			OnTouchWall();
+			if (!OnTouchWall())
+			{
+				SetOnWall(FALSE);
+				return;
+			}
 		}
 
+		self.wallNormal = trace_plane_normal;
 		self.wallEntity = trace_ent;
 	}
 }
 
-void OnTouchWall()
+float OnTouchWall()
 {
+	if (self.wallNormal * trace_plane_normal > 0.1 &&
+		time - self.wallrunEnd < cvar("sv_wallrun_timeout"))
+	{
+		return FALSE;
+	}
+
+#ifdef SSQC
+	sound(self, CHAN_AUTO, "player/wallattach.wav", 1.0, ATTN_NORM);
+#endif
 	self.wallrunStart = time;
+	return TRUE;
 }
 
-float IsOnWall()
+float IsOnWall(entity ent)
 {
-	if (self.wallEntity == self)
+	if (ent.wallEntity == self)
 	{
 		return FALSE;
 	}
@@ -52,13 +65,7 @@ void WallTrace()
 		return;
 	}
 
-	if (!IsOnWall() && input_movevalues.z > 0)
-	{
-		SetOnWall(FALSE);
-		return;
-	}
-
-	if (time - self.wallrunEnd < cvar("sv_wallrun_timeout"))
+	if (!(input_buttons & BUTTON_MOD1))
 	{
 		SetOnWall(FALSE);
 		return;
@@ -81,23 +88,39 @@ void WallTrace()
 	v_right = normalize(v_right);
 	v_forward = normalize(v_forward);
 
-	start = self.origin;
-	end = start + cvar("sv_wallrun_distance") * v_right;
-	TracePlayer(start, end);
+	float trace1_fraction;
+	vector trace1_plane_normal;
+	int trace1_surfaceflagsi;
+	int trace1_endcontentsi;
 
-	if (trace_fraction < 1 && trace_plane_normal.z == 0 && trace_ent == world)
+	float mult;
+	for (mult = 1; mult >= -1; mult -= 2)
 	{
-		SetOnWall(TRUE);
-		return;
-	}
+		start = self.origin + '0 0 15';
+		end = start + cvar("sv_wallrun_distance") * v_right * mult;
+		tracebox(start, WALL_TRACE_MIN, WALL_TRACE_MAX, end, 0, self);
 
-	end = start + cvar("sv_wallrun_distance") * v_right * -1;
-	TracePlayer(start, end);
+		trace1_fraction = trace_fraction;
+		trace1_plane_normal = trace_plane_normal;
+		trace1_surfaceflagsi = trace_surfaceflagsi;
+		trace1_endcontentsi = trace_endcontentsi;
 
-	if (trace_fraction < 1 && trace_plane_normal.z == 0 && trace_ent == world)
-	{
-		SetOnWall(TRUE);
-		return;
+		start = self.origin + '0 0 -15';
+		end = start + cvar("sv_wallrun_distance") * v_right * mult;
+		tracebox(start, WALL_TRACE_MIN, WALL_TRACE_MAX, end, 0, self);
+
+		if (trace1_fraction < 1 && trace1_plane_normal.z == 0 &&
+			!(trace1_surfaceflagsi & 0x10) && !(trace1_endcontentsi & CONTENTBIT_PLAYERCLIP) &&
+			trace_fraction < 1 && trace_plane_normal.z == 0 &&
+			!(trace_surfaceflagsi & 0x10) && !(trace_endcontentsi & CONTENTBIT_PLAYERCLIP))
+		{
+			if (trace1_fraction > 0.1 && trace_fraction > 0.1)
+			{
+				self.velocity -= trace_plane_normal * 10;
+			}
+			SetOnWall(TRUE);
+			return;
+		}
 	}
 
 	SetOnWall(FALSE);
@@ -120,25 +143,54 @@ float CheckWallJump()
 
 	self.wallrunEnd = time; 
 
-	add = 0.7 * vlen(self.velocity) * self.wallNormal;
+#ifdef SSQC
+	makevectors(self.v_angle);
+#else
+	makevectors(view_angles);
+#endif
 
-	if (vlen(add) < 270)
+	v_forward.z = 0;
+	v_forward = normalize(v_forward);
+
+	add = WALL_JUMP_FORWARDVEL * v_forward;
+
+	add.z += WALL_JUMP_ZVEL;
+	add += self.wallNormal * WALL_JUMP_OUTVEL;
+
+	if (self.moveFlags & MF_REVERSEGRAV)
 	{
-		add = 270 * normalize(add);
+		add.z *= -1;
 	}
 
 	self.velocity += add;
+
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		if (self.velocity.z < -1 * WALL_JUMP_ZVEL)
+		{
+			self.velocity.z = -1 * WALL_JUMP_ZVEL;
+		}
+	}
+	else
+	{
+		if (self.velocity.z > WALL_JUMP_ZVEL)
+		{
+			self.velocity.z = WALL_JUMP_ZVEL;
+		}
+	}
+
+	self.wallrunStart = time;
+	SetOnWall(FALSE);
+
+#ifdef SSQC
+	sound(self, CHAN_AUTO, "player/step.wav", 0.3, ATTN_NORM);
+#endif
+
 	return TRUE;
 }
 
 void WallMove()
 {
-	float fmove, smove;
-	float wishSpeed;
-	vector wishDir;
-
-	float accel, maxSpeed;
-	
 	if (CheckWallJump())
 	{
 		AirMove();
@@ -146,32 +198,37 @@ void WallMove()
 	}
 
 	self.accelType = ACCEL_WALL;
-	
-	Friction(cvar("sv_wallrun_friction"), cvar("sv_stopspeed"));
 
-#ifdef SSQC
-	makevectors(self.v_angle);
-#else
-	makevectors(view_angles);
-#endif
-	
-	fmove = input_movevalues.x;
-	smove = input_movevalues.y;
+	vector oldVel;
+	if (self.moveFlags & MF_REVERSEGRAV)
+	{
+		if (self.velocity.z < 0)
+		{
+			self.velocity.z += cvar("sv_gravity") * frametime * 0.5;
+		}
+		else
+		{
+			oldVel = self.velocity;
+			Friction(cvar("sv_wallrun_friction"), cvar("sv_stopspeed"));
+			self.velocity.x = oldVel.x;
+			self.velocity.y = oldVel.y;
+		}
+	}
+	else
+	{
+		if (self.velocity.z > 0)
+		{
+			self.velocity.z -= cvar("sv_gravity") * frametime * 0.5;
+		}
+		else
+		{
+			oldVel = self.velocity;
+			Friction(cvar("sv_wallrun_friction"), cvar("sv_stopspeed"));
+			self.velocity.x = oldVel.x;
+			self.velocity.y = oldVel.y;
+		}
+	}
 
-	v_forward = ClipVector(v_forward, self.wallNormal, OVERBOUNCE);
-	v_right = ClipVector(v_right, self.wallNormal, OVERBOUNCE);
 
-	v_forward = normalize(v_forward);
-	v_right = normalize(v_right);
-
-	wishDir = v_forward * fmove + v_right * smove;
-	wishSpeed = vlen(wishDir);
-	wishDir = normalize(wishDir);
-
-	accel = cvar("sv_wallaccelerate");
-	maxSpeed = cvar("sv_maxwallspeed");
-
-	Accelerate(wishDir, wishSpeed, accel, maxSpeed);
-
-	StepSlideMove();
+	AirMove();
 }

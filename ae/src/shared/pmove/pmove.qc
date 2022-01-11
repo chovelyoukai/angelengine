@@ -38,6 +38,8 @@ void OnTouchGround()
 	self.landingVelocity = self.velocity;
 	self.moveFlags &= ~MF_CANCRIT;
 
+	self.wallNormal = '0 0 0';
+
 #ifdef SSQC
 	self.stepTime = time;
 	sound(self, CHAN_AUTO, "player/step.wav", 0.3, ATTN_NORM);
@@ -297,7 +299,7 @@ void PlayerMove()
 		{
 			GroundMove();
 		}
-		else if (IsOnWall())
+		else if (IsOnWall(self))
 		{
 			WallMove();
 		}

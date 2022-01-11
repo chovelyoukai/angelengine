@@ -28,17 +28,10 @@ void Predict()
 		getinputstate(clientcommandframe - 1);
 		UpdateViewmodel();
 		vector currentView = '0 0 0';
+		float target;
 		if (player.moveFlags & MF_REVERSEGRAV)
 		{
-			if (currentRoll < 180)
-			{
-				currentRoll += cvar("cl_rollrate") * frametime;
-				if (currentRoll > 180)
-				{
-					currentRoll = 180;
-				}
-			}
-			setviewprop(VF_ANGLES_Z, currentRoll);
+			target = 180;
 			sens = cvar("sensitivity");
 			if (sens > 0)
 			{
@@ -55,14 +48,7 @@ void Predict()
 		}
 		else
 		{
-			if (currentRoll > 0)
-			{
-				currentRoll -= cvar("cl_rollrate") * frametime;
-				if (currentRoll < 0)
-				{
-					currentRoll = 0;
-				}
-			}
+			target = 0;
 			setviewprop(VF_ANGLES_Z, currentRoll);
 			sens = cvar("sensitivity");
 			if (sens < 0)
@@ -78,7 +64,49 @@ void Predict()
 				currentHeight = player.view_ofs.z;
 			}
 		}
+
+
+		currentRoll = Approach(currentRoll, target, cvar("cl_rollrate"));
+
+		float tilt = 0;
+		if (IsOnWall(player))
+		{
+			makevectors(view_angles);
+
+			v_right.z = 0;
+			v_right = normalize(v_right);
+
+			float dot = v_right * player.wallNormal;
+
+			tilt += dot * 7.5 * (player.moveFlags & MF_REVERSEGRAV ? -1 : 1);
+		}
+
+		currentTilt = Approach(currentTilt, tilt, cvar("cl_tiltrate"));
+
+		setviewprop(VF_ANGLES_Z, currentRoll + currentTilt);
 		currentView.z = currentHeight;
 		setviewprop(VF_ORIGIN, player.origin + currentView);
 	}
+}
+
+float Approach(float current, float target, float rate)
+{
+	if (current > target)
+	{
+		current -= rate * frametime;
+		if (current < target)
+		{
+			current = target;
+		}
+	}
+	else if (current < target)
+	{
+		current += rate * frametime;
+		if (current > target)
+		{
+			current = target;
+		}
+	}
+
+	return current;
 }

@@ -1,5 +1,11 @@
 // pmove.qc
 
+const vector WALL_TRACE_MIN = '-20 -20 -10';
+const vector WALL_TRACE_MAX = '20 20 10';
+const float WALL_JUMP_ZVEL = 300;
+const float WALL_JUMP_OUTVEL = 250;
+const float WALL_JUMP_FORWARDVEL = 50;
+
 const float MF_RAMPSLIDE = 1 << 0;
 const float MF_GRINDING = 1 << 1;
 const float MF_JUMPRELEASED = 1 << 2;
@@ -9,6 +15,7 @@ const float MF_BURDENED = 1 << 5;
 const float MF_SKATE = 1 << 6;
 const float MF_DIFFERENTIAL = 1 << 7;
 const float MF_REVERSEGRAV = 1 << 8;
+const float SIDE_LEFT = 1;
 
 void SetOnGround(float onGround);
 void OnTouchGround();
@@ -55,8 +62,8 @@ void NoclipMove();
 // wallmove.qc
 
 void SetOnWall(float onWall);
-void OnTouchWall();
-float IsOnWall();
+float OnTouchWall();
+float IsOnWall(entity ent);
 void WallTrace();
 float CheckWallJump();
 void WallMove();

@@ -7,6 +7,7 @@ float oldSpeed;
 float oldAccel;
 
 float currentRoll;
+float currentTilt;
 float currentHeight;
 
 float gameMode;

@@ -3,3 +3,4 @@
 #include "../shared/weapons/sharedweapons.qh"
 
 void Predict();
+float Approach(float current, float target, float rate);

@@ -9,6 +9,11 @@ void ApplyGravity()
 		gravity /= 2;
 	}
 
+	if (IsOnWall(self))
+	{
+		return;
+	}
+
 	if (self.moveFlags & MF_RAMPSLIDE)
 	{
 		return;
