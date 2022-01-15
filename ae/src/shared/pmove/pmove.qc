@@ -37,12 +37,13 @@ void OnTouchGround()
 	self.landingTime = time;
 	self.landingVelocity = self.velocity;
 	self.moveFlags &= ~MF_CANCRIT;
+	self.canDoubleJump = TRUE;
 
 	self.wallNormal = '0 0 0';
 
 #ifdef SSQC
 	self.stepTime = time;
-	sound(self, CHAN_AUTO, "player/step.wav", 0.3, ATTN_NORM);
+	sound(self, CHAN_AUTO, "player/land.wav", 0.5, ATTN_NORM, 150);
 #endif
 
 	return;
@@ -98,7 +99,7 @@ void GroundTrace()
 	}
 	// if we *did* hit the ground but still have some vertical velocity,
 	// make us not on the ground (rampsliding)
-	else if ((clippedVelocity.z > 180 || clippedVelocity.z < -180) &&
+	else if ((clippedVelocity.z > 250 || clippedVelocity.z < -250) &&
 	         !(input_buttons & BUTTON_MOD1))
 	{
 		self.velocity = clippedVelocity;

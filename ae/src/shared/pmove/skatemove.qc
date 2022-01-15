@@ -70,6 +70,7 @@ float CheckGrind()
 	float flags = MOVE_NORMAL;
 	float i, j;
 	float hitRight, hitLeft, hit;
+	float hitRightDist, hitLeftDist;
 	float gravityMultiplier = 1;
 
 	if (self.moveFlags & MF_REVERSEGRAV)
@@ -78,6 +79,7 @@ float CheckGrind()
 	}
 
 	hitRight = hitLeft = hit = FALSE;
+	hitRightDist = hitLeftDist = 0;
 
 	boxMins = '-4 -4 -4';
 	boxMaxs = '4 4 4';
@@ -106,7 +108,7 @@ float CheckGrind()
 			start = bottom;
 			start += (v_forward * i * 24) + (v_right * j * 24);
 			stop = start;
-			stop.z -= 1 * gravityMultiplier;
+			stop.z -= 16 * gravityMultiplier;
 
 			traceline(start, stop, flags, self);
 
@@ -115,25 +117,27 @@ float CheckGrind()
 				if (j == -1)
 				{
 					hitLeft = TRUE;
+					hitLeftDist = i;
 					stopLocation = stop;
 				}
 				else
 				{
 					hitRight = TRUE;
+					hitRightDist = i;
 				}
 			}
 		}
 	}
 
-	if (hitRight && hitLeft)
+	if (hitRight && hitLeft && (hitRightDist == hitLeftDist))
 	{
 		hit = TRUE;
 	}
 
 	if (hit)
 	{
-		bottom.z -= 8 * gravityMultiplier;
-		stopLocation.z -= 7 * gravityMultiplier;
+		bottom.z -= 4 * gravityMultiplier;
+		stopLocation.z -= 4 * gravityMultiplier;
 
 		tracebox(stopLocation, boxMins, boxMaxs, bottom, flags, self);
 		if (trace_fraction == 1)

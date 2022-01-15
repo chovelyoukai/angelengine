@@ -17,7 +17,9 @@ void PrecacheModels()
 	precache_model("models/weapons/shotgun.iqm");
 	precache_sound("null.wav");
 	precache_sound("player/grind.ogg");
+	precache_sound("player/land.wav");
 	precache_sound("player/step.wav");
+	precache_sound("player/superjump.wav");
 	precache_sound("player/wallattach.wav");
 	precache_sound("world/pickup_health.wav");
 	precache_sound("world/pickup_speed.wav");

@@ -39,7 +39,7 @@ void AirMove()
 
 	float accel, maxSpeed;
 
-	if (self.moveFlags & MF_RAMPSLIDE)
+	if ((self.moveFlags & MF_RAMPSLIDE) || ((self.moveFlags & MF_DOUBLEJUMP) && self.canDoubleJump))
 	{
 		CheckJump();
 	}

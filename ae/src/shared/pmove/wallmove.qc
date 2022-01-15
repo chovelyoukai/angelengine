@@ -34,6 +34,7 @@ float OnTouchWall()
 	sound(self, CHAN_AUTO, "player/wallattach.wav", 1.0, ATTN_NORM);
 #endif
 	self.wallrunStart = time;
+	self.canDoubleJump = TRUE;
 	return TRUE;
 }
 
@@ -133,6 +134,7 @@ float CheckWallJump()
 
 	if (umove <= 0)
 	{
+		self.moveFlags |= MF_JUMPRELEASED;
 		return FALSE;
 	}
 
@@ -141,6 +143,7 @@ float CheckWallJump()
 		return FALSE;
 	}
 
+	self.moveFlags &= ~MF_JUMPRELEASED;
 	self.wallrunEnd = time; 
 
 #ifdef SSQC
@@ -180,6 +183,7 @@ float CheckWallJump()
 	}
 
 	self.wallrunStart = time;
+	self.canDoubleJump = TRUE;
 	SetOnWall(FALSE);
 
 #ifdef SSQC
@@ -233,7 +237,6 @@ void WallMove()
 			self.velocity.y = oldVel.y;
 		}
 	}
-
 
 	AirMove();
 }

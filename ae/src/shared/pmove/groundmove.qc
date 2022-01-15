@@ -11,11 +11,11 @@ void JumpSpeedReduce()
 		{
 			return;
 		}
-		maxSpeed = cvar("sv_maxskatespeed");
+		maxSpeed = 1.3 * cvar("sv_maxskatespeed");
 	}
 	else
 	{
-		maxSpeed = cvar("sv_maxburdenedspeed");
+		maxSpeed = 1.3 * cvar("sv_maxburdenedspeed");
 	}
 
 	if (vlen2d(self.velocity) > maxSpeed)
@@ -35,10 +35,6 @@ void CheckJumpReleased()
 	if (umove <= 0)
 	{
 		self.moveFlags |= MF_JUMPRELEASED;
-	}
-	else if (!IsOnGround(self))
-	{
-		self.moveFlags &= ~MF_JUMPRELEASED;
 	}
 }
 
@@ -62,6 +58,24 @@ float CanBhop()
 	return TRUE;
 }
 
+void SetDoubleJumpSpeed()
+{
+	float oldZ = self.velocity.z;
+	self.velocity.z = 0;
+	if (vlen(self.velocity) < cvar("sv_maxspeed"))
+	{
+#ifdef SSQC
+		makevectors(self.v_angle);
+#else
+		makevectors(view_angles);
+#endif
+		v_forward.z = 0;
+		v_forward = normalize(v_forward);
+		self.velocity = cvar("sv_maxspeed") * v_forward;
+	}
+	self.velocity.z = oldZ;
+}
+
 float CheckJump()
 {
 	float umove = input_movevalues.z;
@@ -83,10 +97,31 @@ float CheckJump()
 			JumpSpeedReduce();
 		}
 	}
+
+	if (!IsOnGround(self) && !(self.moveFlags & MF_RAMPSLIDE))
+	{
+		if (!self.canDoubleJump)
+		{
+			return FALSE;
+		}
+		if((self.moveFlags & MF_JUMPRELEASED) == 0)
+		{
+			return FALSE;
+		}
+
+#ifdef SSQC
+		sound(self, CHAN_AUTO, "player/superjump.wav", 1.0, ATTN_NORM, 150);
+#endif
+
+		SetDoubleJumpSpeed();
+
+		self.canDoubleJump = FALSE;
+	}
+
 	self.moveFlags &= ~MF_JUMPRELEASED;
 
 	#ifdef SSQC
-	#ifdef AFPS
+	#ifndef MGA
 	if (self.moveFlags & MF_RAMPSLIDE)
 	{
 		self.moveFlags &= ~MF_CANCRIT;
@@ -101,10 +136,10 @@ float CheckJump()
 	
 	if (self.moveFlags & MF_REVERSEGRAV)
 	{
-		self.velocity.z -= 270;
-		if (self.velocity.z > -270)
+		self.velocity.z -= JUMP_VEL;
+		if (self.velocity.z > -JUMP_VEL)
 		{
-			self.velocity.z = -270;
+			self.velocity.z = -JUMP_VEL;
 		}
 
 		#ifdef SSQC
@@ -122,10 +157,10 @@ float CheckJump()
 	}
 	else
 	{
-		self.velocity.z += 270;
-		if (self.velocity.z < 270)
+		self.velocity.z += JUMP_VEL;
+		if (self.velocity.z < JUMP_VEL)
 		{
-			self.velocity.z = 270;
+			self.velocity.z = JUMP_VEL;
 		}
 
 		#ifdef SSQC
@@ -141,6 +176,9 @@ float CheckJump()
 		#endif
 		#endif
 	}
+
+	SetOnGround(FALSE);
+
 	return TRUE;
 }
 
@@ -252,6 +290,12 @@ void GroundMove()
 	if (self.moveFlags & MF_GRINDING)
 	{
 		ApplyGravity();
+	}
+
+	if (!(self.velocity.x || self.velocity.y))
+	{
+		self.velocity.z = 0;
+		return;
 	}
 
 	StepSlideMove();
