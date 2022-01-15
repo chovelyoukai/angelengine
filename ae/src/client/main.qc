@@ -86,7 +86,7 @@ void CSQC_UpdateView(float width, float height, float menuShown)
 		setviewprop(VF_DRAWCROSSHAIR, 0);
 	}
 
-	addentities((intermission ? 0 : MASK_VIEWMODEL) | MASK_ENGINE);
+	addentities((cvar("cl_drawviewmodel") == 0 ? 0 : MASK_VIEWMODEL) | MASK_ENGINE);
 
 	Predict();
 	DrawGrappleLines();

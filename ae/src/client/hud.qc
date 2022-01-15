@@ -14,8 +14,9 @@ void DrawHud(float width, float height)
 		DrawNames(width, height);
 		DrawScoreboard(width, height);
 		DrawTimer(width, height);
-		DrawScanlines(width, height);
 	}
+
+	DrawScanlines(width, height);
 }
 
 void DrawMeters(float width, float height)

@@ -197,7 +197,7 @@ float ProjectileUpdate(entity to, float entFlags)
 void InitializeViewmodel()
 {
 	viewmodel = spawn();
-	viewmodel.drawmask |= MASK_VIEWMODEL | MASK_ENGINE;
+	viewmodel.drawmask |= MASK_VIEWMODEL;
 	viewmodel.renderflags |= RF_VIEWMODEL;
 	viewmodel.solid = SOLID_NOT;
 }
