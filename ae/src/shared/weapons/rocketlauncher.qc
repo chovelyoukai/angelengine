@@ -6,7 +6,9 @@ void RocketlauncherEquip(entity rocketLauncher)
 	self.weaponType = WEP_ROCKETLAUNCHER;
 	rocketLauncher.fireTimeout = time + deployTimes[WEP_ROCKETLAUNCHER];
 
+#ifdef MGA
 	self.moveFlags |= MF_BURDENED;
+#endif
 
 #ifdef CSQC
 	SetViewmodel(viewmodels[WEP_ROCKETLAUNCHER], deployTimes[WEP_ROCKETLAUNCHER]);
@@ -157,7 +159,8 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
 	direction = target.origin - (inflictor.absmin + inflictor.absmax) * 0.5;
 	distance = vlen(direction);
 	direction = normalize(direction);
-	
+
+#ifdef MGA
 	if (target == attacker && !IsOnGround(target))
 	{
 		multiplier = 15.2;
@@ -175,6 +178,9 @@ void RocketKnockback(entity target, entity inflictor, entity attacker,
 		target.velocity.y = target.landingVelocity.y;
 		direction.z = 2 * gravityMultiplier;
 	}
+#else
+	multiplier = 13;
+#endif
 
 	target.velocity += (direction * amount * multiplier);
 	setorigin(target, target.origin + ('0 0 1' * gravityMultiplier));
