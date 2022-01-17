@@ -342,6 +342,11 @@ void DrawScoreboard(float width, float height)
 
 void DrawTimer(float width, float height)
 {
+	if (cvar("cl_drawtimer") == 0)
+	{
+		return;
+	}
+
 	float minutes;
 	float seconds;
 	string minutesText, secondsText, text;
