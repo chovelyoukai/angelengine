@@ -395,8 +395,10 @@ void DrawScanlines(float width, float height)
 		return;
 	}
 
-	for (y = 0; y <= height; y+= height / 100)
+	for (y = 0; y <= height; y+= height / cvar("cl_scanline_count"))
 	{
-		drawfill([0, (y + time * 3) % height], [width, height / 200], '0 0 0', 0.5);
+		drawfill([0, (y + time * cvar("cl_scanline_speed")) % height],
+			[width, height / cvar("cl_scanline_size_inv")],
+			'0 0 0', cvar("cl_scanline_alpha"));
 	}
 }
