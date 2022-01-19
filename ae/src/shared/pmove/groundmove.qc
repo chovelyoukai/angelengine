@@ -190,6 +190,10 @@ void GroundMove()
 	float speed;
 	vector wishDir;
 
+#ifdef SSQC
+	//print(ftos(self.grindTime - time), "\n");
+#endif
+
 	if (CheckJump())
 	{
 		AirMove();
@@ -306,11 +310,26 @@ void GroundMove()
 	}
 
 #ifdef SSQC
-	if (!(self.moveFlags & MF_GRINDING))
+	if ((self.moveFlags & MF_SKATE) && (input_buttons & BUTTON_MOD1) && vlen(self.velocity) > 150)
+	{
+		if (self.grindTime < time)
+		{
+			sound(self, CHAN_VOICE, "player/grind.ogg", 0.3, ATTN_NORM);
+			self.grindTime = time + 2;
+		}
+	}
+	else if (!(self.moveFlags & MF_GRINDING))
 	{
 		float stepTimeout;
 		float pitch;
 		speed = vlen(self.velocity);
+
+		if (self.grindTime > 0)
+		{
+			sound(self, CHAN_VOICE, "null.wav", 1, ATTN_NORM);
+			self.grindTime = -1;
+		}
+
 		if (speed < 1)
 		{
 			return;

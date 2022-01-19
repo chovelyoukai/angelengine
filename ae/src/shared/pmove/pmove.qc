@@ -239,14 +239,14 @@ void DoEffects()
 	{
 		if (self.moveFlags & MF_REVERSEGRAV)
 		{
-			particle(self.origin + '0 0 40', self.groundNormal, 192, 4);
+			particle4(self.origin + '0 0 40', 12, 192, 0, 40);
 		}
 		else
 		{
-			particle(self.origin - '0 0 40', self.groundNormal, 192, 4);
+			particle4(self.origin - '0 0 40', 12, 192, 0, 40);
 		}
 	}
-	else if (self.grindTime > 0)
+	else if (self.grindTime > 0 && !IsOnGround(self))
 	{
 		sound(self, CHAN_VOICE, "null.wav", 1, ATTN_NORM);
 		self.grindTime = -1;

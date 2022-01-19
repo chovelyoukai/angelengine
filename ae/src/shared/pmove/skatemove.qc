@@ -1,6 +1,6 @@
 #include "pmove.qh"
 
-void SetGrindOrigin()
+void SetGrindOrigin(float hitRight, float hitLeft)
 {
 	vector bottom = self.origin;
 	vector start, stopLeft, stopRight;
@@ -8,6 +8,13 @@ void SetGrindOrigin()
 	vector boxMins, boxMaxs;
 	float flags = MOVE_NORMAL;
 	float gravityMultiplier = 1;
+
+	start = stopLeft = stopRight = '0 0 0';
+
+	if (!hitRight && !hitLeft)
+	{
+		return;
+	}
 
 	if (self.moveFlags & MF_REVERSEGRAV)
 	{
@@ -18,17 +25,31 @@ void SetGrindOrigin()
 	boxMaxs = '4 4 4';
 
 	bottom.z += self.mins.z * gravityMultiplier;
-	bottom.z -= 8 * gravityMultiplier;
+	bottom.z -= SKATE_DIST_VERT * gravityMultiplier;
 
-	start = bottom;
-	start += v_right * 24;
-	tracebox(start, boxMins, boxMaxs, bottom, flags, self);
-	stopRight = trace_endpos;
+	if (hitRight)
+	{
+		start = bottom;
+		start += v_right * SKATE_DIST_HORIZ;
+		tracebox(start, boxMins, boxMaxs, bottom, flags, self);
+		stopRight = trace_endpos;
+	}
+	if (hitLeft)
+	{
+		start = bottom;
+		start -= v_right * SKATE_DIST_HORIZ;
+		tracebox(start, boxMins, boxMaxs, bottom, flags, self);
+		stopLeft = trace_endpos;
+	}
 
-	start = bottom;
-	start -= v_right * 24;
-	tracebox(start, boxMins, boxMaxs, bottom, flags, self);
-	stopLeft = trace_endpos;
+	if (!hitRight)
+	{
+		stopLeft = stopRight = stopLeft + 0.25 * SKATE_DIST_HORIZ * normalize(bottom - start);
+	}
+	if (!hitLeft)
+	{
+		stopLeft = stopRight = stopRight + 0.25 * SKATE_DIST_HORIZ * normalize(bottom - start);
+	}
 
 	average.x = (stopRight.x + stopLeft.x) / 2;
 	average.y = (stopRight.y + stopLeft.y) / 2;
@@ -36,7 +57,11 @@ void SetGrindOrigin()
 
 	average = (average + self.origin) / 2;
 
-	setorigin(self, average);
+	TracePlayer(average, average);
+	if (!trace_allsolid && trace_fraction > 0.99)
+	{
+		setorigin(self, average);
+	}
 }
 
 void StickToGround()
@@ -68,9 +93,8 @@ float CheckGrind()
 	float fmove = input_movevalues.x;
 	float speed;
 	float flags = MOVE_NORMAL;
-	float i, j;
-	float hitRight, hitLeft, hit;
-	float hitRightDist, hitLeftDist;
+	float j;
+	float hitRight, hitLeft;
 	float gravityMultiplier = 1;
 
 	if (self.moveFlags & MF_REVERSEGRAV)
@@ -78,8 +102,7 @@ float CheckGrind()
 		gravityMultiplier = -1;
 	}
 
-	hitRight = hitLeft = hit = FALSE;
-	hitRightDist = hitLeftDist = 0;
+	hitRight = hitLeft = FALSE;
 
 	boxMins = '-4 -4 -4';
 	boxMaxs = '4 4 4';
@@ -96,58 +119,83 @@ float CheckGrind()
 	bottom = self.origin;
 	bottom.z += self.mins.z * gravityMultiplier;
 
-	for (i = -1; i <= 0; i++)
+	if (fabs(self.groundNormal.z) < 1)
 	{
-		for (j = -1; j <= 1; j++)
+		traceline(bottom, bottom + ('0 0 -100' * gravityMultiplier), flags, self);
+		if (trace_fraction < 1)
 		{
-			if (j == 0)
+			bottom = trace_endpos;
+		}
+	}
+
+	for (j = -1; j <= 1; j++)
+	{
+		if (j == 0)
+		{
+			continue;
+		}
+
+		start = bottom;
+		start += v_right * j * SKATE_DIST_HORIZ;
+		stop = start;
+		stop.z -= SKATE_DIST_VERT * gravityMultiplier;
+
+		traceline(start, stop, flags, self);
+#if 0
+#ifdef CSQC
+		entity hook = spawn();
+		hook.projectileType = PROJ_HOOK;
+		hook.ownerOrigin = start;
+		setorigin(hook, trace_endpos);
+		hook.think = RemoveSelf;
+		hook.nextthink = time + 10.5;
+#endif
+#endif
+
+		if (trace_fraction == 1)
+		{
+			if (j == -1)
 			{
-				continue;
+				hitLeft = TRUE;
+				stopLocation = stop;
 			}
-
-			start = bottom;
-			start += (v_forward * i * 24) + (v_right * j * 24);
-			stop = start;
-			stop.z -= 16 * gravityMultiplier;
-
-			traceline(start, stop, flags, self);
-
-			if (trace_fraction == 1)
+			else
 			{
-				if (j == -1)
-				{
-					hitLeft = TRUE;
-					hitLeftDist = i;
-					stopLocation = stop;
-				}
-				else
-				{
-					hitRight = TRUE;
-					hitRightDist = i;
-				}
+				hitRight = TRUE;
+				stopLocation = stop;
 			}
 		}
 	}
 
-	if (hitRight && hitLeft && (hitRightDist == hitLeftDist))
+	if (hitRight || hitLeft)
 	{
-		hit = TRUE;
-	}
-
-	if (hit)
-	{
-		bottom.z -= 4 * gravityMultiplier;
-		stopLocation.z -= 4 * gravityMultiplier;
+		bottom.z -= SKATE_DIST_VERT * gravityMultiplier;
+		bottom += normalize(bottom - stopLocation) * SKATE_TRACE_IN;
 
 		tracebox(stopLocation, boxMins, boxMaxs, bottom, flags, self);
-		if (trace_fraction == 1)
+#if 0
+#ifdef CSQC
+		entity hook = spawn();
+		hook.projectileType = PROJ_HOOK;
+		hook.ownerOrigin = stopLocation;
+		setorigin(hook, trace_endpos);
+		hook.think = RemoveSelf;
+		hook.nextthink = time + 10.5;
+#endif
+#endif
+		if (trace_fraction == 1 || trace_allsolid)
 		{
 			return FALSE;
 		}
 
 		normal = trace_plane_normal;
 
-		SetGrindOrigin();
+		if (normal.z != 0)
+		{
+			return FALSE;
+		}
+
+		SetGrindOrigin(hitRight, hitLeft);
 
 		forward.x = -1 * normal.y;
 		forward.y = normal.x;

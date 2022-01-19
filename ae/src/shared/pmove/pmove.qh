@@ -1,5 +1,9 @@
 // pmove.qc
 
+#ifdef CSQC
+void DrawLine(vector start, vector end);
+#endif
+
 const float JUMP_VEL = 289;
 
 const vector WALL_TRACE_MIN = '-20 -20 -10';
@@ -7,6 +11,10 @@ const vector WALL_TRACE_MAX = '20 20 10';
 const float WALL_JUMP_ZVEL = 300;
 const float WALL_JUMP_OUTVEL = 350;
 const float WALL_JUMP_FORWARDVEL = 50;
+
+const float SKATE_DIST_HORIZ = 24;
+const float SKATE_DIST_VERT = 8;
+const float SKATE_TRACE_IN = 4;
 
 const float MF_RAMPSLIDE = 1 << 0;
 const float MF_GRINDING = 1 << 1;
@@ -74,7 +82,7 @@ void WallMove();
 
 // skatemove.qc
 
-void SetGrindOrigin();
+void SetGrindOrigin(float hitRight, float hitLeft);
 float CheckGrind();
 void StickToGround();
 
