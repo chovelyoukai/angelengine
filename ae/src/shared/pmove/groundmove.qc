@@ -179,6 +179,8 @@ float CheckJump()
 
 	SetOnGround(FALSE);
 
+	self.wallclipTime = time + cvar("sv_wallcliptime");
+
 	return TRUE;
 }
 

@@ -239,11 +239,11 @@ void DoEffects()
 	{
 		if (self.moveFlags & MF_REVERSEGRAV)
 		{
-			particle4(self.origin + '0 0 40', 12, 192, 0, 40);
+			particle4(self.origin + '0 0 40', 12, 192, 0, 10);
 		}
 		else
 		{
-			particle4(self.origin - '0 0 40', 12, 192, 0, 40);
+			particle4(self.origin - '0 0 40', 12, 192, 0, 10);
 		}
 	}
 	else if (self.grindTime > 0 && !IsOnGround(self))

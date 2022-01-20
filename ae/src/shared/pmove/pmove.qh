@@ -13,7 +13,7 @@ const float WALL_JUMP_OUTVEL = 350;
 const float WALL_JUMP_FORWARDVEL = 50;
 
 const float SKATE_DIST_HORIZ = 24;
-const float SKATE_DIST_VERT = 8;
+const float SKATE_DIST_VERT = 16;
 const float SKATE_TRACE_IN = 4;
 
 const float MF_RAMPSLIDE = 1 << 0;
