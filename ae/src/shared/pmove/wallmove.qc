@@ -187,7 +187,7 @@ float CheckWallJump()
 	SetOnWall(FALSE);
 
 #ifdef SSQC
-	sound(self, CHAN_AUTO, "player/step.wav", 0.3, ATTN_NORM);
+	sound(self, CHAN_AUTO, "player/step.wav", 0.7, ATTN_NORM);
 #endif
 
 	return TRUE;
