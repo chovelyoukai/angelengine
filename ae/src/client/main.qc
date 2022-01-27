@@ -5,6 +5,7 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 	precache_model("models/player.iqm");
 	precache_model("models/objects/health.iqm");
 	precache_model("models/weapons/chovel.iqm");
+	precache_model("models/weapons/machine_gun.iqm");
 	precache_model("models/weapons/grenade.iqm");
 	precache_model("models/weapons/grenadelauncher.iqm");
 	precache_model("models/weapons/grapple.iqm");
@@ -27,6 +28,7 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 	precache_sound("weapons/hammer_hit.ogg");
 	precache_sound("weapons/hammer_hit2.ogg");
 	precache_sound("weapons/hammer_hit3.ogg");
+	precache_sound("weapons/machine_gun_fire.wav");
 	precache_sound("weapons/grenade_fire.ogg");
 	precache_sound("weapons/hook_fire.ogg");
 	precache_sound("weapons/rocket_fire.ogg");

@@ -11,6 +11,7 @@ globals.qc
 ../shared/weapons/shotgun.qc
 ../shared/weapons/hammer.qc
 ../shared/weapons/grapple.qc
+../shared/weapons/machine_gun.qc
 ../shared/weapons/grenadelauncher.qc
 ../shared/weapons/weaponsfinal.qc
 

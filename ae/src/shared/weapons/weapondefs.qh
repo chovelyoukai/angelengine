@@ -22,6 +22,7 @@ enum
 	WEP_HAMMER,
 	WEP_GRAPPLE,
 	WEP_GRENADELAUNCHER,
+	WEP_MACHINE_GUN,
 	WEP_LAST
 };
 
@@ -41,7 +42,8 @@ string viewmodels[WEP_LAST] =
 	"models/weapons/chovel.iqm",
 	"models/weapons/hammer.iqm",
 	"models/weapons/grapple.iqm",
-	"models/weapons/grenadelauncher.iqm"
+	"models/weapons/grenadelauncher.iqm",
+	"models/weapons/machine_gun.iqm",
 };
 
 float fireTimes[WEP_LAST] =
@@ -51,7 +53,8 @@ float fireTimes[WEP_LAST] =
 	0.96, // chovel
 	1.5, // hammer
 	0.4, // grapple
-	1.0 // grenade launcher
+	1.0, // grenade launcher
+	0.1, // machine gun
 };
 
 float deployTimes[WEP_LAST] =
@@ -61,7 +64,8 @@ float deployTimes[WEP_LAST] =
 	0.6, // chovel
 	0.6, // hammer
 	0.3, // grapple
-	0.6 // grenade launcher
+	0.6, // grenade launcher
+	0.6, // machine gun
 };
 
 float slot[WEP_LAST] =
@@ -71,7 +75,8 @@ float slot[WEP_LAST] =
 	2,
 	2,
 	0,
-	1
+	1,
+	0, 
 };
 
 string classnames[WEP_LAST] =
@@ -81,7 +86,8 @@ string classnames[WEP_LAST] =
 	"weapon_chovel",
 	"weapon_hammer",
 	"weapon_grapple",
-	"weapon_grenadelauncher"
+	"weapon_grenadelauncher",
+	"weapon_machine_gun",
 };
 
 string worldmodels[PROJ_LAST] =

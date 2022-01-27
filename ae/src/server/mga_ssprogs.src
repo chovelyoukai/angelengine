@@ -11,6 +11,7 @@ world.qc
 ../shared/weapons/chovel.qc
 ../shared/weapons/hammer.qc
 ../shared/weapons/grapple.qc
+../shared/weapons/machine_gun.qc
 ../shared/weapons/grenadelauncher.qc
 ../shared/weapons/damage.qc
 ../shared/weapons/weaponsfinal.qc

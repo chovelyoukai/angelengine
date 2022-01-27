@@ -5,4 +5,5 @@
 #include "chovel.qh"
 #include "hammer.qh"
 #include "grapple.qh"
+#include "machine_gun.qh"
 

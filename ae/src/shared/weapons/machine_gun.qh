@@ -1,0 +1,9 @@
+#include "weapons.qh"
+#include "../../shared/math.qh"
+
+void MachineGunEquip(entity machine_gun);
+void MachineGunUnequip(entity machine_gun);
+void MachineGunFire(entity machine_gun);
+float MachineGunCanEquip(entity machine_gun);
+float MachineGunCanUnequip(entity machine_gun);
+entity MachineGunSpawn();
