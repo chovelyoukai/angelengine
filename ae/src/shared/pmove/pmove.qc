@@ -230,6 +230,14 @@ void CutHookVelocity()
 			self.velocity -= difference * normalize(direction);
 		}
 	}
+	
+	float pullSpeed = cvar("sv_gravity") * frametime * 2;
+	if (input_buttons & BUTTON_MOD2 && vlen(Projection(self.velocity, direction)) < 1000 &&
+		self.hookDistance > 128)
+	{
+		self.velocity -= pullSpeed * normalize(direction);
+		self.hookDistance = vlen(self.origin - self.currentHook.origin) - pullSpeed;
+	}
 }
 
 #ifdef SSQC

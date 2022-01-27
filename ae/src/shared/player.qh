@@ -76,7 +76,9 @@ const float CMD_HAMMER = 8;
 const float CMD_GAMETIME = 9;
 
 const float BUTTON4 = 8;
+const float BUTTON5 = 16;
 const float BUTTON_MOD1 = BUTTON4;
+const float BUTTON_MOD2 = BUTTON5;
 
 const float STAT_WEAPON = 32;
 

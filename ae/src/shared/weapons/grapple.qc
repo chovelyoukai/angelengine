@@ -13,6 +13,14 @@ void GrappleEquip(entity grapple)
 
 void GrappleUnequip(entity grapple)
 {
+#ifdef SSQC
+	if (!(self.currentHook == world))
+	{
+		remove(self.currentHook);	
+		self.currentHook = world;
+		self.grappled = FALSE;
+	}
+#endif
 }
 
 void GrappleFire(entity grapple)
@@ -73,6 +81,16 @@ void HookTouch()
 	if (other.classname == "player")
 	{
 		return;
+	}
+	if (trace_ent == world && trace_fraction < 1)
+	{
+		if (trace_surfaceflagsi & 0x10)
+		{
+			self.owner.currentHook = world;
+			self.owner.grappled = FALSE;
+			remove(self);
+			return;
+		}
 	}
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;

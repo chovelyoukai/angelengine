@@ -6,7 +6,7 @@ const float ROCKET_FIRE_TIME = 0.8;
 const float ROCKET_VELOCITY = 1100;
 const float ROCKET_RADIUS = 146;
 const float ROCKET_DAMAGE = 90;
-const float HOOK_VELOCITY = 2000;
+const float HOOK_VELOCITY = 1500;
 const float GRENADE_VELOCITY = 900;
 const float SVC_TEMPENTITY = 23;
 const float ENT_PROJECTILE = 79;
@@ -50,7 +50,7 @@ float fireTimes[WEP_LAST] =
 	1.0, // shotgun
 	0.96, // chovel
 	1.5, // hammer
-	0.2, // grapple
+	0.4, // grapple
 	1.0 // grenade launcher
 };
 
