@@ -68,6 +68,8 @@ void ShotgunFire(entity shotgun)
 			else if (trace_fraction < 1)
 			{
 				particle(trace_endpos, trace_plane_normal, 0, damage);
+				particle4(trace_endpos, 12, 192, 0, damage);
+				PlayRicochet(0.03);
 			}
 		}
 	}

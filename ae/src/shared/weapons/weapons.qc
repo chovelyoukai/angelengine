@@ -191,6 +191,40 @@ float ProjectileUpdate(entity to, float entFlags)
 
 	return TRUE;
 }
+
+void PlayRicochet(float chance)
+{
+	if (random() < chance)
+	{
+		entity ent = spawn();
+		setorigin(ent, trace_endpos);
+		float num = random();
+		string sound_file;
+		if (num < 0.2)
+		{
+			sound_file = "weapons/ric1.ogg";
+		}
+		else if (num < 0.4)
+		{
+			sound_file = "weapons/ric2.ogg";
+		}
+		else if (num < 0.6)
+		{
+			sound_file = "weapons/ric3.ogg";
+		}
+		else if (num < 0.8)
+		{
+			sound_file = "weapons/ric4.ogg";
+		}
+		else
+		{
+			sound_file = "weapons/ric5.ogg";
+		}
+		sound(ent, CHAN_AUTO, sound_file, 0.2, 0.4, 110); 
+		remove(ent);
+	}
+			
+}
 #endif
 
 #ifdef CSQC

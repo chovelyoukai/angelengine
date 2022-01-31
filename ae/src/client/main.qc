@@ -31,6 +31,11 @@ void CSQC_Init(float apiVer, string engineName, float engineVer)
 	precache_sound("weapons/machine_gun_fire.wav");
 	precache_sound("weapons/grenade_fire.ogg");
 	precache_sound("weapons/hook_fire.ogg");
+	precache_sound("weapons/ric1.ogg");
+	precache_sound("weapons/ric2.ogg");
+	precache_sound("weapons/ric3.ogg");
+	precache_sound("weapons/ric4.ogg");
+	precache_sound("weapons/ric5.ogg");
 	precache_sound("weapons/rocket_fire.ogg");
 	precache_sound("weapons/shotgun_fire.ogg");
 	precache_sound("weapons/r_exp3.wav");

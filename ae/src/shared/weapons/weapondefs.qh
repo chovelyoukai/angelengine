@@ -76,7 +76,7 @@ float slot[WEP_LAST] =
 	2,
 	0,
 	1,
-	0, 
+	2, 
 };
 
 string classnames[WEP_LAST] =

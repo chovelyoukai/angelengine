@@ -40,6 +40,8 @@ void MachineGunFire(entity machine_gun)
 	{
 		particle(trace_endpos, trace_plane_normal, 0, 5);
 		particle(trace_endpos, trace_plane_normal, 192, 2);
+		particle4(trace_endpos, 12, 192, 0, 2);
+		PlayRicochet(0.4);
 	}
 #else
 	ViewmodelAttack(fireTimes[WEP_MACHINE_GUN]);
